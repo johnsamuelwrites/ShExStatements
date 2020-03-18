@@ -14,6 +14,7 @@ class ShExStatementLexerParser(object):
     'COMMA',
     'SEPARATOR',
     'STRING',
+    'NODENAME',
     'PERIOD',
     'PLUS',
     'STAR',
@@ -50,8 +51,12 @@ class ShExStatementLexerParser(object):
     r'\*'
     return t
 
+  def t_NODENAME(self, t):
+    r'@\w+'
+    return t
+
   def t_STRING(self, t):
-    r'\w+'
+    r'[^@{}\[\],\:\|\s]+'
     return t
 
   def t_SPACE(self, t):
@@ -100,13 +105,6 @@ class ShExStatementLexerParser(object):
     ('left', 'LSQUAREBRACKET', 'RSQUAREBRACKET'),
   )
 
-  '''
-             | value SEPARATOR value SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
-             | value SEPARATOR value SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | value SEPARATOR value SEPARATOR value SEPARATOR constraint
-             | value SEPARATOR value SEPARATOR PERIOD SEPARATOR constraint
-  '''
-
   def p_statements(self, p):
     '''
        statements : statement
@@ -116,14 +114,16 @@ class ShExStatementLexerParser(object):
 
   def p_statement(self, p):
     '''
-       statement : value SEPARATOR value SEPARATOR value
-             | value SEPARATOR value SEPARATOR commaseparatedvalueset
-             | value SEPARATOR value SEPARATOR spaceseparatedvalueset
-             | value SEPARATOR value SEPARATOR value SEPARATOR constraint
-             | value SEPARATOR value SEPARATOR PERIOD SEPARATOR constraint
-             | value SEPARATOR value SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
-             | value SEPARATOR value SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | value SEPARATOR value SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
+       statement : NODENAME SEPARATOR value SEPARATOR value
+             | NODENAME SEPARATOR value SEPARATOR NODENAME
+             | NODENAME SEPARATOR value SEPARATOR commaseparatedvalueset
+             | NODENAME SEPARATOR value SEPARATOR spaceseparatedvalueset
+             | NODENAME SEPARATOR value SEPARATOR NODENAME SEPARATOR constraint
+             | NODENAME SEPARATOR value SEPARATOR value SEPARATOR constraint
+             | NODENAME SEPARATOR value SEPARATOR PERIOD SEPARATOR constraint
+             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
+             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
+             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
@@ -148,7 +148,8 @@ class ShExStatementLexerParser(object):
       print("valueset " + str(len(p)))
 
   def p_spaceseparatedvalueset(self, p):
-    '''spaceseparatedvalueset : value SPACE value
+    '''spaceseparatedvalueset : value SPACE
+                | value SPACE value
                 | value SPACE spaceseparatedvalueset'''
     if (self.debug): 
       print("valueset " + str(len(p)))
@@ -156,7 +157,7 @@ class ShExStatementLexerParser(object):
   def p_error(self, p):
     if (self.debug and p):
       print(p.lexpos, p.lineno, p.type, p.value)
-      raise ParserError("Syntax error in input data: %s" % p.type)
+    raise ParserError("Syntax error in input data: %s" % p.type)
 
   def buildparser(self,**kwargs):
      self.lexer = lex.lex(module=self, **kwargs)
