@@ -7,6 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
+from .shexstatement import Node, Value, ValueSet, Constraint, ShExStatement, ShExStatements
 
 class ShExStatementLexerParser(object):
   tokens = (
@@ -114,19 +115,21 @@ class ShExStatementLexerParser(object):
 
   def p_statement(self, p):
     '''
-       statement : NODENAME SEPARATOR value SEPARATOR value
-             | NODENAME SEPARATOR value SEPARATOR NODENAME
-             | NODENAME SEPARATOR value SEPARATOR commaseparatedvalueset
-             | NODENAME SEPARATOR value SEPARATOR spaceseparatedvalueset
-             | NODENAME SEPARATOR value SEPARATOR NODENAME SEPARATOR constraint
-             | NODENAME SEPARATOR value SEPARATOR value SEPARATOR constraint
-             | NODENAME SEPARATOR value SEPARATOR PERIOD SEPARATOR constraint
-             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
-             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | NODENAME SEPARATOR value SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
+       statement : NODENAME SEPARATOR prop SEPARATOR prop
+             | NODENAME SEPARATOR prop SEPARATOR NODENAME
+             | NODENAME SEPARATOR prop SEPARATOR commaseparatedvalueset
+             | NODENAME SEPARATOR prop SEPARATOR spaceseparatedvalueset
+             | NODENAME SEPARATOR prop SEPARATOR NODENAME SEPARATOR constraint
+             | NODENAME SEPARATOR prop SEPARATOR prop SEPARATOR constraint
+             | NODENAME SEPARATOR prop SEPARATOR PERIOD SEPARATOR constraint
+             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET prop RSQUAREBRACKET
+             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
+             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
+    if (hasattr(self, 'statements') == False):
+      self.statements = []
 
   def p_constraint(self, p):
     '''constraint : PLUS
@@ -140,6 +143,12 @@ class ShExStatementLexerParser(object):
                 | STRING COLON STRING'''
     if (self.debug): 
       print("value " + str(len(p)))
+
+  def p_prop(self, p):
+    '''prop : STRING
+                | STRING COLON STRING'''
+    if (self.debug): 
+      print("prop " + str(len(p)))
 
   def p_commaseparatedvalueset(self, p):
     '''commaseparatedvalueset : value COMMA value
