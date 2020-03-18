@@ -7,7 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, Value, ValueSet, Constraint, ShExStatement, ShExStatements
+from .shexstatement import Node, Value, Constraint, ShExStatement, ShExStatements
 
 class ShExStatementLexerParser(object):
   tokens = (
@@ -27,6 +27,12 @@ class ShExStatementLexerParser(object):
   )
   def __init__(self, debug=False):
     self.debug = debug
+    self.node = []
+    self.prop = []
+    self.values = []
+    self.constraints = []
+    self.statement = []
+    self.statements = []
 
   def t_COLON(self, t):
     r':'
@@ -112,24 +118,52 @@ class ShExStatementLexerParser(object):
              | statement statements'''
     if (self.debug): 
       print("ShEx Statements")
+    self.statements = ShExStatements(self.statements)
 
   def p_statement(self, p):
     '''
-       statement : NODENAME SEPARATOR prop SEPARATOR prop
-             | NODENAME SEPARATOR prop SEPARATOR NODENAME
-             | NODENAME SEPARATOR prop SEPARATOR commaseparatedvalueset
-             | NODENAME SEPARATOR prop SEPARATOR spaceseparatedvalueset
-             | NODENAME SEPARATOR prop SEPARATOR NODENAME SEPARATOR constraint
-             | NODENAME SEPARATOR prop SEPARATOR prop SEPARATOR constraint
-             | NODENAME SEPARATOR prop SEPARATOR PERIOD SEPARATOR constraint
-             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET prop RSQUAREBRACKET
-             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | NODENAME SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
+       statement : firstnode SEPARATOR prop SEPARATOR value
+             | firstnode SEPARATOR prop SEPARATOR secondnode
+             | firstnode SEPARATOR prop SEPARATOR commaseparatedvalueset
+             | firstnode SEPARATOR prop SEPARATOR spaceseparatedvalueset
+             | firstnode SEPARATOR prop SEPARATOR secondnode SEPARATOR constraint
+             | firstnode SEPARATOR prop SEPARATOR value SEPARATOR constraint
+             | firstnode SEPARATOR prop SEPARATOR period SEPARATOR constraint
+             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
+             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
+             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
-    if (hasattr(self, 'statements') == False):
-      self.statements = []
+    self.statement = ShExStatement(self.node, self.prop, self.values, self.constraints)
+    self.statements.append(self.statement)
+    self.node = None
+    self.prop = None
+    self.values = []
+    self.constraints = []
+    print(self.statement)
+
+  def p_firstnode(self, p):
+    '''firstnode : NODENAME
+    '''
+    if (self.debug): 
+      print("firstnode " + str(len(p)))
+    self.node = p[1]
+
+  def p_secondnode(self, p):
+    '''secondnode : NODENAME
+    '''
+    if (self.debug): 
+      print("secondnode " + str(len(p)))
+    self.values.append(p[1])
+
+
+  def p_period(self, p):
+    '''period : PERIOD
+    '''
+    if (self.debug): 
+      print("period " + str(len(p)))
+    self.values.append(".")
 
   def p_constraint(self, p):
     '''constraint : PLUS
@@ -137,6 +171,7 @@ class ShExStatementLexerParser(object):
     '''
     if (self.debug): 
       print("constraint " + str(len(p)))
+    self.constraints.append(p[1])
 
   def p_value(self, p):
     '''value : STRING
@@ -144,11 +179,20 @@ class ShExStatementLexerParser(object):
     if (self.debug): 
       print("value " + str(len(p)))
 
+    if (len(p) == 4):
+      self.values.append(p[1]+":"+p[3])
+    else:
+      self.values.append(p[1])
+
   def p_prop(self, p):
     '''prop : STRING
                 | STRING COLON STRING'''
     if (self.debug): 
       print("prop " + str(len(p)))
+    if (len(p) == 4):
+      self.prop = p[1] + ":" + p[3]
+    else:
+      self.prop = p[1]
 
   def p_commaseparatedvalueset(self, p):
     '''commaseparatedvalueset : value COMMA value
