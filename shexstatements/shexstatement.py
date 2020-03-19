@@ -120,7 +120,7 @@ class ShExStatements:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
     for key in nodeconstraints.keys():
-        shex_statement_str = shex_statement_str + "@<" + str(key)[1:] + ">" + " {" + "\n"
+        shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">" + " {" + "\n"
         for combination in nodeconstraints[key]:
             shex_statement_str = shex_statement_str + "  " + " ".join(combination) + " ;"  + "\n"
         shex_statement_str = shex_statement_str + "}" + "\n"
