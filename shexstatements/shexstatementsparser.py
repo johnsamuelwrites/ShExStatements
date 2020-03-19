@@ -7,7 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, Value, Constraint, ShExStatement, ShExStatements
+from .shexstatement import Node, NodeKind, Value, ValueList, Constraint, ShExStatement, ShExStatements
 
 class ShExStatementLexerParser(object):
   tokens = (
@@ -15,10 +15,13 @@ class ShExStatementLexerParser(object):
     'COMMA',
     'SEPARATOR',
     'STRING',
+    'NODEKIND',
+    'NUMBER',
     'NODENAME',
     'PERIOD',
     'PLUS',
     'STAR',
+    'QUESTIONMARK',
     'LSQUAREBRACKET',
     'RSQUAREBRACKET',
     'NEWLINE',
@@ -27,12 +30,12 @@ class ShExStatementLexerParser(object):
   )
   def __init__(self, debug=False):
     self.debug = debug
-    self.node = []
-    self.prop = []
-    self.values = []
-    self.constraints = []
+    self.node = None
+    self.prop = None
+    self.values = None
+    self.constraint = None
     self.statement = []
-    self.statements = []
+    self.statements = ShExStatements([])
 
   def t_COLON(self, t):
     r':'
@@ -54,12 +57,24 @@ class ShExStatementLexerParser(object):
     r'\+'
     return t
 
+  def t_QUESTIONMARK(self, t):
+    r'\?'
+    return t
+
   def t_STAR(self, t):
     r'\*'
     return t
 
+  def t_NUMBER(self, t):
+    r'\d+'
+    return t
+
   def t_NODENAME(self, t):
     r'@\w+'
+    return t
+
+  def t_NODEKIND(self, t):
+    r'(LITERAL|IRI|BNode)'
     return t
 
   def t_STRING(self, t):
@@ -118,60 +133,69 @@ class ShExStatementLexerParser(object):
              | statement statements'''
     if (self.debug): 
       print("ShEx Statements")
-    self.statements = ShExStatements(self.statements)
+    self.node = None
+    self.prop = None
+    self.values = None
+    self.constraint = None
+    self.statement = []
 
   def p_statement(self, p):
     '''
        statement : firstnode SEPARATOR prop SEPARATOR value
              | firstnode SEPARATOR prop SEPARATOR secondnode
+             | firstnode SEPARATOR prop SEPARATOR specialterm
              | firstnode SEPARATOR prop SEPARATOR commaseparatedvalueset
              | firstnode SEPARATOR prop SEPARATOR spaceseparatedvalueset
              | firstnode SEPARATOR prop SEPARATOR secondnode SEPARATOR constraint
              | firstnode SEPARATOR prop SEPARATOR value SEPARATOR constraint
-             | firstnode SEPARATOR prop SEPARATOR period SEPARATOR constraint
+             | firstnode SEPARATOR prop SEPARATOR specialterm SEPARATOR constraint
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
-    self.statement = ShExStatement(self.node, self.prop, self.values, self.constraints)
-    self.statements.append(self.statement)
+    self.statement = ShExStatement(self.node, self.prop, self.values, self.constraint)
+    self.statements.add(self.statement)
     self.node = None
     self.prop = None
-    self.values = []
-    self.constraints = []
-    print(self.statement)
+    self.values = None
+    self.constraint = None
 
   def p_firstnode(self, p):
     '''firstnode : NODENAME
     '''
     if (self.debug): 
       print("firstnode " + str(len(p)))
-    self.node = p[1]
+    self.node = Node(p[1])
+    self.values = None
 
   def p_secondnode(self, p):
     '''secondnode : NODENAME
     '''
     if (self.debug): 
       print("secondnode " + str(len(p)))
-    self.values.append(p[1])
+    if not self.values:
+      self.values = Node(p[1])
 
-
-  def p_period(self, p):
-    '''period : PERIOD
+  def p_specialterm(self, p):
+    '''specialterm : PERIOD
+                   | NODEKIND
     '''
     if (self.debug): 
-      print("period " + str(len(p)))
-    self.values.append(".")
+      print("specialterm " + str(len(p)))
+    self.values = NodeKind(p[1]) 
 
   def p_constraint(self, p):
     '''constraint : PLUS
                 | STAR
+                | QUESTIONMARK
+                | NUMBER
+                | NUMBER COMMA NUMBER
     '''
     if (self.debug): 
       print("constraint " + str(len(p)))
-    self.constraints.append(p[1])
+    self.constraint = p[1]
 
   def p_value(self, p):
     '''value : STRING
@@ -179,10 +203,12 @@ class ShExStatementLexerParser(object):
     if (self.debug): 
       print("value " + str(len(p)))
 
+    if not self.values:
+      self.values = ValueList([])
     if (len(p) == 4):
-      self.values.append(p[1]+":"+p[3])
+      self.values.add(Value(p[1]+":"+p[3]))
     else:
-      self.values.append(p[1])
+      self.values.add(Value(p[1]))
 
   def p_prop(self, p):
     '''prop : STRING
@@ -221,4 +247,5 @@ class ShExStatementLexerParser(object):
     result = self.parser.parse(data, lexer=self.lexer)
     if (self.debug): 
       print(result)
+    return self.statements
 
