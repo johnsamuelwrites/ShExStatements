@@ -15,7 +15,7 @@ class ShExStatementParserTestSuite(unittest.TestCase):
     
 
     
-  def test_shexstatements_with_constraints(self):
+  def test_shexstatements_with_cardinality(self):
     data = '''@painting|P31|Q3305213
     @painting|P571|xsd:dateTime
     @painting|P572|xsd:dateTime
@@ -43,6 +43,33 @@ class ShExStatementParserTestSuite(unittest.TestCase):
 '''
     self.assertEqual(shexstatement, desired)
 
+  def test_shexstatements_with_prefixed_node(self):
+    data = '''@painting|P31|Q3305213
+    @painting|P571|xsd:dateTime
+    @painting|P572|xsd:dateTime
+    @painting|P276|.|+
+    @painting|P1476|.|+
+    @painting|P195|.|+
+    @painting|P170|@painting:creator|+
+    @painting:creator|P31|.|+'''
+    tokens = self.lexerparser.input(data)
+    result = self.lexerparser.parse(data)
+    shexstatement = result.generate_shex()
+    desired = '''start = @<painting>
+@<painting> {
+  P31 [ Q3305213  ] ;
+  P571 [ xsd:dateTime  ] ;
+  P572 [ xsd:dateTime  ] ;
+  P276 . + ;
+  P1476 . + ;
+  P195 . + ;
+  P170 @<painting:creator> + ;
+}
+@<painting:creator> {
+  P31 . + ;
+}
+'''
+    self.assertEqual(shexstatement, desired)
     
   def test_shexstatements_with_valueset(self):
     data = '''

@@ -7,7 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, NodeKind, Value, ValueList, Constraint, ShExStatement, ShExStatements
+from .shexstatement import Node, NodeKind, Value, ValueList, Cardinality, ShExStatement, ShExStatements
 
 class ShExStatementLexerParser(object):
   tokens = (
@@ -33,7 +33,7 @@ class ShExStatementLexerParser(object):
     self.node = None
     self.prop = None
     self.values = None
-    self.constraint = None
+    self.cardinality = None
     self.statement = []
     self.statements = ShExStatements([])
 
@@ -136,7 +136,7 @@ class ShExStatementLexerParser(object):
     self.node = None
     self.prop = None
     self.values = None
-    self.constraint = None
+    self.cardinality = None
     self.statement = []
 
   def p_statement(self, p):
@@ -146,37 +146,45 @@ class ShExStatementLexerParser(object):
              | firstnode SEPARATOR prop SEPARATOR specialterm
              | firstnode SEPARATOR prop SEPARATOR commaseparatedvalueset
              | firstnode SEPARATOR prop SEPARATOR spaceseparatedvalueset
-             | firstnode SEPARATOR prop SEPARATOR secondnode SEPARATOR constraint
-             | firstnode SEPARATOR prop SEPARATOR value SEPARATOR constraint
-             | firstnode SEPARATOR prop SEPARATOR specialterm SEPARATOR constraint
+             | firstnode SEPARATOR prop SEPARATOR secondnode SEPARATOR cardinality
+             | firstnode SEPARATOR prop SEPARATOR value SEPARATOR cardinality
+             | firstnode SEPARATOR prop SEPARATOR specialterm SEPARATOR cardinality
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
              | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
-    self.statement = ShExStatement(self.node, self.prop, self.values, self.constraint)
+    self.statement = ShExStatement(self.node, self.prop, self.values, self.cardinality)
     self.statements.add(self.statement)
     self.node = None
     self.prop = None
     self.values = None
-    self.constraint = None
+    self.cardinality = None
 
   def p_firstnode(self, p):
     '''firstnode : NODENAME
+                 | NODENAME COLON STRING 
     '''
     if (self.debug): 
       print("firstnode " + str(len(p)))
-    self.node = Node(p[1])
+    if (len(p) < 3): 
+      self.node = Node(p[1])
+    else:
+      self.node = Node(p[1]+":"+p[3])
     self.values = None
 
   def p_secondnode(self, p):
     '''secondnode : NODENAME
+                  |  NODENAME COLON STRING 
     '''
     if (self.debug): 
       print("secondnode " + str(len(p)))
     if not self.values:
-      self.values = Node(p[1])
+      if (len(p) < 3): 
+        self.values = Node(p[1])
+      else:
+        self.values = Node(p[1]+":"+p[3])
 
   def p_specialterm(self, p):
     '''specialterm : PERIOD
@@ -186,16 +194,16 @@ class ShExStatementLexerParser(object):
       print("specialterm " + str(len(p)))
     self.values = NodeKind(p[1]) 
 
-  def p_constraint(self, p):
-    '''constraint : PLUS
+  def p_cardinality(self, p):
+    '''cardinality : PLUS
                 | STAR
                 | QUESTIONMARK
                 | NUMBER
                 | NUMBER COMMA NUMBER
     '''
     if (self.debug): 
-      print("constraint " + str(len(p)))
-    self.constraint = p[1]
+      print("cardinality " + str(len(p)))
+    self.cardinality = p[1]
 
   def p_value(self, p):
     '''value : STRING

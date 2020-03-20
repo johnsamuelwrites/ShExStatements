@@ -21,7 +21,7 @@ class ShExStatementParserTestSuite(unittest.TestCase):
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)
     
-  def test_shexstatements_with_constraints(self):
+  def test_shexstatements_with_cardinality(self):
     data = '''@painting|P31|Q3305213
     @painting|P571|xsd:dateTime
     @painting|P276|.|+

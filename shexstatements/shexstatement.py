@@ -45,16 +45,16 @@ class ValueList:
       string = string + str(s) + " "
     return string
 
-class Constraint:
-  def __init__(self, constraint):
-    self.constraint = constraint
+class Cardinality:
+  def __init__(self, cardinality):
+    self.cardinality = cardinality
 
 class ShExStatement:
-  def __init__(self, node, prop, value, constraint=None):
+  def __init__(self, node, prop, value, cardinality=None):
     self.node = node
     self.prop = prop
     self.value = value
-    self.constraint = constraint
+    self.cardinality = cardinality
 
   def get_node(self):
     return self.node
@@ -65,14 +65,14 @@ class ShExStatement:
   def get_value(self):
     return self.value
 
-  def get_constraint(self):
-    return self.constraint
+  def get_cardinality(self):
+    return self.cardinality
 
   def __str__(self):
     return(str(self.node) + "|" +
            str(self.prop) + "|" +
            str(self.value) + "|" +
-           str(self.constraint) + "\n"
+           str(self.cardinality) + "\n"
           )
 
 class ShExStatements:
@@ -93,12 +93,12 @@ class ShExStatements:
 
   def generate_shex(self):
     start = None
-    nodeconstraints = {}
+    nodecardinalitys = {}
     for statement in self.statements:
       node = str(statement.get_node())
       combination = []
-      if node not in nodeconstraints:
-        nodeconstraints[node] = []
+      if node not in nodecardinalitys:
+        nodecardinalitys[node] = []
         if not start:
           start = node
       combination.append(statement.get_prop())
@@ -111,17 +111,17 @@ class ShExStatements:
         value = "[ " + str(value) + " ]"
       combination.append(value)
 
-      if (statement.get_constraint()):
-        combination.append(statement.get_constraint())
-      nodeconstraints[node].append(combination)
+      if (statement.get_cardinality()):
+        combination.append(statement.get_cardinality())
+      nodecardinalitys[node].append(combination)
     
     shex_statement_str = ""
     if start is not None:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
-    for key in nodeconstraints.keys():
+    for key in nodecardinalitys.keys():
         shex_statement_str = shex_statement_str + "@<" + str(key)[1:] + ">" + " {" + "\n"
-        for combination in nodeconstraints[key]:
+        for combination in nodecardinalitys[key]:
             shex_statement_str = shex_statement_str + "  " + " ".join(combination) + " ;"  + "\n"
         shex_statement_str = shex_statement_str + "}" + "\n"
 
