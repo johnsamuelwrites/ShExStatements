@@ -7,7 +7,7 @@
 import unittest
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
-class ShExStatementParserTestSuite(unittest.TestCase):
+class ShExGeneratorTestSuite(unittest.TestCase):
   def setUp(self):
     self.lexerparser = ShExStatementLexerParser()
     self.lexerparser.build()
