@@ -93,12 +93,12 @@ class ShExStatements:
 
   def generate_shex(self):
     start = None
-    nodecardinalitys = {}
+    nodecardinality = {}
     for statement in self.statements:
       node = str(statement.get_node())
       combination = []
-      if node not in nodecardinalitys:
-        nodecardinalitys[node] = []
+      if node not in nodecardinality:
+        nodecardinality[node] = []
         if not start:
           start = node
       combination.append(statement.get_prop())
@@ -113,15 +113,15 @@ class ShExStatements:
 
       if (statement.get_cardinality()):
         combination.append(statement.get_cardinality())
-      nodecardinalitys[node].append(combination)
+      nodecardinality[node].append(combination)
     
     shex_statement_str = ""
     if start is not None:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
-    for key in nodecardinalitys.keys():
-        shex_statement_str = shex_statement_str + "@<" + str(key)[1:] + ">" + " {" + "\n"
-        for combination in nodecardinalitys[key]:
+    for key in nodecardinality.keys():
+        shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">" + " {" + "\n"
+        for combination in nodecardinality[key]:
             shex_statement_str = shex_statement_str + "  " + " ".join(combination) + " ;"  + "\n"
         shex_statement_str = shex_statement_str + "}" + "\n"
 
