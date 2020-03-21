@@ -172,7 +172,6 @@ class ShExStatementLexerParser(object):
     self.statements.add(self.statement)
     self.node = None
     self.comment = ""
-    self.prefixes = []
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -192,7 +191,7 @@ class ShExStatementLexerParser(object):
     '''prefix : STRING SEPARATOR STRING'''
     if (self.debug): 
       print("prefixes " + str(p))
-    self.prefixes.append((p[1],p[2]))
+    self.prefixes.append((p[1],p[3]))
 
   def p_propertyvalue(self, p):
     '''propertyvalue : value

@@ -129,6 +129,9 @@ class ShExStatements:
       shape[node].append(combination)
     
     shex_statement_str = ""
+    if self.prefixes:
+       for prefix in self.prefixes:
+         shex_statement_str = shex_statement_str + "PREFIX " + prefix[0] + ": " + prefix[1] + "\n"
     if start is not None:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 

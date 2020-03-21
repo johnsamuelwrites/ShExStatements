@@ -143,7 +143,8 @@ pq|<http://www.wikidata.org/prop/qualifier/>
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)
     shexstatement = result.generate_shex()
-    desired='''start = @<flag>
+    desired='''
+start = @<flag>
 <flag> {
   P31 [ Q7242811  ];
   P18 .+;
@@ -161,7 +162,10 @@ pq|<http://www.wikidata.org/prop/qualifier/>
 }
 '''
     self.maxDiff = None
-    self.assertEqual(shexstatement, desired)
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX p: <http://www.wikidata.org/prop/>" in shexstatement, True)
+    self.assertEqual("PREFIX ps: <http://www.wikidata.org/prop/statement/>" in shexstatement, True)
+    self.assertEqual("PREFIX pq: <http://www.wikidata.org/prop/qualifier/>" in shexstatement, True)
 
 if __name__ == '__main__':
   unittest.main()
