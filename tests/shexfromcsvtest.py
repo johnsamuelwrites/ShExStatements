@@ -12,16 +12,16 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("painting.csv")
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ] ;
-  P571 [ xsd:dateTime  ] ;
-  P572 [ xsd:dateTime  ] ;
-  P276 . + ;
-  P1476 . + ;
-  P195 . + ;
-  P170 @<creator> + ;
+  P31 [ Q3305213  ];
+  P571 [ xsd:dateTime  ];
+  P572 [ xsd:dateTime  ];
+  P276 .+;
+  P1476 .+;
+  P195 .+;
+  P170 @<creator>+;
 }
 <creator> {
-  P31 . + ;
+  P31 .+;
 }
 '''
     self.assertEqual(shexstatement, desired)

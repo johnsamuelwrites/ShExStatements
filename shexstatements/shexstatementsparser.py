@@ -13,6 +13,7 @@ class ShExStatementLexerParser(object):
   tokens = (
     'COLON',
     'COMMA',
+    'COMMENT',
     'SEPARATOR',
     'STRING',
     'NODEKIND',
@@ -28,9 +29,10 @@ class ShExStatementLexerParser(object):
     'WHITESPACE',
     'SPACE'
   )
-  def __init__(self, debug=False):
+  def __init__(self, debug=True):
     self.debug = debug
     self.node = None
+    self.comment = ""
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -71,6 +73,10 @@ class ShExStatementLexerParser(object):
 
   def t_NODENAME(self, t):
     r'@\w+'
+    return t
+
+  def t_COMMENT(self, t):
+    r'\#[^\n]*'
     return t
 
   def t_NODEKIND(self, t):
@@ -122,18 +128,21 @@ class ShExStatementLexerParser(object):
 
   precedence =  (
     ('left', 'COLON'),
-    ('left', 'SEPARATOR'),
+    ('left', 'STAR', 'PLUS'),
     ('left', 'COMMA'),
+    ('left', 'SEPARATOR'),
     ('left', 'LSQUAREBRACKET', 'RSQUAREBRACKET'),
   )
 
   def p_statements(self, p):
     '''
        statements : statement
+             | statement SEPARATOR comment
              | statement statements'''
     if (self.debug): 
       print("ShEx Statements")
     self.node = None
+    self.comment = ""
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -155,9 +164,10 @@ class ShExStatementLexerParser(object):
              '''
     if (self.debug): 
       print("ShEx Statement")
-    self.statement = ShExStatement(self.node, self.prop, self.values, self.cardinality)
+    self.statement = ShExStatement(self.node, self.prop, self.values, self.cardinality, self.comment)
     self.statements.add(self.statement)
     self.node = None
+    self.comment = ""
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -167,7 +177,7 @@ class ShExStatementLexerParser(object):
                  | NODENAME COLON STRING 
     '''
     if (self.debug): 
-      print("firstnode " + str(len(p)))
+      print("firstnode " + str(p))
     if (len(p) < 3): 
       self.node = Node(p[1])
     else:
@@ -179,7 +189,7 @@ class ShExStatementLexerParser(object):
                   |  NODENAME COLON STRING 
     '''
     if (self.debug): 
-      print("secondnode " + str(len(p)))
+      print("secondnode " + str(p))
     if not self.values:
       if (len(p) < 3): 
         self.values = Node(p[1])
@@ -191,7 +201,7 @@ class ShExStatementLexerParser(object):
                    | NODEKIND
     '''
     if (self.debug): 
-      print("specialterm " + str(len(p)))
+      print("specialterm " + str(p))
     self.values = NodeKind(p[1]) 
 
   def p_cardinality(self, p):
@@ -202,14 +212,14 @@ class ShExStatementLexerParser(object):
                 | NUMBER COMMA NUMBER
     '''
     if (self.debug): 
-      print("cardinality " + str(len(p)))
+      print("cardinality " + str(p))
     self.cardinality = p[1]
 
   def p_value(self, p):
     '''value : STRING
                 | STRING COLON STRING'''
     if (self.debug): 
-      print("value " + str(len(p)))
+      print("value " + str(p))
 
     if not self.values:
       self.values = ValueList([])
@@ -218,11 +228,17 @@ class ShExStatementLexerParser(object):
     else:
       self.values.add(Value(p[1]))
 
+  def p_comment(self, p):
+    '''comment : COMMENT'''
+    if (self.debug): 
+      print("comment " + str(p))
+    self.comment = p[1]
+
   def p_prop(self, p):
     '''prop : STRING
                 | STRING COLON STRING'''
     if (self.debug): 
-      print("prop " + str(len(p)))
+      print("prop " + str(p))
     if (len(p) == 4):
       self.prop = p[1] + ":" + p[3]
     else:
@@ -232,19 +248,19 @@ class ShExStatementLexerParser(object):
     '''commaseparatedvalueset : value COMMA value
                 | value COMMA commaseparatedvalueset'''
     if (self.debug): 
-      print("valueset " + str(len(p)))
+      print("valueset " + str(p))
 
   def p_spaceseparatedvalueset(self, p):
     '''spaceseparatedvalueset : value SPACE
                 | value SPACE value
                 | value SPACE spaceseparatedvalueset'''
     if (self.debug): 
-      print("valueset " + str(len(p)))
+      print("valueset " + str(p))
 
   def p_error(self, p):
     if (self.debug and p):
-      print(p.lexpos, p.lineno, p.type, p.value)
-    raise ParserError("Syntax error in input data: %s" % p.type)
+      print(p.lexpos, p.lineno, str(p), p.value)
+    raise ParserError("Syntax error in input data: %s" % str(p))
 
   def buildparser(self,**kwargs):
      self.lexer = lex.lex(module=self, **kwargs)

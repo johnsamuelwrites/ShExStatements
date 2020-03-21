@@ -29,16 +29,16 @@ class ShExGeneratorTestSuite(unittest.TestCase):
     shexstatement = result.generate_shex()
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ] ;
-  P571 [ xsd:dateTime  ] ;
-  P572 [ xsd:dateTime  ] ;
-  P276 . + ;
-  P1476 . + ;
-  P195 . + ;
-  P170 @<creator> + ;
+  P31 [ Q3305213  ];
+  P571 [ xsd:dateTime  ];
+  P572 [ xsd:dateTime  ];
+  P276 .+;
+  P1476 .+;
+  P195 .+;
+  P170 @<creator>+;
 }
 <creator> {
-  P31 . + ;
+  P31 .+;
 }
 '''
     self.assertEqual(shexstatement, desired)
@@ -57,16 +57,16 @@ class ShExGeneratorTestSuite(unittest.TestCase):
     shexstatement = result.generate_shex()
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ] ;
-  P571 [ xsd:dateTime  ] ;
-  P572 [ xsd:dateTime  ] ;
-  P276 . + ;
-  P1476 . + ;
-  P195 . + ;
-  P170 @<painting:creator> + ;
+  P31 [ Q3305213  ];
+  P571 [ xsd:dateTime  ];
+  P572 [ xsd:dateTime  ];
+  P276 .+;
+  P1476 .+;
+  P195 .+;
+  P170 @<painting:creator>+;
 }
 <painting:creator> {
-  P31 . + ;
+  P31 .+;
 }
 '''
     self.assertEqual(shexstatement, desired)
@@ -84,12 +84,12 @@ class ShExGeneratorTestSuite(unittest.TestCase):
     shexstatement = result.generate_shex()
     desired ='''start = @<endangeredlanguage>
 <endangeredlanguage> {
-  P31 [ Q83365345 Q83365347 Q83365366 Q83365404 Q38058796  ] ;
-  P1999 [ Q20672087 Q20672088 Q20672089 Q20672090 Q20672091  ] ;
-  P17 . * ;
-  P220 . + ;
-  P12341 . * ;
-  P220 LITERAL ;
+  P31 [ Q83365345 Q83365347 Q83365366 Q83365404 Q38058796  ];
+  P1999 [ Q20672087 Q20672088 Q20672089 Q20672090 Q20672091  ];
+  P17 .*;
+  P220 .+;
+  P12341 .*;
+  P220 LITERAL;
 }
 '''
     self.assertEqual(shexstatement, desired)
@@ -109,19 +109,19 @@ class ShExGeneratorTestSuite(unittest.TestCase):
     shexstatement = result.generate_shex()
     desired='''start = @<flag>
 <flag> {
-  P31 [ Q7242811  ] ;
-  P18 . + ;
-  P571 . * ;
-  P1268 . * ;
-  P3089 . * ;
-  p:P462 @<color> + ;
+  P31 [ Q7242811  ];
+  P18 .+;
+  P571 .*;
+  P1268 .*;
+  P3089 .*;
+  p:P462 @<color>+;
 }
 <color> {
-  ps:P462 @<colorinstance> ;
-  pq:P465 . * ;
+  ps:P462 @<colorinstance>;
+  pq:P465 .*;
 }
 <colorinstance> {
-  P31 [ Q1075  ] ;
+  P31 [ Q1075  ];
 }
 '''
     self.maxDiff = None

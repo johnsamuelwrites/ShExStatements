@@ -50,11 +50,12 @@ class Cardinality:
     self.cardinality = cardinality
 
 class ShExStatement:
-  def __init__(self, node, prop, value, cardinality=None):
+  def __init__(self, node, prop, value, cardinality=None, comment=""):
     self.node = node
     self.prop = prop
     self.value = value
     self.cardinality = cardinality
+    self.comment = comment
 
   def get_node(self):
     return self.node
@@ -68,11 +69,15 @@ class ShExStatement:
   def get_cardinality(self):
     return self.cardinality
 
+  def get_comment(self):
+    return self.comment
+
   def __str__(self):
     return(str(self.node) + "|" +
            str(self.prop) + "|" +
            str(self.value) + "|" +
-           str(self.cardinality) + "\n"
+           str(self.cardinality) +
+           str(self.comment) + "\n"
           )
 
 class ShExStatements:
@@ -93,15 +98,16 @@ class ShExStatements:
 
   def generate_shex(self):
     start = None
-    nodecardinality = {}
+    shape = {}
     for statement in self.statements:
       node = str(statement.get_node())
       combination = []
-      if node not in nodecardinality:
-        nodecardinality[node] = []
+      if node not in shape:
+        shape[node] = []
         if not start:
           start = node
       combination.append(statement.get_prop())
+      combination.append(" ")
       value = statement.get_value()
       if (type(value) == Node and str(value).startswith("@")):
         value = "@<" + str(value)[1:] + ">"
@@ -113,16 +119,19 @@ class ShExStatements:
 
       if (statement.get_cardinality()):
         combination.append(statement.get_cardinality())
-      nodecardinality[node].append(combination)
+      combination.append(";")
+      if not statement.get_comment():
+        combination.append(statement.get_comment())
+      shape[node].append(combination)
     
     shex_statement_str = ""
     if start is not None:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
-    for key in nodecardinality.keys():
+    for key in shape.keys():
         shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">" + " {" + "\n"
-        for combination in nodecardinality[key]:
-            shex_statement_str = shex_statement_str + "  " + " ".join(combination) + " ;"  + "\n"
+        for combination in shape[key]:
+            shex_statement_str = shex_statement_str + "  " + "".join(combination) + "\n"
         shex_statement_str = shex_statement_str + "}" + "\n"
 
     return shex_statement_str
