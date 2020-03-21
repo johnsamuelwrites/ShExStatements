@@ -32,13 +32,13 @@ class ShExStatementParserTestSuite(unittest.TestCase):
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)
 
-  def test_shexstatements_with_cardinality(self):
+  def test_shexstatements_with_comments(self):
     data = '''@painting|P31|Q3305213
-    @painting|P571|xsd:dateTime|# date of creation
+    @painting|P571|xsd:dateTime
     @painting|P276|.|+
     @painting|P1476|.|+
     @painting|P195|.|+
-    @painting|P170|@creator|+|#creator of the painting
+    @painting|P170|@creator|+
     @creator|P31|.|+'''
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)

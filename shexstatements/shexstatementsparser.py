@@ -149,17 +149,17 @@ class ShExStatementLexerParser(object):
 
   def p_statement(self, p):
     '''
-       statement : firstnode SEPARATOR prop SEPARATOR value
-             | firstnode SEPARATOR prop SEPARATOR secondnode
-             | firstnode SEPARATOR prop SEPARATOR specialterm
-             | firstnode SEPARATOR prop SEPARATOR commaseparatedvalueset
-             | firstnode SEPARATOR prop SEPARATOR spaceseparatedvalueset
-             | firstnode SEPARATOR prop SEPARATOR secondnode SEPARATOR cardinality
-             | firstnode SEPARATOR prop SEPARATOR value SEPARATOR cardinality
-             | firstnode SEPARATOR prop SEPARATOR specialterm SEPARATOR cardinality
-             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
-             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | firstnode SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
+       statement : node SEPARATOR prop SEPARATOR value
+             | node SEPARATOR prop SEPARATOR node
+             | node SEPARATOR prop SEPARATOR specialterm
+             | node SEPARATOR prop SEPARATOR commaseparatedvalueset
+             | node SEPARATOR prop SEPARATOR spaceseparatedvalueset
+             | node SEPARATOR prop SEPARATOR node SEPARATOR cardinality
+             | node SEPARATOR prop SEPARATOR value SEPARATOR cardinality
+             | node SEPARATOR prop SEPARATOR specialterm SEPARATOR cardinality
+             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
+             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
+             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
              '''
     if (self.debug): 
       print("ShEx Statement")
@@ -171,25 +171,18 @@ class ShExStatementLexerParser(object):
     self.values = None
     self.cardinality = None
 
-  def p_firstnode(self, p):
-    '''firstnode : NODENAME
+  def p_node(self, p):
+    '''node : NODENAME
                  | NODENAME COLON STRING 
     '''
     if (self.debug): 
-      print("firstnode " + str(p))
-    if (len(p) < 3): 
-      self.node = Node(p[1])
+      print("node " + str(p))
+    if not self.node:
+      if (len(p) < 3): 
+        self.node = Node(p[1])
+      else:
+        self.node = Node(p[1]+":"+p[3])
     else:
-      self.node = Node(p[1]+":"+p[3])
-    self.values = None
-
-  def p_secondnode(self, p):
-    '''secondnode : NODENAME
-                  |  NODENAME COLON STRING 
-    '''
-    if (self.debug): 
-      print("secondnode " + str(p))
-    if not self.values:
       if (len(p) < 3): 
         self.values = Node(p[1])
       else:
