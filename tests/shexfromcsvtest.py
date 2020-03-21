@@ -9,7 +9,7 @@ from shexstatements.shexfromcsv import CSV
 
 class ShExFromCSVTestSuite(unittest.TestCase):
    def test_shex_from_csv(self):
-    shexstatement = CSV.generate_shex_from_csv("painting.csv")
+    shexstatement = CSV.generate_shex_from_csv("example.csv")
     desired = '''start = @<painting>
 <painting> {
   P31 [ Q3305213  ];
