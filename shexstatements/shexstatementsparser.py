@@ -137,7 +137,6 @@ class ShExStatementLexerParser(object):
   def p_statements(self, p):
     '''
        statements : statement
-             | statement SEPARATOR comment
              | statement statements'''
     if (self.debug): 
       print("ShEx Statements")
@@ -235,14 +234,12 @@ class ShExStatementLexerParser(object):
     self.comment = p[1]
 
   def p_prop(self, p):
-    '''prop : STRING
-                | STRING COLON STRING'''
+    '''prop : value'''
     if (self.debug): 
       print("prop " + str(p))
-    if (len(p) == 4):
-      self.prop = p[1] + ":" + p[3]
-    else:
-      self.prop = p[1]
+    # One value is already present
+    self.prop = str(self.values.get_value_list()[0])
+    self.values = None
 
   def p_commaseparatedvalueset(self, p):
     '''commaseparatedvalueset : value COMMA value
