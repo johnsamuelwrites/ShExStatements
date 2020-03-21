@@ -29,7 +29,7 @@ class ShExStatementLexerParser(object):
     'WHITESPACE',
     'SPACE'
   )
-  def __init__(self, debug=True):
+  def __init__(self, debug=False):
     self.debug = debug
     self.node = None
     self.comment = ""
@@ -72,11 +72,11 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_NODENAME(self, t):
-    r'@\w+'
+    r'@[^\#@{}\[\],\.\|\s]+'
     return t
 
   def t_COMMENT(self, t):
-    r'\#[^\n]*'
+    r'\#[\w\s]*'
     return t
 
   def t_NODEKIND(self, t):
@@ -84,7 +84,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_STRING(self, t):
-    r'[^@{}\[\],\:\|\s]+'
+    r'[^\#@{}\[\],\.\:\|\s]+'
     return t
 
   def t_SPACE(self, t):
@@ -127,11 +127,7 @@ class ShExStatementLexerParser(object):
     return tokens
 
   precedence =  (
-    ('left', 'COLON'),
-    ('left', 'STAR', 'PLUS'),
-    ('left', 'COMMA'),
     ('left', 'SEPARATOR'),
-    ('left', 'LSQUAREBRACKET', 'RSQUAREBRACKET'),
   )
 
   def p_statements(self, p):
@@ -149,17 +145,20 @@ class ShExStatementLexerParser(object):
 
   def p_statement(self, p):
     '''
-       statement : node SEPARATOR prop SEPARATOR value
-             | node SEPARATOR prop SEPARATOR node
-             | node SEPARATOR prop SEPARATOR specialterm
-             | node SEPARATOR prop SEPARATOR commaseparatedvalueset
-             | node SEPARATOR prop SEPARATOR spaceseparatedvalueset
-             | node SEPARATOR prop SEPARATOR node SEPARATOR cardinality
-             | node SEPARATOR prop SEPARATOR value SEPARATOR cardinality
-             | node SEPARATOR prop SEPARATOR specialterm SEPARATOR cardinality
-             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET value RSQUAREBRACKET
-             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET commaseparatedvalueset RSQUAREBRACKET
-             | node SEPARATOR prop SEPARATOR LSQUAREBRACKET spaceseparatedvalueset RSQUAREBRACKET
+       statement : nodeproperty propertyvalue 
+             | nodeproperty propertyvalue SEPARATOR comment
+             | nodeproperty commaseparatedvaluelist
+             | nodeproperty commaseparatedvaluelist SEPARATOR comment
+             | nodeproperty spaceseparatedvaluelist
+             | nodeproperty spaceseparatedvaluelist SEPARATOR comment
+             | nodeproperty propertyvalue SEPARATOR cardinality
+             | nodeproperty propertyvalue SEPARATOR cardinality SEPARATOR comment
+             | nodeproperty LSQUAREBRACKET value RSQUAREBRACKET
+             | nodeproperty LSQUAREBRACKET value RSQUAREBRACKET SEPARATOR comment
+             | nodeproperty LSQUAREBRACKET commaseparatedvaluelist RSQUAREBRACKET
+             | nodeproperty LSQUAREBRACKET commaseparatedvaluelist RSQUAREBRACKET SEPARATOR comment
+             | nodeproperty LSQUAREBRACKET spaceseparatedvaluelist RSQUAREBRACKET
+             | nodeproperty LSQUAREBRACKET spaceseparatedvaluelist RSQUAREBRACKET SEPARATOR comment
              '''
     if (self.debug): 
       print("ShEx Statement")
@@ -170,6 +169,18 @@ class ShExStatementLexerParser(object):
     self.prop = None
     self.values = None
     self.cardinality = None
+
+  def p_nodeproperty(self, p):
+    '''nodeproperty : node SEPARATOR prop SEPARATOR'''
+    if (self.debug): 
+      print("nodeproperty " + str(p))
+
+  def p_propertyvalue(self, p):
+    '''propertyvalue : value
+                     | node
+                     | specialterm'''
+    if (self.debug): 
+      print("propertyvalue " + str(p))
 
   def p_node(self, p):
     '''node : NODENAME
@@ -234,18 +245,18 @@ class ShExStatementLexerParser(object):
     self.prop = str(self.values.get_value_list()[0])
     self.values = None
 
-  def p_commaseparatedvalueset(self, p):
-    '''commaseparatedvalueset : value COMMA value
-                | value COMMA commaseparatedvalueset'''
+  def p_commaseparatedvaluelist(self, p):
+    '''commaseparatedvaluelist : value COMMA value
+                | value COMMA commaseparatedvaluelist'''
     if (self.debug): 
-      print("valueset " + str(p))
+      print("valuelist " + str(p))
 
-  def p_spaceseparatedvalueset(self, p):
-    '''spaceseparatedvalueset : value SPACE
+  def p_spaceseparatedvaluelist(self, p):
+    '''spaceseparatedvaluelist : value SPACE
                 | value SPACE value
-                | value SPACE spaceseparatedvalueset'''
+                | value SPACE spaceseparatedvaluelist'''
     if (self.debug): 
-      print("valueset " + str(p))
+      print("valuelist " + str(p))
 
   def p_error(self, p):
     if (self.debug and p):

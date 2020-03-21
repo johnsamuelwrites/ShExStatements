@@ -50,7 +50,7 @@ class Cardinality:
     self.cardinality = cardinality
 
 class ShExStatement:
-  def __init__(self, node, prop, value, cardinality=None, comment=""):
+  def __init__(self, node, prop, value, cardinality=None, comment=None):
     self.node = node
     self.prop = prop
     self.value = value
@@ -120,7 +120,7 @@ class ShExStatements:
       if (statement.get_cardinality()):
         combination.append(statement.get_cardinality())
       combination.append(";")
-      if not statement.get_comment():
+      if statement.get_comment():
         combination.append(statement.get_comment())
       shape[node].append(combination)
     

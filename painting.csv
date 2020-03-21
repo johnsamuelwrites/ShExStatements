@@ -1,8 +1,9 @@
 @painting,P31,Q3305213
-@painting,P571,xsd:dateTime
+@painting,P571,xsd:dateTime,#date of creation
 @painting,P572,xsd:dateTime
 @painting,P276,.,+
 @painting,P1476,.,+
 @painting,P195,.,+
-@painting,P170,@creator,+
-@creator,P31,.,+
+@painting,P170,@creator,+,#creator of painting
+@creator,P2561,LITERAL,#name
+

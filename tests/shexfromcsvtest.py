@@ -13,15 +13,15 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     desired = '''start = @<painting>
 <painting> {
   P31 [ Q3305213  ];
-  P571 [ xsd:dateTime  ];
+  P571 [ xsd:dateTime  ];#date of creation
   P572 [ xsd:dateTime  ];
   P276 .+;
   P1476 .+;
   P195 .+;
-  P170 @<creator>+;
+  P170 @<creator>+;#creator of painting
 }
 <creator> {
-  P31 .+;
+  P2561 LITERAL;#name
 }
 '''
     self.assertEqual(shexstatement, desired)
