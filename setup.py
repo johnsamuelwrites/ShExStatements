@@ -1,3 +1,9 @@
+#
+# SPDX-FileCopyrightText: 2020 John Samuel <johnsamuelwrites@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
 import setuptools
 
 with open("README.md", "r") as fh:
