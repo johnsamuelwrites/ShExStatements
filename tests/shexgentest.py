@@ -127,6 +127,42 @@ class ShExGeneratorTestSuite(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(shexstatement, desired)
 
+  def test_shexstatements_with_prefixes(self):
+    data = '''p|<http://www.wikidata.org/prop/>
+ps|<http://www.wikidata.org/prop/statement/>
+pq|<http://www.wikidata.org/prop/qualifier/>
+@flag|P31|Q7242811
+@flag|P18|.|+
+@flag|P571|.|*
+@flag|P1268|.|*
+@flag|P3089|.|*
+@flag|p:P462|@color|+
+@color|ps:P462|@colorinstance
+@color|pq:P465|.|*
+@colorinstance|P31|Q1075'''
+    tokens = self.lexerparser.input(data)
+    result = self.lexerparser.parse(data)
+    shexstatement = result.generate_shex()
+    desired='''start = @<flag>
+<flag> {
+  P31 [ Q7242811  ];
+  P18 .+;
+  P571 .*;
+  P1268 .*;
+  P3089 .*;
+  p:P462 @<color>+;
+}
+<color> {
+  ps:P462 @<colorinstance>;
+  pq:P465 .*;
+}
+<colorinstance> {
+  P31 [ Q1075  ];
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(shexstatement, desired)
+
 if __name__ == '__main__':
   unittest.main()
 

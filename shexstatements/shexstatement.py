@@ -83,9 +83,13 @@ class ShExStatement:
 class ShExStatements:
   def __init__(self, statements):
     self.statements = statements 
+    self.prefixes = set()
 
   def add(self, statement):
     self.statements.append(statement)
+
+  def add_prefixes(self, prefixes):
+    self.prefixes.update(prefixes)
 
   def __str__(self):
     string = ""

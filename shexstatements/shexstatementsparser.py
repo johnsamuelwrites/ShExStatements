@@ -33,6 +33,7 @@ class ShExStatementLexerParser(object):
     self.debug = debug
     self.node = None
     self.comment = ""
+    self.prefixes = []
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -84,7 +85,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_STRING(self, t):
-    r'[^\#@{}\[\],\.\:\|\s]+'
+    r'[^\#@{}\[\],\|\s]+'
     return t
 
   def t_SPACE(self, t):
@@ -133,11 +134,16 @@ class ShExStatementLexerParser(object):
   def p_statements(self, p):
     '''
        statements : statement
-             | statement statements'''
+             | NEWLINE
+             | WHITESPACE NEWLINE
+             | statement statements
+             | prefixes statement statements'''
     if (self.debug): 
       print("ShEx Statements")
+    self.statements.add_prefixes(self.prefixes)
     self.node = None
     self.comment = ""
+    self.prefixes = []
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -166,6 +172,7 @@ class ShExStatementLexerParser(object):
     self.statements.add(self.statement)
     self.node = None
     self.comment = ""
+    self.prefixes = []
     self.prop = None
     self.values = None
     self.cardinality = None
@@ -174,6 +181,18 @@ class ShExStatementLexerParser(object):
     '''nodeproperty : node SEPARATOR prop SEPARATOR'''
     if (self.debug): 
       print("nodeproperty " + str(p))
+
+  def p_prefixes(self, p):
+    '''prefixes : prefix
+                     | prefix prefixes'''
+    if (self.debug): 
+      print("prefixes " + str(p))
+
+  def p_prefix(self, p):
+    '''prefix : STRING SEPARATOR STRING'''
+    if (self.debug): 
+      print("prefixes " + str(p))
+    self.prefixes.append((p[1],p[2]))
 
   def p_propertyvalue(self, p):
     '''propertyvalue : value
@@ -252,8 +271,7 @@ class ShExStatementLexerParser(object):
       print("valuelist " + str(p))
 
   def p_spaceseparatedvaluelist(self, p):
-    '''spaceseparatedvaluelist : value SPACE
-                | value SPACE value
+    '''spaceseparatedvaluelist : value SPACE value
                 | value SPACE spaceseparatedvaluelist'''
     if (self.debug): 
       print("valuelist " + str(p))
