@@ -13,6 +13,8 @@ class ShExStatementLexerParser(object):
   tokens = (
     'COLON',
     'COMMA',
+    'CLOSED',
+    'EXTRA',
     'COMMENT',
     'SEPARATOR',
     'STRING',
@@ -77,6 +79,14 @@ class ShExStatementLexerParser(object):
 
   def t_COMMENT(self, t):
     r'\#[\w \t]*'
+    return t
+
+  def t_CLOSED(self, t):
+    r'(CLOSED)'
+    return t
+
+  def t_EXTRA(self, t):
+    r'(EXTRA)'
     return t
 
   def t_NODEKIND(self, t):
@@ -147,7 +157,9 @@ class ShExStatementLexerParser(object):
 
   def p_statement(self, p):
     '''
-       statement : nodeproperty propertyvalue 
+       statement : shapeconstraint
+             | shapeconstraint SEPARATOR comment
+             | nodeproperty propertyvalue 
              | nodeproperty propertyvalue SEPARATOR comment
              | nodeproperty commaseparatedvaluelist
              | nodeproperty commaseparatedvaluelist SEPARATOR comment
@@ -171,6 +183,12 @@ class ShExStatementLexerParser(object):
     self.prop = None
     self.values = None
     self.cardinality = None
+
+  def p_shapeconstraint(self, p):
+    '''shapeconstraint : node SEPARATOR CLOSED
+                       | node SEPARATOR EXTRA value'''
+    if (self.debug): 
+      print("shapeconstraint " + str(p))
 
   def p_nodeproperty(self, p):
     '''nodeproperty : node SEPARATOR prop SEPARATOR'''
