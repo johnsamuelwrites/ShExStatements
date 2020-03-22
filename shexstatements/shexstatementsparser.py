@@ -26,7 +26,6 @@ class ShExStatementLexerParser(object):
     'LSQUAREBRACKET',
     'RSQUAREBRACKET',
     'NEWLINE',
-    'WHITESPACE',
     'SPACE'
   )
   def __init__(self, debug=False):
@@ -91,9 +90,6 @@ class ShExStatementLexerParser(object):
   def t_SPACE(self, t):
     r'[ \t]+'
 
-  def t_WHITESPACE(self, t):
-    r'\s+'
-
   def t_LSQUAREBRACKET(self, t):
     r'\['
     return t
@@ -134,7 +130,7 @@ class ShExStatementLexerParser(object):
   def p_statements(self, p):
     '''
        statements : statement
-             | WHITESPACE 
+             | SPACE 
              | statement statements
              | prefixes statement statements'''
     if (self.debug): 
