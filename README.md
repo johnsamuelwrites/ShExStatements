@@ -62,6 +62,7 @@ $ python3 -m tests.tests
 * Wikidata Community
 
 ## Archives and Releases
+* [Zenodo](https://doi.org/10.5281/zenodo.3723870)
 * [Release Notes](RELEASE.md)
 
 ## Licence
