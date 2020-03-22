@@ -77,7 +77,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_COMMENT(self, t):
-    r'\#[\w\s]*'
+    r'\#[\w \t]*'
     return t
 
   def t_NODEKIND(self, t):
@@ -85,12 +85,11 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_STRING(self, t):
-    r'[^\#@{}\[\],\|\s]+'
+    r'[^@{}\[\],\|\s]+'
     return t
 
   def t_SPACE(self, t):
     r'[ \t]+'
-    return t
 
   def t_WHITESPACE(self, t):
     r'\s+'
@@ -106,6 +105,7 @@ class ShExStatementLexerParser(object):
   def t_NEWLINE(self,t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+    self.lineno = t.lexer.lineno
 
   def t_error(self, t):
     print("Unrecognized character '%s'" %t.value[0])
@@ -134,8 +134,7 @@ class ShExStatementLexerParser(object):
   def p_statements(self, p):
     '''
        statements : statement
-             | NEWLINE
-             | WHITESPACE NEWLINE
+             | WHITESPACE 
              | statement statements
              | prefixes statement statements'''
     if (self.debug): 
@@ -270,7 +269,7 @@ class ShExStatementLexerParser(object):
       print("valuelist " + str(p))
 
   def p_spaceseparatedvaluelist(self, p):
-    '''spaceseparatedvaluelist : value SPACE value
+    '''spaceseparatedvaluelist : value value
                 | value SPACE spaceseparatedvaluelist'''
     if (self.debug): 
       print("valuelist " + str(p))
@@ -278,7 +277,7 @@ class ShExStatementLexerParser(object):
   def p_error(self, p):
     if (self.debug and p):
       print(p.lexpos, p.lineno, str(p), p.value)
-    raise ParserError("Syntax error in input data: %s" % str(p))
+    raise ParserError("Syntax error in input data: Line no: %d, Error: %s" % (p.lineno, str(p)))
 
   def buildparser(self,**kwargs):
      self.lexer = lex.lex(module=self, **kwargs)
@@ -286,7 +285,7 @@ class ShExStatementLexerParser(object):
      
 
   def parse(self, data):
-    result = self.parser.parse(data, lexer=self.lexer)
+    result = self.parser.parse(data, lexer=self.lexer, tracking=True)
     if (self.debug): 
       print(result)
     return self.statements

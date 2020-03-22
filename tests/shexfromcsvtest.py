@@ -12,16 +12,16 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("examples/example.csv")
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ];
-  P571 [ xsd:dateTime  ];#date of creation
-  P572 [ xsd:dateTime  ];
-  P276 .+;
-  P1476 .+;
-  P195 .+;
-  P170 @<creator>+;#creator of painting
+  P31 [ Q3305213  ] ;
+  P571 [ xsd:dateTime  ] ;#date of creation
+  P572 [ xsd:dateTime  ] ;
+  P276 .+ ;
+  P1476 .+ ;
+  P195 .+ ;
+  P170 @<creator>+ ;#creator of painting
 }
 <creator> {
-  P2561 LITERAL;#name
+  P2561 LITERAL ;#name
 }
 '''
     self.assertEqual(shexstatement, desired)
@@ -30,19 +30,39 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("examples/emptyvalues.csv")
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ];
-  P571 [ xsd:dateTime  ];#date of creation
-  P572 [ xsd:dateTime  ];
-  P276 .+;
-  P1476 .+;
-  P195 .+;
-  P170 @<creator>+;#creator of painting
+  P31 [ Q3305213  ] ;
+  P571 [ xsd:dateTime  ] ;#date of creation
+  P572 [ xsd:dateTime  ] ;
+  P276 .+ ;
+  P1476 .+ ;
+  P195 .+ ;
+  P170 @<creator>+ ;#creator of painting
 }
 <creator> {
-  P2561 LITERAL;#name
+  P2561 LITERAL ;#name
 }
 '''
     self.assertEqual(shexstatement, desired)
+
+   def test_shex_from_csv_languages(self):
+    shexstatement = CSV.generate_shex_from_csv("examples/language.csv")
+    desired = '''start = @<language>
+<language> {
+  wdt:P31 [ wd:Q34770  ] ;# instance of a language
+  wdt:P1705 LITERAL ;# native name
+  wdt:P17 .+ ;# spoken in country
+  wdt:P2989 .+ ;# grammatical cases
+  wdt:P282 .+ ;# writing system
+  wdt:P1098 .+ ;# speakers
+  wdt:P1999 .* ;# UNESCO language status
+  wdt:P2341 .+ ;# indigenous to
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
 if __name__ == '__main__':
   unittest.main()

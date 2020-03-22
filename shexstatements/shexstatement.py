@@ -123,7 +123,7 @@ class ShExStatements:
 
       if (statement.get_cardinality()):
         combination.append(statement.get_cardinality())
-      combination.append(";")
+      combination.append(" ;")
       if statement.get_comment():
         combination.append(statement.get_comment())
       shape[node].append(combination)
