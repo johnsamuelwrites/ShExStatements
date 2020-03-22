@@ -99,7 +99,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_NEWLINE(self,t):
-    r'\n+'
+    r'[\n\r\f\v]+'
     t.lexer.lineno += len(t.value)
     self.lineno = t.lexer.lineno
 
@@ -129,8 +129,9 @@ class ShExStatementLexerParser(object):
 
   def p_statements(self, p):
     '''
-       statements : statement
-             | SPACE 
+       statements : SPACE
+             | NEWLINE
+             | statement
              | statement statements
              | prefixes statement statements'''
     if (self.debug): 
@@ -232,8 +233,7 @@ class ShExStatementLexerParser(object):
     self.cardinality = p[1]
 
   def p_value(self, p):
-    '''value : STRING
-                | STRING COLON STRING'''
+    '''value : STRING'''
     if (self.debug): 
       print("value " + str(p))
 
@@ -266,7 +266,7 @@ class ShExStatementLexerParser(object):
 
   def p_spaceseparatedvaluelist(self, p):
     '''spaceseparatedvaluelist : value value
-                | value SPACE spaceseparatedvaluelist'''
+                | value spaceseparatedvaluelist'''
     if (self.debug): 
       print("valuelist " + str(p))
 
