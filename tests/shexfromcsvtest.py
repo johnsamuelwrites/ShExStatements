@@ -9,7 +9,7 @@ from shexstatements.shexfromcsv import CSV
 
 class ShExFromCSVTestSuite(unittest.TestCase):
    def test_shex_from_csv(self):
-    shexstatement = CSV.generate_shex_from_csv("example.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/example.csv")
     desired = '''start = @<painting>
 <painting> {
   P31 [ Q3305213  ];
@@ -25,6 +25,27 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
     self.assertEqual(shexstatement, desired)
+
+   def test_shex_from_csv_empty_values(self):
+    shexstatement = CSV.generate_shex_from_csv("examples/emptyvalues.csv")
+    desired = '''start = @<painting>
+<painting> {
+  P31 [ Q3305213  ];
+  P571 [ xsd:dateTime  ];#date of creation
+  P572 [ xsd:dateTime  ];
+  P276 .+;
+  P1476 .+;
+  P195 .+;
+  P170 @<creator>+;#creator of painting
+}
+<creator> {
+  P2561 LITERAL;#name
+}
+'''
+    self.assertEqual(shexstatement, desired)
+
+if __name__ == '__main__':
+  unittest.main()
 
 if __name__ == '__main__':
   unittest.main()
