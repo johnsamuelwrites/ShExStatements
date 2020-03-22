@@ -5,7 +5,6 @@ ShExStatements allows the users to generate shape expressions from simple CSV st
 Clone the **ShExStatements** repository.
 ```
 $ git clone https://github.com/johnsamuelwrites/ShExStatements.git 
-$ cd ShExStatements
 ```
 
 Go to **ShExStatements** directory.
