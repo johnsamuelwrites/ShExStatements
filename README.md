@@ -41,11 +41,28 @@ start = @<language>
 }
 ```
 
-# Examples
+## Objectives
+* Easily generate shape expressions (ShEx) from CSV files 
+* Simple syntax
+
+
+## More examples
 A number of examples can be found in [examples](examples/) folder.
 
-# Test cases
+## Test cases
 All the test cases can be run in  the following manner
 ```
 $ python3 -m tests.tests
 ```
+
+## Author
+* John Samuel
+
+## Acknowledgements
+* Wikidata Community
+
+## Archives and Releases
+* [Release Notes](RELEASE.md)
+
+## Licence
+All code are released under GPLv3+ licence. The associated documentation and other content are released under [CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/).
