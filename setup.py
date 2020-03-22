@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="shexstatements",
-    version="0.0.1",
+    version="0.1",
     author="John Samuel",
     author_email="johnsamuelwrites@example.com",
     description="Tool to generate shape expressions from CSV files",
