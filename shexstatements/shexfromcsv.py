@@ -10,14 +10,14 @@ from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 class CSV:
   def generate_shex_from_csv(filepath, delim=","):
-    pattern = '\s*'
+    pattern = '^\s*$'
     data = ""
     with open(filepath, 'r') as csvfile:
      csvreader = csv.reader(csvfile, delimiter=delim)
      for row in csvreader:
        line = ""
        for value in row:
-         if value and re.search(pattern, value):
+         if value and not re.match(pattern, value):
            if not line:
              line = value
            else:
