@@ -84,6 +84,26 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
+   def test_shex_from_csv_tvseriesextra(self):
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesextra.csv")
+    desired = '''start = @<tvseries>
+<tvseries>  EXTRA wdt:P31  {
+  wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
+  wdt:P136 @<genre>* ;# genre
+  wdt:P495 .+ ;#country of origin
+  wdt:P57 .+ ;#director
+  wdt:P58 .+ ;#screenwriter
+}
+<genre>  EXTRA wdt:P31  {
+  wdt:P31 [ wd:Q201658 wd:Q15961987  ] ;#instance of genre
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+
 if __name__ == '__main__':
   unittest.main()
 

@@ -39,6 +39,7 @@ class ShExStatementLexerParser(object):
     self.values = None
     self.cardinality = None
     self.statement = []
+    self.shapeconstraints = []
     self.statements = ShExStatements([])
 
   def t_COLON(self, t):
@@ -180,15 +181,18 @@ class ShExStatementLexerParser(object):
     self.statements.add(self.statement)
     self.node = None
     self.comment = ""
+    self.shapeconstraints = []
     self.prop = None
     self.values = None
     self.cardinality = None
 
   def p_shapeconstraint(self, p):
     '''shapeconstraint : node SEPARATOR CLOSED
-                       | node SEPARATOR EXTRA value'''
+                       | node SEPARATOR EXTRA SEPARATOR value'''
     if (self.debug): 
       print("shapeconstraint " + str(p))
+    if(len(p) > 3):
+        self.prop = p[3]
 
   def p_nodeproperty(self, p):
     '''nodeproperty : node SEPARATOR prop SEPARATOR'''
@@ -289,9 +293,11 @@ class ShExStatementLexerParser(object):
       print("valuelist " + str(p))
 
   def p_error(self, p):
+    lineno = 0
     if (self.debug and p):
+      lineno = p.lineno
       print(p.lexpos, p.lineno, str(p), p.value)
-    raise ParserError("Syntax error in input data: Line no: %d, Error: %s" % (p.lineno, str(p)))
+    raise ParserError("Syntax error in input data: Line no: %d, Error: %s" % (lineno, str(p)))
 
   def buildparser(self,**kwargs):
      self.lexer = lex.lex(module=self, **kwargs)

@@ -32,6 +32,6 @@ class CSV:
       result = lexerparser.parse(data)
       shexstatement = result.generate_shex()
     except Exception as e:
-      print("Unable to parse the error: " + str(e))
+      print("Unable to parse. Error: " + str(e))
     return shexstatement
 

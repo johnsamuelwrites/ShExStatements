@@ -103,30 +103,41 @@ class ShExStatements:
   def generate_shex(self):
     start = None
     shape = {}
+    shapeconstraints = {}
     for statement in self.statements:
       node = str(statement.get_node())
+      constraint = None
       combination = []
       if node not in shape:
         shape[node] = []
+        shapeconstraints[node] = []
         if not start:
           start = node
-      combination.append(statement.get_prop())
-      combination.append(" ")
+      prop = statement.get_prop()
       value = statement.get_value()
-      if (type(value) == Node and str(value).startswith("@")):
-        value = "@<" + str(value)[1:] + ">"
-      elif type(value) == NodeKind:
-        value = str(value)
-      elif type(value) == Value or type(value) == ValueList:
-        value = "[ " + str(value) + " ]"
-      combination.append(value)
+      if (prop == "EXTRA"):
+        constraint = prop + " " + str(value)
+      elif (prop == "CLOSED"):
+        constraint = prop
+      else:
+        combination.append(prop)
+        combination.append(" ")
+        if (type(value) == Node and str(value).startswith("@")):
+          value = "@<" + str(value)[1:] + ">"
+        elif type(value) == NodeKind:
+          value = str(value)
+        elif type(value) == Value or type(value) == ValueList:
+          value = "[ " + str(value) + " ]"
+        combination.append(value)
 
-      if (statement.get_cardinality()):
-        combination.append(statement.get_cardinality())
-      combination.append(" ;")
-      if statement.get_comment():
-        combination.append(statement.get_comment())
-      shape[node].append(combination)
+        if (statement.get_cardinality()):
+          combination.append(statement.get_cardinality())
+        combination.append(" ;")
+        if statement.get_comment():
+          combination.append(statement.get_comment())
+        shape[node].append(combination)
+      if(constraint):
+        shapeconstraints[node].append(constraint)
     
     shex_statement_str = ""
     if self.prefixes:
@@ -136,7 +147,11 @@ class ShExStatements:
         shex_statement_str = shex_statement_str + "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
     for key in shape.keys():
-        shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">" + " {" + "\n"
+        shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">" 
+        if shapeconstraints[key]:
+            shex_statement_str = shex_statement_str + "  " + " ".join(shapeconstraints[key]) 
+
+        shex_statement_str = shex_statement_str + " {" + "\n"
         for combination in shape[key]:
             shex_statement_str = shex_statement_str + "  " + "".join(combination) + "\n"
         shex_statement_str = shex_statement_str + "}" + "\n"
