@@ -45,7 +45,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual(shexstatement, desired)
 
    def test_shex_from_csv_languages(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/language.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/language.csv", delim="|")
     desired = '''start = @<language>
 <language> {
   wdt:P31 [ wd:Q34770  ] ;# instance of a language
