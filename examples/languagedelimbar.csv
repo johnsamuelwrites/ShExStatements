@@ -1,0 +1,12 @@
+wd|<http://www.wikidata.org/entity/>|||
+wdt|<http://www.wikidata.org/prop/direct/>|||
+xsd|<http://www.w3.org/2001/XMLSchema#>|||
+
+@language|wdt:P31|wd:Q34770||# instance of a language
+@language|wdt:P1705|LITERAL||# native name
+@language|wdt:P17|.|+|# spoken in country
+@language|wdt:P2989|.|+|# grammatical cases
+@language|wdt:P282|.|+|# writing system
+@language|wdt:P1098|.|+|# speakers
+@language|wdt:P1999|.|*|# UNESCO language status
+@language|wdt:P2341|.|+|# indigenous to
