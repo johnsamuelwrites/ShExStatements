@@ -145,6 +145,26 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
+   def test_shex_from_csv_languages_with_header(self):
+    shexstatement = CSV.generate_shex_from_csv("examples/languageheader.csv", skip_header=True)
+    desired = '''start = @<language>
+<language> {
+  wdt:P31 [ wd:Q34770  ] ;# instance of a language
+  wdt:P1705 LITERAL ;# native name
+  wdt:P17 .+ ;# spoken in country
+  wdt:P2989 .+ ;# grammatical cases
+  wdt:P282 .+ ;# writing system
+  wdt:P1098 .+ ;# speakers
+  wdt:P1999 .* ;# UNESCO language status
+  wdt:P2341 .+ ;# indigenous to
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+
 if __name__ == '__main__':
   unittest.main()
 

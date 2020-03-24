@@ -9,14 +9,18 @@ import re
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 class CSV:
-  def generate_shex_from_csv(filepath, delim=","):
+  def generate_shex_from_csv(filepath, delim=",", skip_header=False):
     shexstatement = ""
     try:
       pattern = '^\s*$'
       data = ""
       with open(filepath, 'r') as csvfile:
        csvreader = csv.reader(csvfile, delimiter=delim)
+       rowno = 0
        for row in csvreader:
+         rowno = rowno + 1
+         if skip_header and rowno == 1:
+          continue 
          line = ""
          for value in row:
            if value and not re.match(pattern, value):
