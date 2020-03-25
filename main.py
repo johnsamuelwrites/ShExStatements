@@ -10,7 +10,7 @@ from shexstatements.shexfromcsv import CSV
 parser = argparse.ArgumentParser(prog='shexstatements')
 parser.add_argument('-o','--output', type=str, help='output file')
 parser.add_argument('-d','--delimiter', type=str, help='output file')
-parser.add_argument('-s', '--skipheader', action='store_true', help='output file')
+parser.add_argument('-s', '--skipheader', action='store_true', help='Skip CSV header')
 parser.add_argument('csvfile', type=str, help='path of CSV file')
 skipheader = False
 delimiter=","
