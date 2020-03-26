@@ -5,10 +5,8 @@
 #
 
 import argparse
-import json
-import pyshexc
-from pyshexc.parser_impl.generate_shexj import parse
 from shexstatements.shexfromcsv import CSV
+from shexstatements.shexjfromcsv import ShExJCSV
 
 
 parser = argparse.ArgumentParser(prog='shexstatements')
@@ -29,9 +27,7 @@ if args.delimiter:
 shexstatement = CSV.generate_shex_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
 
 if args.shexj:
-  shexj=parse(shexstatement)._as_json
-  parsed = json.loads(shexj)
-  shexstatement = json.dumps(parsed, indent=4, sort_keys=False)
+  shexstatement = ShExJCSV.generate_shexj_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
 
 if args.output:
   with open(args.output, 'w') as shexfile:

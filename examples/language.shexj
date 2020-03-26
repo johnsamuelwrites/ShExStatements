@@ -1,0 +1,69 @@
+{
+    "type": "Schema",
+    "start": "language",
+    "shapes": [
+        {
+            "type": "Shape",
+            "id": "language",
+            "expression": {
+                "type": "EachOf",
+                "expressions": [
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P31",
+                        "valueExpr": {
+                            "type": "NodeConstraint",
+                            "values": [
+                                "http://www.wikidata.org/entity/Q34770"
+                            ]
+                        }
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P1705",
+                        "valueExpr": {
+                            "type": "NodeConstraint",
+                            "nodeKind": "literal"
+                        }
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P17",
+                        "min": 1,
+                        "max": -1
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P2989",
+                        "min": 1,
+                        "max": -1
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P282",
+                        "min": 1,
+                        "max": -1
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P1098",
+                        "min": 1,
+                        "max": -1
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P1999",
+                        "min": 0,
+                        "max": -1
+                    },
+                    {
+                        "type": "TripleConstraint",
+                        "predicate": "http://www.wikidata.org/prop/direct/P2341",
+                        "min": 1,
+                        "max": -1
+                    }
+                ]
+            }
+        }
+    ]
+} 
