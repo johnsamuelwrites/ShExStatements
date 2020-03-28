@@ -130,8 +130,11 @@ class ShExStatements:
           value = "[ " + str(value) + " ]"
         combination.append(value)
 
-        if (statement.get_cardinality()):
-          combination.append(statement.get_cardinality())
+        if statement.get_cardinality():
+          if (statement.get_cardinality() in {"*", "+"}):
+            combination.append(statement.get_cardinality())
+          else: # numerical values
+            combination.append("{" + statement.get_cardinality() + "}")
         combination.append(" ;")
         if statement.get_comment():
           combination.append(statement.get_comment())
