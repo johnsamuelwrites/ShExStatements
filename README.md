@@ -126,6 +126,15 @@ The outpul will be similiar to:
   ]
 }
 ```
+It's also possible to use application profiles of the following form
+```
+Entity_name,Property,Property_label,Mand,Repeat,Value,Value_type,Annotation
+```
+and Shape expressions can be generated using the following form
+```
+$ ./shexstatements.sh -ap --skipheader examples/languageap.csv 
+```
+
 
 ## Objectives
 * Easily generate shape expressions (ShEx) from CSV files 
