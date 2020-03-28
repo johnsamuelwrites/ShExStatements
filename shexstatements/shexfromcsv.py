@@ -9,6 +9,21 @@ import re
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 class CSV:
+  @staticmethod
+  def generate_shex_from_data_string(data):
+    shexstatement = ""
+    try:
+      lexerparser = ShExStatementLexerParser()
+      lexerparser.build()
+      lexerparser.buildparser()
+      tokens = lexerparser.input(data)
+      result = lexerparser.parse(data)
+      shexstatement = result.generate_shex()
+    except Exception as e:
+      print("Unable to parse. Error: " + str(e))
+    return shexstatement
+    
+  @staticmethod
   def generate_shex_from_csv(filepath, delim=",", skip_header=False):
     shexstatement = ""
     try:
@@ -29,13 +44,8 @@ class CSV:
              else:
                line = line + "|" + value
          data = data + line + "\n"
-      lexerparser = ShExStatementLexerParser()
-      lexerparser.build()
-      lexerparser.buildparser()
-      tokens = lexerparser.input(data)
-      result = lexerparser.parse(data)
-      shexstatement = result.generate_shex()
+      shexstatement = CSV.generate_shex_from_data_string(data)
     except Exception as e:
-      print("Unable to parse. Error: " + str(e))
+      print("Unable to read file. Error: " + str(e))
     return shexstatement
 
