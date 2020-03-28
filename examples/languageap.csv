@@ -1,0 +1,9 @@
+Entity_name,Property,Property_label,Mand,Repeat,Value,Value_type,Annotation
+language,wdt:P31,Is a,yes,no,wd:Q34770,,instance of a language
+,wdt:P1705,native name,yes,no,.,LITERAL,native name of language
+,wdt:P17,country,yes,yes,.,, spoken in country
+,wdt:P2989,grammatical case,yes,yes,.,, grammatical cases of language
+,wdt:P282,writing system,yes,yes,.,, writing system
+,wdt:P1098,speaker count,yes,yes,.,, number of speakers
+,wdt:P1999,endangemement level,yes,no,.,, UNESCO language status
+,wdt:P2341,indigenous to,yes,yes,.,, languages indigenous to
