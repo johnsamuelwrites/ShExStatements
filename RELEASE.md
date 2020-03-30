@@ -1,6 +1,16 @@
-# v0.2 (in progress)
+# v0.2
 ===============================================================================
-* Support for specifying header
+
+* Support for specifying CSV header
+  * --skipheader or -s option in shexstatement.sh
+  * skipheader function argument in CSV.generate_shex_from_csv
+* Support generation of ShExJ from CSV files 
+  * --shexj or -j option in shexstatement.sh
+* Supports input in the form of Application Profile
+  * --applicationprofile or -ap option in shexstatement.sh
+* Handling cardinality values of the form (in addition to +,\*)
+  * number
+  * number,number
 
 # v0.1
 ===============================================================================

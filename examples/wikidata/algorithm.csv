@@ -1,0 +1,14 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@algorithm;wdt:P31;wd:Q8366;;#instance of a algorithm
+@algorithm;wdt:P138;.;*;#named after
+@algorithm;wdt:P61;.;*;#discoverer or inventor
+@algorithm;wdt:P3752;.;+;#worst-case time complexity
+@algorithm;wdt:P3753;.;+;#best-case time complexity
+@algorithm;wdt:P3754;.;+;#average time complexity
+@algorithm;wdt:P3755;.;+;#worst-case space complexity
+@algorithm;wdt:P3756;.;+;#best-case space complexity 
+@algorithm;wdt:P3757;.;+;#average space complexity 
+@algorithm;wdt:P575;.;0,1;#time of discovery or invention

@@ -1,0 +1,14 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@operatingsystem;EXTRA;wdt:P31;;
+@operatingsystem;wdt:P31;wd:Q9135;;#instance of a operating system
+@operatingsystem;wdt:P138;.;*;#named after
+@operatingsystem;wdt:P178;.;*;#developer
+@operatingsystem;wdt:P277;.;*;# programming language
+@operatingsystem;wdt:P571;.;0,1;#inception
+@operatingsystem;wdt:P1448;.;*;#official name
+@operatingsystem;wdt:P737;.;*;#influenced by
+@operatingsystem;wdt:P856;.;*;#official website
+

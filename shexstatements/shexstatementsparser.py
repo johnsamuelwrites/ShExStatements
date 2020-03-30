@@ -79,7 +79,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_COMMENT(self, t):
-    r'\#[\w \t]*'
+    r'\#[\w \t\-]*'
     return t
 
   def t_CLOSED(self, t):
@@ -252,7 +252,10 @@ class ShExStatementLexerParser(object):
     '''
     if (self.debug): 
       print("cardinality " + str(p))
-    self.cardinality = p[1]
+    if (len(p) == 2):
+     self.cardinality = p[1]
+    elif (len(p) == 4):
+     self.cardinality = p[1] + p[2] + p[3]
 
   def p_value(self, p):
     '''value : STRING'''
