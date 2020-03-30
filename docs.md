@@ -1,5 +1,10 @@
-# ShExStatements
+# ShExStatements: Documentation
 ShExStatements allows the users to generate shape expressions from simple CSV statements and files. `shexstatements` can be also be used from the command line.
+
+* Easily generate shape expressions (ShEx) from CSV files 
+* Simple syntax
+
+
 
 ## Quick start
 Clone the **ShExStatements** repository.
@@ -17,7 +22,17 @@ Run the following command with an example CSV file. The file contains an example
 $ ./shexstatements.sh examples/language.csv
 ```
 
-CSV file can use delimiters like _;_. Take for example, the following command works with a file using semi-colon as a delimiter.
+There are five columns. Column 1 for specifying the node name, 2 for specifying the property value, 3 for possible values, 4 for cardinality (+,\*) and column 5 for comments. Comments start with #.
+Columns 1, 2, 3 are mandatory. Column 3 can be a special value like . (period to say 'any' value). Columns 3,4 and 5 are empty for prefixes. 
+
+
+Cardinality can be any one of the following values
+* \*: zero or more values
+* + : one or more values
+* m: m number of values
+* m,n: any number of values between m and n (including m and n).
+
+CSV file can use delimiters like _;_. Take for example, the following command works with a file using semi-colon as a delimiter. 
 
 ```
 $ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
@@ -135,32 +150,3 @@ and Shape expressions can be generated using the following form
 $ ./shexstatements.sh -ap --skipheader examples/languageap.csv 
 ```
 
-
-## Objectives
-* Easily generate shape expressions (ShEx) from CSV files 
-* Simple syntax
-
-
-## Documentation and examples
-A detailed documentation can be found [here](./docs.md).
-
-A number of examples can be found in [examples](examples/) folder.
-
-## Test cases
-All the test cases can be run in  the following manner
-```
-$ python3 -m tests.tests
-```
-
-## Author
-* John Samuel
-
-## Acknowledgements
-* Wikidata Community
-
-## Archives and Releases
-* [Zenodo](https://doi.org/10.5281/zenodo.3723870)
-* [Release Notes](RELEASE.md)
-
-## Licence
-All code are released under GPLv3+ licence. The associated documentation and other content are released under [CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/).
