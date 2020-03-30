@@ -1,0 +1,14 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@datastructure;wdt:P31;wd:Q175263;;#instance of a data structure
+@datastructure;wdt:P138;.;*;#named after
+@datastructure;wdt:P61;.;*;#discoverer or inventor
+@datastructure;wdt:P3752;.;+;#worst case time complexity
+@datastructure;wdt:P3753;.;+;#best case time complexity
+@datastructure;wdt:P3754;.;+;#average time complexity
+@datastructure;wdt:P3755;.;+;#worst case space complexity
+@datastructure;wdt:P3756;.;+;#best case space complexity 
+@datastructure;wdt:P3757;.;+;#average space complexity 
+@datastructure;wdt:P575;.;1;#time of discovery or invention
