@@ -1,9 +1,14 @@
 # ShExStatements: Documentation
 ShExStatements allows the users to generate shape expressions from simple CSV statements and files. `shexstatements` can be also be used from the command line.
 
+## Objectives
 * Easily generate shape expressions (ShEx) from CSV files 
-* Simple syntax
-
+* Simple syntax, with 5 columns
+  * Node name
+  * Property
+  * Allowed values
+  * Cardinality (optional)
+  * Comments (optional)
 
 
 ## Quick start
@@ -22,15 +27,15 @@ Run the following command with an example CSV file. The file contains an example
 $ ./shexstatements.sh examples/language.csv
 ```
 
-There are five columns. Column 1 for specifying the node name, 2 for specifying the property value, 3 for possible values, 4 for cardinality (+,\*) and column 5 for comments. Comments start with #.
+There are five columns in the CSV file. Column 1 is used for specifying the node name, 2 for specifying the property value, 3 for possible values, 4 for cardinality (+,\*) and column 5 for comments. Comments start with #.
 Columns 1, 2, 3 are mandatory. Column 3 can be a special value like . (period to say 'any' value). Columns 3,4 and 5 are empty for prefixes. 
 
 
 Cardinality can be any one of the following values
-* \*: zero or more values
-* + : one or more values
-* m: m number of values
-* m,n: any number of values between m and n (including m and n).
+* \* : zero or more values
+* \+ : one or more values
+* m : m number of values
+* m,n : any number of values between m and n (including m and n).
 
 CSV file can use delimiters like _;_. Take for example, the following command works with a file using semi-colon as a delimiter. 
 
@@ -150,3 +155,4 @@ and Shape expressions can be generated using the following form
 $ ./shexstatements.sh -ap --skipheader examples/languageap.csv 
 ```
 
+There are example CSV files in the [examples](examples/) folder.

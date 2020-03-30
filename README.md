@@ -53,7 +53,7 @@ Use `-j` or `--shexj` to generate ShEx JSON Syntax (ShExJ) instead of default Sh
 $ ./shexstatements.sh --shexj examples/language.csv 
 ```
 
-The outpul will be similiar to:
+The output will be similiar to:
 
 ```json
 {
@@ -64,7 +64,7 @@ The outpul will be similiar to:
       "type": "Shape",
       "id": "language",
       "expression": {
-       ....
+
       }
     }
   ]
@@ -86,9 +86,7 @@ $ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 
 
 ## Documentation and examples
-A detailed documentation can be found [here](./docs.md).
-
-A number of examples can be found in [examples](examples/) folder.
+A detailed documentation can be found [here](./docs.md). with a number of example CSV files in the [examples](examples/) folder.
 
 ## Test cases
 All the test cases can be run in  the following manner
