@@ -26,6 +26,7 @@ setuptools.setup(
     ],
     install_requires=[
         'ply>=3.11',
-    ]
+        'PyShEx>=0.7.0',
+    ],
     python_requires='>=3.6',
 )
