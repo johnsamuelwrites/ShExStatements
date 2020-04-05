@@ -26,6 +26,6 @@ setuptools.setup(
     ],
     install_requires=[
         'ply>=3.11',
-    ]
+    ],
     python_requires='>=3.6',
 )
