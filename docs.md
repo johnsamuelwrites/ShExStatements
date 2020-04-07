@@ -22,6 +22,13 @@ Go to **ShExStatements** directory.
 $ cd ShExStatements
 ```
 
+Install modules required by **ShExStatements** (here: installing into a virtual environment).
+```
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install .
+```
+
 Run the following command with an example CSV file. The file contains an example description of a language on Wikidata. This file uses comma as a delimiter to separate the values.
 ```
 $ ./shexstatements.sh examples/language.csv
