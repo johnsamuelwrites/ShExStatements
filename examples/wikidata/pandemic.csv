@@ -6,7 +6,6 @@ xsd,<http://www.w3.org/2001/XMLSchema#>,,,
 
 @pandemic,wdt:P31,wd:Q12184,,# instance of a pandemic
 @pandemic,wdt:P580,.,1,#start time of the pandemic
-@pandemic,wdt:P582,.,1,#start time of the pandemic
+@pandemic,wdt:P582,.,1,end time of the pandemic
 @pandemic,wdt:P1182,.,*,# number of deaths
 @pandemic,wdt:P828,.,*,# has cause
- 
