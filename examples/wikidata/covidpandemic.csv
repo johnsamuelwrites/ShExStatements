@@ -1,8 +1,8 @@
 wd,<http://www.wikidata.org/entity/>,,,
 wdt,<http://www.wikidata.org/prop/direct/>,,,
-p,<http://www.wikidata.org/prop/>,,
-ps,<http://www.wikidata.org/prop/statement/>,,
-pq,<http://www.wikidata.org/prop/qualifier/>,,
+p,<http://www.wikidata.org/prop/>,,,
+ps,<http://www.wikidata.org/prop/statement/>,,,
+pq,<http://www.wikidata.org/prop/qualifier/>,,,
 
 @outbreak,p:P31,@covidpandemic,,#outbreak related to COVID-19
 @outbreak,wdt:P17,.,1,#country
