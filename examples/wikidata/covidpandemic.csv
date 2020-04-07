@@ -1,0 +1,14 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+p,<http://www.wikidata.org/prop/>,,
+ps,<http://www.wikidata.org/prop/statement/>,,
+pq,<http://www.wikidata.org/prop/qualifier/>,,
+
+@outbreak,p:P31,@covidpandemic,,#outbreak related to COVID-19
+@outbreak,wdt:P17,.,1,#country
+@outbreak,wdt:P1120,.,*,#number of deaths
+@outbreak,wdt:P1603,.,*,#number of cases
+@outbreak,wdt:P276,.,*,#location
+@outbreak,wdt:P580,.,1,#start time
+@covidpandemic,ps:P31,wd:Q3241045,,
+@covidpandemic,pq:P642,wd:Q84263196,,
