@@ -1,0 +1,15 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@preprint,EXTRA,wdt:P31,,
+
+@preprint,wdt:P31,wd:Q12184,,# instance of a preprint
+@preprint,wdt:P1476,.,1,#title of the preprint
+@preprint,wdt:P921,.,+,#main subject of the preprint
+@preprint,wdt:P50,.,+,# author
+@preprint,wdt:P407,.,+,#language of work or name
+@preprint,wdt:P577,.,1,#publication date
+@preprint,wdt:P1104,.,1,#number of pages
+
+ 
