@@ -1,0 +1,12 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@lockdown,EXTRA,wdt:P31,,
+
+@lockdown,wdt:P31,wd:Q6665312,,# instance of a lockdown
+@lockdown,wdt:P17,.,1,#country
+@lockdown,wdt:P1269,.,?,#reason or facet of
+@lockdown,wdt:P828,.,+,#has cause
+@lockdown,wdt:P580,.,1,#start time
+@lockdown,wdt:P1846,.,*,#distribution map

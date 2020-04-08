@@ -131,7 +131,7 @@ class ShExStatements:
         combination.append(value)
 
         if statement.get_cardinality():
-          if (statement.get_cardinality() in {"*", "+"}):
+          if (statement.get_cardinality() in {"*", "+", "?"}):
             combination.append(statement.get_cardinality())
           else: # numerical values
             combination.append("{" + statement.get_cardinality() + "}")
