@@ -1,0 +1,24 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@virustaxon;EXTRA;wdt:P31;;
+
+@virustaxon;wdt:P31;wd:Q87756246,wd:Q836749;;# instance of a virus taxon or a taxon
+@virustaxon;wdt:P225;xsd:string;*;#taxon name
+@virustaxon;wdt:P105;.;1;#taxon rank
+@virustaxon;wdt:P171;.;1;#parent taxon
+@virustaxon;wdt:P4628;.;*;#ICTV virus genome composition
+@virustaxon;wdt:P181;.;1;#taxon range map image
+@virustaxon;wdt:P1843;.;*;#taxon common name
+
+
+@virustaxon;wdt:P1542;.;*;#has effect
+@virustaxon;wdt:P2975;.;*;#host
+@virustaxon;wdt:P1605;.;*;#has natural reservoir
+@virustaxon;wdt:P2143;.;*;#genome size
+
+@virustaxon;wdt:P18;.;*;#image 
+@virustaxon;wdt:P373;.;1;#Commons category
+@virustaxon;wdt:P575;xsd:time;1;#time of discovery or invention
+

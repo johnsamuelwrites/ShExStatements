@@ -1,0 +1,13 @@
+wd,<https://schema-korf.wiki.opencura.com/entity/>,,,
+wdt,<https://schema-korf.wiki.opencura.com/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@schemakorf,EXTRA,wdt:P31,,
+
+@schemakorf,wdt:P1,.,+,# must have a concept
+@schemakorf,wdt:P2,.,1,#Local EntitySchema 
+@schemakorf,wdt:P3,.,1,#Wikidata EntitySchema 
+@schemakorf,wdt:P4,.,1,#schema.org profile
+@schemakorf,wdt:P5,.,1,#bioschemas profile
+@schemakorf,wdt:P6,.,*,#SPARQL query
+@schemakorf,wdt:P7,.,*,#example URI
