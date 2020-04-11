@@ -1,6 +1,10 @@
 # v0.3 (in progress)
 ===============================================================================
 * documentation for ShExStatements
+  * Installation and working with Python virtualenv 
+* Comments can have special characters (,.)
+* Support for cardinality character (?: one or more)
+* Support negative statements
 
 # v0.2
 ===============================================================================

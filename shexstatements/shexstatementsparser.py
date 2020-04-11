@@ -22,6 +22,7 @@ class ShExStatementLexerParser(object):
     'NUMBER',
     'NODENAME',
     'PERIOD',
+    'CARET',
     'PLUS',
     'STAR',
     'QUESTIONMARK',
@@ -70,16 +71,19 @@ class ShExStatementLexerParser(object):
     r'\*'
     return t
 
+  def t_CARET(self, t):
+    r'\^'
+    return t
+
   def t_NUMBER(self, t):
     r'\d+'
     return t
 
   def t_NODENAME(self, t):
-    r'@[^\#@{}\[\],\.\|\s]+'
+    r'@[^\#@{}\[\]\,\.\|\s\^]+'
     return t
 
   def t_COMMENT(self, t):
-#    r'\#[\w \t\-\.]*'
     r'\#[^\n]*'
     return t
 
@@ -96,7 +100,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_STRING(self, t):
-    r'[^@{}\[\],\|\s]+'
+    r'[^@{}\[\]\,\|\s\^]+'
     return t
 
   def t_SPACE(self, t):
@@ -277,11 +281,15 @@ class ShExStatementLexerParser(object):
     self.comment = p[1]
 
   def p_prop(self, p):
-    '''prop : value'''
+    '''prop : value
+            | CARET value'''
     if (self.debug): 
       print("prop " + str(p))
     # One value is already present
-    self.prop = str(self.values.get_value_list()[0])
+    if(len(p) == 2):
+       self.prop = str(self.values.get_value_list()[0])
+    else:
+      self.prop = "^" + str(self.values.get_value_list()[0])
     self.values = None
 
   def p_commaseparatedvaluelist(self, p):
