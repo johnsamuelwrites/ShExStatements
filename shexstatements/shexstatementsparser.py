@@ -79,7 +79,8 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_COMMENT(self, t):
-    r'\#[\w \t\-]*'
+#    r'\#[\w \t\-\.]*'
+    r'\#[^\n]*'
     return t
 
   def t_CLOSED(self, t):
