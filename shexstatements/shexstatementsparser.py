@@ -253,12 +253,15 @@ class ShExStatementLexerParser(object):
                 | STAR
                 | QUESTIONMARK
                 | NUMBER
+                | NUMBER COMMA
                 | NUMBER COMMA NUMBER
     '''
     if (self.debug): 
       print("cardinality " + str(p))
     if (len(p) == 2):
      self.cardinality = p[1]
+    if (len(p) == 3):
+     self.cardinality = p[1] + p[2]
     elif (len(p) == 4):
      self.cardinality = p[1] + p[2] + p[3]
 

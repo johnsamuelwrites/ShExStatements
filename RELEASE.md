@@ -3,7 +3,9 @@
 * documentation for ShExStatements
   * Installation and working with Python virtualenv 
 * Comments can have special characters (,.)
-* Support for cardinality character (?: one or more)
+* Support for additional forms of cardinality
+  * ?: one or more values
+  * m,: m or more values
 * Support negative statements
 
 # v0.2
