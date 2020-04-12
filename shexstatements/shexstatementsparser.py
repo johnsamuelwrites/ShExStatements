@@ -7,7 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, NodeKind, Value, ValueList, Cardinality, ShExStatement, ShExStatements
+from .shexstatement import Node, NodeKind, Value, ValueList, Type, TypeList, Cardinality, ShExStatement, ShExStatements
 
 class ShExStatementLexerParser(object):
   tokens = (
@@ -18,6 +18,7 @@ class ShExStatementLexerParser(object):
     'COMMENT',
     'SEPARATOR',
     'STRING',
+    'TYPESTRING',
     'NODEKIND',
     'NUMBER',
     'NODENAME',
@@ -104,6 +105,11 @@ class ShExStatementLexerParser(object):
     r'[^@{}\[\]\,\|\s\^]+'
     return t
 
+  # To specify types
+  def t_TYPESTRING(self, t):
+    r'@@[^@{}:\[\]\,\|\s\^]+'
+    return t
+
   def t_SPACE(self, t):
     r'[ \t]+'
 
@@ -168,18 +174,14 @@ class ShExStatementLexerParser(object):
              | shapeconstraint SEPARATOR comment
              | nodeproperty propertyvalue 
              | nodeproperty propertyvalue SEPARATOR comment
-             | nodeproperty commaseparatedvaluelist
-             | nodeproperty commaseparatedvaluelist SEPARATOR comment
-             | nodeproperty spaceseparatedvaluelist
-             | nodeproperty spaceseparatedvaluelist SEPARATOR comment
+             | nodeproperty delimseparatedlist
+             | nodeproperty delimseparatedlist SEPARATOR comment
              | nodeproperty propertyvalue SEPARATOR cardinality
              | nodeproperty propertyvalue SEPARATOR cardinality SEPARATOR comment
              | nodeproperty LSQUAREBRACKET value RSQUAREBRACKET
              | nodeproperty LSQUAREBRACKET value RSQUAREBRACKET SEPARATOR comment
-             | nodeproperty LSQUAREBRACKET commaseparatedvaluelist RSQUAREBRACKET
-             | nodeproperty LSQUAREBRACKET commaseparatedvaluelist RSQUAREBRACKET SEPARATOR comment
-             | nodeproperty LSQUAREBRACKET spaceseparatedvaluelist RSQUAREBRACKET
-             | nodeproperty LSQUAREBRACKET spaceseparatedvaluelist RSQUAREBRACKET SEPARATOR comment
+             | nodeproperty LSQUAREBRACKET delimseparatedlist RSQUAREBRACKET
+             | nodeproperty LSQUAREBRACKET delimseparatedlist RSQUAREBRACKET SEPARATOR comment
              '''
     if (self.debug): 
       print("ShEx Statement")
@@ -220,6 +222,7 @@ class ShExStatementLexerParser(object):
   def p_propertyvalue(self, p):
     '''propertyvalue : value
                      | node
+                     | type
                      | specialterm'''
     if (self.debug): 
       print("propertyvalue " + str(p))
@@ -266,6 +269,18 @@ class ShExStatementLexerParser(object):
     elif (len(p) == 4):
      self.cardinality = p[1] + p[2] + p[3]
 
+  def p_type(self, p):
+    '''type : TYPESTRING
+            | TYPESTRING COLON STRING'''
+    if (self.debug): 
+      print("type " + str(p))
+    if not self.values:
+      self.values = TypeList([])
+    if (len(p) == 4):
+      self.values.add(Type(p[1]+":"+p[3]))
+    else:
+      self.values.add(Type(p[1]))
+
   def p_value(self, p):
     '''value : STRING'''
     if (self.debug): 
@@ -300,13 +315,33 @@ class ShExStatementLexerParser(object):
     '''commaseparatedvaluelist : value COMMA value
                 | value COMMA commaseparatedvaluelist'''
     if (self.debug): 
-      print("valuelist " + str(p))
+      print("commaseparatedvaluelist " + str(p))
 
   def p_spaceseparatedvaluelist(self, p):
     '''spaceseparatedvaluelist : value value
                 | value spaceseparatedvaluelist'''
     if (self.debug): 
-      print("valuelist " + str(p))
+      print("spaceseparatedvaluelist " + str(p))
+
+  def p_commaseparatedtypelist(self, p):
+    '''commaseparatedtypelist : type COMMA type
+                | type COMMA commaseparatedtypelist'''
+    if (self.debug): 
+      print("commaseparatedtypelist " + str(p))
+
+  def p_spaceseparatedtypelist(self, p):
+    '''spaceseparatedtypelist : type type
+                | type spaceseparatedtypelist'''
+    if (self.debug): 
+      print("spaceseparatedtypelist " + str(p))
+
+  def p_delimseparatedlist(self, p):
+    '''delimseparatedlist : commaseparatedtypelist
+                | commaseparatedvaluelist
+                | spaceseparatedvaluelist
+                | spaceseparatedtypelist'''
+    if (self.debug): 
+      print("delimseparatedlist " + str(p))
 
   def p_error(self, p):
     lineno = 0

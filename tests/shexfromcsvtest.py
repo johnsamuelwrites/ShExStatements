@@ -68,6 +68,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("examples/foaf.csv")
     desired = '''start = @<person>
 <person> {
+  rdf:type foaf:Person  ;#should be a person
   foaf:name LIteral ;#name
   foaf:mbox IRi* ;#mail
   foaf:homepage IRI* ;#URL

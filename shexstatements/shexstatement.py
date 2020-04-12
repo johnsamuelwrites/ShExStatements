@@ -6,6 +6,12 @@
 
 import re
 
+class Type:
+  def __init__(self, name):
+    self.name = name[2:]
+  
+  def __str__(self):
+    return self.name
 
 class Node:
   def __init__(self, name):
@@ -28,13 +34,34 @@ class Value:
   def __str__(self):
     return self.name
 
+class TypeList:
+  value_list = []
+  def __init__(self, value_list):
+    self.value_list = value_list
+
+  def add(self, value):
+    if(type(value) == Type):
+      self.value_list.append(value)
+    else:
+      raise Exception("Mixing of non-type values not allowed")
+
+  def get_value_list(self):
+    return self.value_list
+
+  def __str__(self):
+    string = ""
+    for s in self.value_list:
+      string = string + str(s) + " "
+    return string
+
 class ValueList:
   value_list = []
   def __init__(self, value_list):
     self.value_list = value_list
 
   def add(self, value):
-    self.value_list.append(value)
+    if(type(value) == Value):
+      self.value_list.append(value)
 
   def get_value_list(self):
     return self.value_list
@@ -128,6 +155,8 @@ class ShExStatements:
           value = str(value)
         elif type(value) == Value or type(value) == ValueList:
           value = "[ " + str(value) + " ]"
+        elif type(value) == Type or type(value) == TypeList:
+          value = str(value)
         combination.append(value)
 
         if statement.get_cardinality():

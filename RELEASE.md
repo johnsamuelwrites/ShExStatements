@@ -9,6 +9,8 @@
 * Support negative statements
 * Suport for case-insentive node kinds
   * Literal, BNode, NonLiteral, IRI
+* Support for types in third column
+  * values starting with @@ considered as types
 
 # v0.2
 ===============================================================================
