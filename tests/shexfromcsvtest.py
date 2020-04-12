@@ -64,6 +64,24 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
+   def test_shex_from_csv_foaf_person(self):
+    shexstatement = CSV.generate_shex_from_csv("examples/foaf.csv")
+    desired = '''start = @<person>
+<person> {
+  foaf:name LIteral ;#name
+  foaf:mbox IRi* ;#mail
+  foaf:homepage IRI* ;#URL
+  foaf:nick Literal* ;#Nickname
+  foaf:depiction IRI* ;#photograph
+  foaf:interest IRI* ;#topics of interest
+  foaf:knows @<person>* ;#person knows another person 
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" in shexstatement, True)
+    self.assertEqual("PREFIX foaf: <http://xmlns.com/foaf/0.1/>" in shexstatement, True)
+
    def test_shex_from_csv_languages_delim_bar(self):
     shexstatement = CSV.generate_shex_from_csv("examples/languagedelimbar.csv", delim="|")
     desired = '''start = @<language>

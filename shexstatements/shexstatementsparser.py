@@ -96,7 +96,8 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_NODEKIND(self, t):
-    r'(LITERAL|IRI|BNode)'
+    # Allowing Literal, BNode, NonLiteral, IRI
+    r'([Ll][Ii][Tt][Ee][Rr][Aa][Ll]|[Ii][Rr][Ii]|[Bb][Nn][Oo][Dd][Ee]|[Nn][Oo][Nn][Ll][Ii][Tt][Ee][Rr][Aa][Ll])'
     return t
 
   def t_STRING(self, t):

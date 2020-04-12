@@ -7,6 +7,8 @@
   * ?: one or more values
   * m,: m or more values
 * Support negative statements
+* Suport for case-insentive node kinds
+  * Literal, BNode, NonLiteral, IRI
 
 # v0.2
 ===============================================================================
