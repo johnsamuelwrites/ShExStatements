@@ -1,4 +1,4 @@
-# v0.3 (in progress)
+# v0.3
 ===============================================================================
 * documentation for ShExStatements
   * Installation and working with Python virtualenv 
