@@ -1,0 +1,16 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@contacttracingapp,EXTRA,wdt:P31,,
+
+@contacttracingapp,wdt:P31,wd:Q89288125,,# instance of a contact tracing application
+@contacttracingapp,wdt:P1476,LITERAL,*,#title
+@contacttracingapp,wdt:P366,.,*,#use
+@contacttracingapp,wdt:P123,.,1,#publisher
+@contacttracingapp,wdt:P178,.,*,#developers
+@contacttracingapp,wdt:P495,.,*,#country of origin
+@contacttracingapp,wdt:P306,.,*,#operating system
+@contacttracingapp,wdt:P856,.,*,#official website
+@contacttracingapp,wdt:P577,.,1,#publication date
+@contacttracingapp,wdt:P5008,.,*,#on focus list of Wikimedia project
