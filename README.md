@@ -109,6 +109,7 @@ $ python3 -m tests.tests
 
 ## Archives and Releases
 * [Zenodo](https://doi.org/10.5281/zenodo.3723870)
+* [Software Heritage](https://archive.softwareheritage.org/browse/origin/https://github.com/johnsamuelwrites/ShExStatements/directory/)
 * [Release Notes](RELEASE.md)
 
 ## Licence
