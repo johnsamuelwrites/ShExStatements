@@ -1,0 +1,11 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+
+@morgue,wdt:P31,wd:Q6451172,,#a morgue
+@morgue,wdt:P17,.,?,#country
+@morgue,wdt:P131,.,1,#located in the administrative territorial entity
+@morgue,wdt:P625,.,+,#coordinate location
+@morgue,wdt:P18,.,+,#image
+@morgue,wdt:P571,.,?,#inception
+@morgue,wdt:P6375,.,?,#street address
+@morgue,wdt:P856,.,?,#official website

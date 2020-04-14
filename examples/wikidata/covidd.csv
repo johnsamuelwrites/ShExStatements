@@ -1,0 +1,11 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+
+@covid19death,wdt:P31,wd:Q5,,#death of a human
+@covid19death,wdt:P6949,.,?,#announcement date
+@covid19death,wdt:P509,wd:Q84263196,,#cause of death is COVID-19
+@covid19death,wdt:P570,.,1,#death of death
+@covid19death,wdt:P20,.,?,#place of death
+@covid19death,wdt:P1677,.,?,#index case
+@covid19death,wdt:P1196,.,?,#manner of death
+@covid19death,wdt:P5008,wd:Q87748614,?,#on focus list of Wikimedia project (notable)

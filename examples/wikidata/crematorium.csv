@@ -1,0 +1,12 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+
+@crematorium,wdt:P31,wd:Q157570,,#a crematorium
+@crematorium,wdt:P17,.,?,#country
+@crematorium,wdt:P131,.,1,#located in the administrative territorial entity
+@crematorium,wdt:P625,.,+,#coordinate location
+@crematorium,wdt:P18,.,+,#image
+@crematorium,wdt:P571,.,?,#inception
+@crematorium,wdt:P6375,.,?,#street address
+@crematorium,wdt:P856,.,?,#official website
+@crematorium,wdt:P1448,LITERAL,?,#official name
