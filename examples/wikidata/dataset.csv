@@ -1,0 +1,17 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@dataset;wdt:P31;wd:Q1172284;;#instance of a dataset
+@dataset;wdt:P859;.;*;#sponsor
+@dataset;wdt:P577;.;0,1;#publication date
+@dataset;wdt:P953;.;+;#full work available at
+@dataset;wdt:P2093;.;*;#author name string
+@dataset;wdt:P921;.;+;#main subject(s)
+@dataset;wdt:P856;.;*;#official website
+@dataset;wdt:P275;.;+;#copyright license
+@dataset;wdt:P1535;.;*;#used by
+@dataset;wdt:P366;.;*;#use
+@dataset;wdt:P2860;.;*;#cites work
+@dataset;wdt:P495;.;*;#country of origin
+@dataset;wdt:P1065;.;*;#archive URL

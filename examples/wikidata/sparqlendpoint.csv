@@ -1,0 +1,16 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@sparqlendpoint;wdt:P5305;.;+;#instances with SPARQL endpoint
+@sparqlendpoint;wdt:P856;.;+;#official website
+@sparqlendpoint;wdt:P921;.;+;#main subject(s)
+@sparqlendpoint;wdt:P1535;.;*;#used by
+@sparqlendpoint;wdt:P275;.;+;#copyright license
+@sparqlendpoint;wdt:P859;.;*;#sponsor
+@sparqlendpoint;wdt:P577;.;0,1;#publication date
+@sparqlendpoint;wdt:P408;.;*;#software engine
+@sparqlendpoint;wdt:P366;.;*;#use
+@sparqlendpoint;wdt:P2860;.;*;#cites work
+@sparqlendpoint;wdt:P495;.;*;#country of origin
+@sparqlendpoint;wdt:P1325;.;*;#external data available at 

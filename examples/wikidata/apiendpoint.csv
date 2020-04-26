@@ -1,0 +1,20 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+
+@apiendpoint;wdt:P6269;.;+;#instances with SPARQL endpoint
+@apiendpoint;wdt:P856;.;+;#official website
+@apiendpoint;wdt:P921;.;+;#main subject(s)
+@apiendpoint;wdt:P1535;.;*;#used by
+@apiendpoint;wdt:P1343;.;*;#described by source
+@apiendpoint;wdt:P973;.;*;#described at URL
+@apiendpoint;wdt:P1324;.;*;#source code repository
+@apiendpoint;wdt:P277;.;*;#programming language
+@apiendpoint;wdt:P400;.;*;#platform
+@apiendpoint;wdt:P306;.;*;#operating system
+@apiendpoint;wdt:P577;.;0,1;#publication date
+@apiendpoint;wdt:P408;.;*;#software engine
+@apiendpoint;wdt:P366;.;*;#use
+@apiendpoint;wdt:P1401;.;*;#bug tracking system
+@apiendpoint;wdt:P495;.;*;#country of origin
+@apiendpoint;wdt:P1325;.;*;#external data available at 
