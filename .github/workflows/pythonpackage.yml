@@ -37,4 +37,4 @@ jobs:
     - name: Test unittests and get code coverage
       run: |
         coverage run --source=shexstatements -m unittest tests.tests
-
+        coverage report -m
