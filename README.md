@@ -93,7 +93,7 @@ $ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 
 
 ## Documentation and examples
-A detailed documentation can be found [here](./docs.md). with a number of example CSV files in the [examples](examples/) folder.
+A detailed documentation can be found [here](./docs/docs.md). with a number of example CSV files in the [examples](examples/) folder.
 
 ## Test cases and coverage
 All the test cases can be run in  the following manner
