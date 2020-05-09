@@ -137,7 +137,7 @@ img {
 }
 @media screen and (max-width: 480px) and (orientation : portrait){
   #logo {
-    font-size:3.0vh;
+    font-size:1rem;
   }
   #header {
     bottom:0;
@@ -149,9 +149,12 @@ img {
     display:none;
   }
 }
-@media screen and (max-width: 640px) and (orientation : landscape){
-  #sidebarlinks {
-    font-size:2vw;
+@media screen and (max-width: 840px) and (orientation : landscape){
+  #logo {
+    font-size:1rem;
+  }
+  #sidebarlinks p, ul{
+    font-size:0.7rem;
   }
   #sidebarlinks >ul{
     padding:1vw;
