@@ -25,6 +25,31 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
     self.assertEqual(shexstatement, desired)
+   def test_shex_from_csvstring(self):
+    csvstring = '''@painting,P31,Q3305213
+@painting,P571,xsd:dateTime,#date of creation
+@painting,P572,xsd:dateTime
+@painting,P276,.,+
+@painting,P1476,.,+
+@painting,P195,.,+
+@painting,P170,@creator,+,#creator of painting
+@creator,P2561,LITERAL,#name'''
+    shexstatement = CSV.generate_shex_from_csv(csvstring, filename=False)
+    desired = '''start = @<painting>
+<painting> {
+  P31 [ Q3305213  ] ;
+  P571 [ xsd:dateTime  ] ;#date of creation
+  P572 [ xsd:dateTime  ] ;
+  P276 .+ ;
+  P1476 .+ ;
+  P195 .+ ;
+  P170 @<creator>+ ;#creator of painting
+}
+<creator> {
+  P2561 LITERAL ;#name
+}
+'''
+    self.assertEqual(shexstatement, desired)
 
    def test_shex_from_csv_empty_values(self):
     shexstatement = CSV.generate_shex_from_csv("examples/emptyvalues.csv")
