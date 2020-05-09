@@ -1,51 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="Description" content="ShExStatements"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" href="images/logo/favicon.png"/>
-    <title>ShExStatements</title>
-    <style type="text/css">
-    body{
-      background-color: #FFFFFF;
-    }
-    .content {
-     line-height: 1.9vmax;
-     font-size: 1.2vmax;
-     font-family: 'Arial';
-     margin-top: 10vh;
-     width:90%;
-    }
-    .content h1, h2, h3, h4{
-     color:#1B80CF;
-    }
-    .content a:link,
-    .content a:visited{
-     color: #1B80CF;
-    }
-    .content h3 {
-     color: #1B80CF;
-    }
-    .content a:link,
-    .content a:visited{
-      color:#1873B9;
-    }
-    .page {
-      width:65vw;
-      height:100%;
-      margin-left:20vw;
-      margin-right:20vw;
-      overflow: hidden;
-      padding: 0 1em;
-      font-family: 'Arial';
-    }
-    </style>
-  </head>
-  <body vocab="http://schema.org/" typeof="Website"> 
-    <div class="page">
-      <div class="content">
-<h1>ShExStatements: Documentation</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="section">
+<h2>ShExStatements: Documentation</h2>
 
 <p>ShExStatements allows the users to generate shape expressions from simple CSV statements and files. <code>shexstatements</code> can be also be used from the command line.</p>
 
@@ -63,7 +20,7 @@
 </ul></li>
 </ul>
 
-<h2>Quick start</h2>
+<h2>Setup</h2>
 
 <p>Clone the <strong>ShExStatements</strong> repository.
 <pre>
@@ -73,15 +30,63 @@ $ git clone https://github.com/johnsamuelwrites/ShExStatements.git
 </pre>
 </p>
 
-<p>Go to <strong>ShExStatements</strong> directory.
+<p>Go to <strong>ShExStatements</strong> directory.</p>
 <pre>
 <code>
 $ cd ShExStatements
 </code>
 </pre>
-</p>
 
-<p>Run the following command with an example CSV file. The file contains an example description of a language on Wikidata. This file uses comma as a delimiter to separate the values.
+<h3>Virtual Environment</h3>
+Install modules required by <b>ShExStatements</b> (here: installing into a virtual environment).
+<pre>
+<code>
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install .
+</code>
+</pre>
+
+
+<p>Consider an example CSV file <code>language.csv</code> in the folder <code>examples/</code>.
+The file contains an example description of a language on Wikidata. This file uses comma as a delimiter to separate the values.</p>
+<pre>
+<code>
+wd,&lt;http://www.wikidata.org/entity/&gt;,,,
+wdt,&lt;http://www.wikidata.org/prop/direct/&gt;,,,
+xsd,&lt;http://www.w3.org/2001/XMLSchema#&gt;,,,
+
+@language,wdt:P31,wd:Q34770,,# instance of a language
+@language,wdt:P1705,LITERAL,,# native name
+@language,wdt:P17,.,+,# spoken in country
+@language,wdt:P2989,.,+,# grammatical cases
+@language,wdt:P282,.,+,# writing system
+@language,wdt:P1098,.,+,# speakers
+@language,wdt:P1999,.,*,# UNESCO language status
+@language,wdt:P2341,.,+,# indigenous to
+</code>
+</pre>
+
+<p>There are five columns in the CSV file. </p>
+<ul>
+  <li>Column 1 is used for specifying the node name, starting with @.</li>
+  <li>Column 2 for specifying the property value  </li>
+  <li>Column 3 for a set of possible values  </li>
+  <li>Column 4 for cardinality (+,*)  </li>
+  <li>Column 5 for comments. Comments start with #.  </li>
+</ul>
+
+<p>Columns 1, 2, 3 are mandatory. Column 3 can be a special value like . (period to say 'any' value). The first three lines in the above file are used for specifying the prefixes. In this case, columns 3,4 and 5 are empty. </p>
+
+<p>Cardinality can be any one of the following values</p>
+<ul>
+  <li> * : zero or more values  </li>
+  <li> + : one or more values  </li>
+  <li> m : m number of values  </li>
+  <li> m,n : any number of values between m and n (including m and n).  </li>
+</ul>
+
+<p>Run the following command for the above file.</p>
 <pre>
 <code>
 $ ./shexstatements.sh examples/language.csv
@@ -89,36 +94,8 @@ $ ./shexstatements.sh examples/language.csv
 </pre>
 </p>
 
-<p>There are five columns in the CSV file. Column 1 is used for specifying the node name, 2 for specifying the property value, 3 for possible values, 4 for cardinality (+,*) and column 5 for comments. Comments start with #.
-Columns 1, 2, 3 are mandatory. Column 3 can be a special value like . (period to say 'any' value). Columns 3,4 and 5 are empty for prefixes. </p>
 
-<p>Cardinality can be any one of the following values
-* * : zero or more values
-* + : one or more values
-* m : m number of values
-* m,n : any number of values between m and n (including m and n).</p>
-
-<p>CSV file can use delimiters like <em>;</em>. Take for example, the following command works with a file using semi-colon as a delimiter. </p>
-
-<p>
-<pre>
-<code>
-$ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
-</code>
-</pre>
-</p>
-
-<p>But sometimes, users may like to specify the header. In that case, they can make use of <code>-s</code> or <code>--skipheader</code> to tell the generator to skip the header (firsrt line of CSV).</p>
-
-<p>
-<pre>
-<code>
-$ ./shexstatements.sh --skipheader examples/languageheader.csv
-</code>
-</pre>
-</p>
-
-<p>In all the above cases, the shape expression generated by <strong>ShExStatements</strong> will look like
+<p>The shape expression generated by <strong>ShExStatements</strong> will look like</p>
 <pre>
 <code>
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
@@ -137,8 +114,26 @@ start = @&lt;language&gt;
 }
 </code>
 </pre>
+
+<p>CSV file can use delimiters like semicolon (;). Take for example, the following command works with a file using semi-colon as a delimiter. </p>
+
+<p>
+<pre>
+<code>
+$ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
+</code>
+</pre>
 </p>
 
+<p>But sometimes, users may like to specify the header. In that case, they can make use of <code>-s</code> or <code>--skipheader</code> to tell the generator to skip the header (firsrt line of CSV).</p>
+
+<pre>
+<code>
+$ ./shexstatements.sh --skipheader examples/languageheader.csv
+</code>
+</pre>
+
+<h2>ShExJ</h2>
 <p>Use <code>-j</code> or <code>--shexj</code> to generate ShEx JSON Syntax (ShExJ) instead of default ShEx Compact syntax (ShExC).</p>
 
 <p>
@@ -149,7 +144,7 @@ $ ./shexstatements.sh --shexj examples/language.csv
 </pre>
 </p>
 
-<p>The outpul will be similiar to:</p>
+<p>The output will be similiar to:</p>
 
 <p>
 <pre>
@@ -238,9 +233,23 @@ $ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 </code>
 </pre>
 </p>
+        <h2>Test cases and Code Coverage</h2>
+        
+        <p>All the test cases can be run in  the following manner.</p>
+        <pre>
+          <code>
+$ python3 -m tests.tests
+          </code>
+        </pre>
+Code coverage report can also be generated by running the unit tests using the coverage tool.
+        <pre>
+          <code>
+$ coverage run --source=shexstatements -m unittest tests.test
+$ coverage report -m
+          </code>
+        </pre>
 
-<p>There are example CSV files in the <a href="../examples/">examples</a> folder.</p>
-      </div>
-    </div>
-  </body>
-</html>
+        <h2>Examples</h2>
+<p>There are example CSV files in the <a href="https://github.com/johnsamuelwrites/ShExStatements/tree/master/examples">examples</a> folder.</p>
+</div>
+{% endblock %}

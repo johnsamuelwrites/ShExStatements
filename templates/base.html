@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="Description" content="ShExStatements"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" href="images/logo/favicon.png"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+    <title>ShExStatements</title>
+  </head>
+  <body vocab="http://schema.org/" typeof="Website"> 
+    <div class="page">
+      <div id="header">
+        <div id="logo"><a href="./">ShExStatements</a>
+        </div>
+      </div>
+      <div id="sidebar">
+       <div id="sidebarlinks">
+         <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="./quickstart">Quick Start</a></li>
+          <li><a href="./docs">Documentation</a></li>
+          <li><a href="./about">About</a> </li>
+         </ul> 
+        </div>
+      </div>
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
+         
+
