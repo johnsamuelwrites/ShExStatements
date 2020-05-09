@@ -109,6 +109,7 @@ $ coverage report -m
 
 ## Author
 * John Samuel
+* [Contributors](https://github.com/johnsamuelwrites/ShExStatements/graphs/contributors)
 
 ## Acknowledgements
 * Wikidata Community
