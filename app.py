@@ -5,10 +5,6 @@ app = Flask(__name__, static_url_path='',
               template_folder='templates')
 
 @app.route('/', methods=['GET','POST'])
-#def index():
-#  return render_template('shexstatements.html')
-#
-#@app.route('/generateshex', methods=['POST'])
 def generateshex():
   data = {}
   if request.method == "POST":
