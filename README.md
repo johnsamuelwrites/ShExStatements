@@ -137,7 +137,7 @@ Check the URL `http://127.0.0.1:5000/`
 ## Demonstration
 Online demonstrations are also available:
 
-* [shexstatements.toolforge.org/](shexstatements.toolforge.org/)
+* [https://shexstatements.toolforge.org/](shexstatements.toolforge.org/)
 * [https://tools.wmflabs.org/shexstatements/](https://tools.wmflabs.org/shexstatements/)
 
 ## Author

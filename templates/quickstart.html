@@ -6,7 +6,15 @@
 
 <p>ShExStatements allows users to generate shape expressions from simple CSV statements and files. <code>shexstatements</code> can also be used from the command line.</p>
 
+<h2>Online demonstration</h2>
+<p>Online demonstrations are also available:</p>
+ <ul>
+   <li><a href="https://shexstatements.toolforge.org/">https://shexstatements.toolforge.org/</a></li>
+   <li><a href="https://tools.wmflabs.org/shexstatements/">https://tools.wmflabs.org/shexstatements/</a></li>
+</ul>
 
+<h2>Manual setup</h2>
+<h3>Terminal</h3>
 <p>Clone the <strong>ShExStatements</strong> repository.
 <pre>
 <code>
@@ -112,6 +120,38 @@ $ ./shexstatements.sh --skipheader examples/languageheader.csv
 </pre>
 </p>
 
+<h3>Web interface</h3>
+<p><code>shexstatements</code> can also be accessed from a web interface. Clone the <b>ShExStatements</b> repository.</p>
+<pre>
+<code>
+$ git clone https://github.com/johnsamuelwrites/ShExStatements.git
+</code>
+</pre>
+
+<p>Go to <b>ShExStatements</b> directory.</p>
+<pre>
+<code>
+$ cd ShExStatements
+</code>
+</pre>
+
+<p>Install modules required by **ShExStatements** (here: installing into a virtual environment).</p>
+<pre>
+<code>
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install .
+</code>
+</pre>
+
+<p>Now run the application.</p>
+<pre>
+<code>
+$ python3 app.py
+</code>
+</pre>
+
+<p>Check the URL <code>http://127.0.0.1:5000/</code>.</p>
 
 </div>
 {% endblock %}
