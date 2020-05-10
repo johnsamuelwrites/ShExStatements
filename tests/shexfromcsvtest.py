@@ -12,19 +12,20 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("examples/example.csv")
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ] ;
-  P571 [ xsd:dateTime  ] ;#date of creation
-  P572 [ xsd:dateTime  ] ;
-  P276 .+ ;
-  P1476 .+ ;
-  P195 .+ ;
-  P170 @<creator>+ ;#creator of painting
+  wdt:P31 [ wd:Q3305213  ] ;
+  wdt:P571 xsd:dateTime  ;#date of creation
+  wdt:P572 xsd:dateTime  ;
+  wdt:P276 .+ ;
+  wdt:P1476 .+ ;
+  wdt:P195 .+ ;
+  wdt:P170 @<creator>+ ;#creator of painting
 }
 <creator> {
-  P2561 LITERAL ;#name
+  wdt:P2561 LITERAL ;#name
 }
 '''
-    self.assertEqual(shexstatement, desired)
+    self.assertEqual(desired in shexstatement, True)
+
    def test_shex_from_csvstring(self):
     csvstring = '''@painting,P31,Q3305213
 @painting,P571,xsd:dateTime,#date of creation
@@ -55,19 +56,19 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     shexstatement = CSV.generate_shex_from_csv("examples/emptyvalues.csv")
     desired = '''start = @<painting>
 <painting> {
-  P31 [ Q3305213  ] ;
-  P571 [ xsd:dateTime  ] ;#date of creation
-  P572 [ xsd:dateTime  ] ;
-  P276 .+ ;
-  P1476 .+ ;
-  P195 .+ ;
-  P170 @<creator>+ ;#creator of painting
+  wdt:P31 [ wd:Q3305213  ] ;
+  wdt:P571 xsd:dateTime  ;#date of creation
+  wdt:P572 xsd:dateTime  ;
+  wdt:P276 .+ ;
+  wdt:P1476 .+ ;
+  wdt:P195 .+ ;
+  wdt:P170 @<creator>+ ;#creator of painting
 }
 <creator> {
-  P2561 LITERAL ;#name
+  wdt:P2561 LITERAL ;#name
 }
 '''
-    self.assertEqual(shexstatement, desired)
+    self.assertEqual(desired in shexstatement, True)
 
    def test_shex_from_csv_languages(self):
     shexstatement = CSV.generate_shex_from_csv("examples/language.csv")
@@ -150,7 +151,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_tvseries(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tvseries.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseries.csv", delim="|")
     desired = '''start = @<tvseries>
 <tvseries> {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
@@ -170,7 +171,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_tvseries_negative_prop(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tests/tvseriesnegativeprop.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tests/tvseriesnegativeprop.csv", delim="|")
     desired = '''start = @<tvseries>
 <tvseries> {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
@@ -233,7 +234,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_languages_with_header(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/languageheader.csv", skip_header=True)
+    shexstatement = CSV.generate_shex_from_csv("examples/header/languageheader.csv", skip_header=True)
     desired = '''start = @<language>
 <language> {
   wdt:P31 [ wd:Q34770  ] ;# instance of a language
