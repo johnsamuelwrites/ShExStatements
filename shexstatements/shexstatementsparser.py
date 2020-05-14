@@ -93,7 +93,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_EXTRA(self, t):
-    r'(EXTRA)'
+    r'([Ee][Xx][Tt][Rr][Aa])'
     return t
 
   def t_NODEKIND(self, t):
@@ -196,11 +196,12 @@ class ShExStatementLexerParser(object):
 
   def p_shapeconstraint(self, p):
     '''shapeconstraint : node SEPARATOR CLOSED
+                       | node SEPARATOR PLUS PLUS SEPARATOR value
                        | node SEPARATOR EXTRA SEPARATOR value'''
     if (self.debug): 
       print("shapeconstraint " + str(p))
     if(len(p) > 3):
-        self.prop = p[3]
+        self.prop = "EXTRA"
 
   def p_nodeproperty(self, p):
     '''nodeproperty : node SEPARATOR prop SEPARATOR'''
