@@ -1,0 +1,12 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@tvseries,EXTRA,wdt:P31,,
+@tvseries,wdt:P31,wd:Q5398426,,# instance of a tvseries
+@tvseries,wdt:P136,@genre,*,# genre
+@tvseries,wdt:P495,.,+,#country of origin
+@tvseries,wdt:P57,.,+,#director
+@tvseries,wdt:P58,.,+,#screenwriter
+@genre,><
+@genre,wdt:P31,wd:Q201658 wd:Q15961987,#instance of genre

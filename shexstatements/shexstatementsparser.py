@@ -89,7 +89,7 @@ class ShExStatementLexerParser(object):
     return t
 
   def t_CLOSED(self, t):
-    r'(CLOSED)'
+    r'(CLOSED|><)'
     return t
 
   def t_EXTRA(self, t):
@@ -201,6 +201,9 @@ class ShExStatementLexerParser(object):
     if (self.debug): 
       print("shapeconstraint " + str(p))
     if(len(p) > 3):
+      if(p[3].lower() == "closed" or p[3] == "><"):
+        self.prop = "CLOSED"
+      else:
         self.prop = "EXTRA"
 
   def p_nodeproperty(self, p):
