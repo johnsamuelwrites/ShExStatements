@@ -20,6 +20,7 @@ class ShExStatementLexerParser(object):
     'STRING',
     'TYPESTRING',
     'NODEKIND',
+    'IMPORT',
     'NUMBER',
     'NODENAME',
     'PERIOD',
@@ -36,6 +37,7 @@ class ShExStatementLexerParser(object):
     self.debug = debug
     self.node = None
     self.comment = ""
+    self.imports = []
     self.prefixes = []
     self.prop = None
     self.values = None
@@ -78,6 +80,10 @@ class ShExStatementLexerParser(object):
 
   def t_NUMBER(self, t):
     r'\d+'
+    return t
+
+  def t_IMPORT(self, t):
+    r'@@@[^@{}\[\]\,\|\s\^]+'
     return t
 
   def t_NODENAME(self, t):
@@ -156,12 +162,15 @@ class ShExStatementLexerParser(object):
              | NEWLINE
              | statement
              | statement statements
-             | prefixes statement statements'''
+             | prefixes statement statements
+             | imports prefixes statement statements'''
     if (self.debug): 
       print("ShEx Statements")
     self.statements.add_prefixes(self.prefixes)
+    self.statements.add_imports(self.imports)
     self.node = None
     self.comment = ""
+    self.imports = []
     self.prefixes = []
     self.prop = None
     self.values = None
@@ -217,11 +226,23 @@ class ShExStatementLexerParser(object):
     if (self.debug): 
       print("prefixes " + str(p))
 
+  def p_imports(self, p):
+    '''imports : import
+                     | import imports'''
+    if (self.debug): 
+      print("imports " + str(p))
+
   def p_prefix(self, p):
     '''prefix : STRING SEPARATOR STRING'''
     if (self.debug): 
       print("prefixes " + str(p))
     self.prefixes.append((p[1],p[3]))
+
+  def p_import(self, p):
+    '''import : IMPORT'''
+    if (self.debug): 
+      print("import " + str(p))
+    self.imports.append(p[1][3:])
 
   def p_propertyvalue(self, p):
     '''propertyvalue : value

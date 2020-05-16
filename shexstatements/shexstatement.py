@@ -111,12 +111,16 @@ class ShExStatements:
   def __init__(self, statements):
     self.statements = statements 
     self.prefixes = set()
+    self.imports = set()
 
   def add(self, statement):
     self.statements.append(statement)
 
   def add_prefixes(self, prefixes):
     self.prefixes.update(prefixes)
+
+  def add_imports(self, imports):
+    self.imports.update(imports)
 
   def __str__(self):
     string = ""
@@ -172,6 +176,9 @@ class ShExStatements:
         shapeconstraints[node].append(constraint)
     
     shex_statement_str = ""
+    if self.imports:
+       for imp in self.imports:
+         shex_statement_str = shex_statement_str + "IMPORT <" + imp + ">\n"
     if self.prefixes:
        for prefix in self.prefixes:
          shex_statement_str = shex_statement_str + "PREFIX " + prefix[0] + ": " + prefix[1] + "\n"
