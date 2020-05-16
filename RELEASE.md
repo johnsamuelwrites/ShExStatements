@@ -1,6 +1,34 @@
-# v0.4 (in progress)
+# v0.5 (in progress)
 ===============================================================================
-* documentation
+*  
+
+# v0.4 
+===============================================================================
+* Web interface
+  * Add support for online generation of ShEx
+  * Use of Flask
+* New features
+  * Support IMPORT
+  * Allow # in nodenames
+  * Add >< for CLOSED
+  * Add ++ for EXTRA
+  * Support code coverage
+  * Add Github actions to test package
+* Update documentation
+  * Update web interface documentation
+  * Update README with demo links
+  * Update About section
+  * Add CSS and images
+  * Add documentation for coverage
+  * Add command for reporting code coverage
+  * Add link to Software Heritage
+* Bugs
+  * Resolve shift-reduce conflict
+  * Update unit tests
+  * Remove Python 3.5
+* Examples
+  * Add hospital (Malayalam) example 
+  * Add examples on dataset, API and sparql endpoints
 
 # v0.3
 ===============================================================================
