@@ -20,7 +20,7 @@ class ShExStatementLexerParser(object):
     'STRING',
     'TYPESTRING',
     'NODEKIND',
-    'IMPORT',
+    'IMPORTSTRING',
     'NUMBER',
     'NODENAME',
     'PERIOD',
@@ -82,12 +82,12 @@ class ShExStatementLexerParser(object):
     r'\d+'
     return t
 
-  def t_IMPORT(self, t):
+  def t_IMPORTSTRING(self, t):
     r'@@@[^@{}\[\]\,\|\s\^]+'
     return t
 
   def t_NODENAME(self, t):
-    r'@[^\#@{}\[\]\,\.\|\s\^]+'
+    r'@[^\@{}\[\]\,\.\|\s\^]+'
     return t
 
   def t_COMMENT(self, t):
@@ -239,7 +239,7 @@ class ShExStatementLexerParser(object):
     self.prefixes.append((p[1],p[3]))
 
   def p_import(self, p):
-    '''import : IMPORT'''
+    '''import : IMPORTSTRING'''
     if (self.debug): 
       print("import " + str(p))
     self.imports.append(p[1][3:])

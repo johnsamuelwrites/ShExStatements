@@ -1,0 +1,6 @@
+@@@https://www.wikidata.org/wiki/Special:EntitySchemaText/E178
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+
+@software;wdt:P31;wd:Q7397;;#instance of a software
+@software;wdt:P366;@algorithm;;#use
