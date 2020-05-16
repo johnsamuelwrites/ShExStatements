@@ -7,4 +7,4 @@ xsd|<http://www.w3.org/2001/XMLSchema#>|||
 @tvseries|wdt:P495|.|+|#country of origin
 @tvseries|wdt:P57|.|+|#director
 @tvseries|wdt:P58|.|+|#screenwriter
-@genre|wdt:P31|wd:Q201658 wd:Q15961987|#instance of genre
+@genre|wdt:P31|wd:Q201658,wd:Q15961987|#instance of genre

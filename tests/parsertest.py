@@ -17,7 +17,7 @@ class ShExStatementParserTestSuite(unittest.TestCase):
   def test_basic_shexstatements(self):
     data = '''@paa|paa:pp|aa:aa
               @ppaa|paa:pp|[aa:aa]
-              @ppaa|paa:pp|[aa:aa a:a]'''
+              @ppaa|paa:pp|[aa:aa,a:a]'''
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)
     
@@ -57,12 +57,12 @@ class ShExStatementParserTestSuite(unittest.TestCase):
   def test_shexstatements(self):
     data = '''@paa|paa:pp|aa:aa
     @paa|paa:pp|aa:aa,b1:cv
-    @paa|paa:pp|aa:aa b1:cv
+    @paa|paa:pp|aa:aa,b2:cv
     @paa|paa:pp|[aa:aa]
     @ppaa|paa:pp|[aa:aa,a:a]
-    @ppaa|paa:pp|[aa:aa a:a]
+    @ppaa|paa:pp|[aa:aa,b:a]
     @paa|paa:pp|aa:aa,b1:cv
-    @paa|paa:pp|aa:aa b1:cv''' 
+    @paa|paa:pp|aa:ac,b1:cv''' 
     tokens = self.lexerparser.input(data)
     result = self.lexerparser.parse(data)
 

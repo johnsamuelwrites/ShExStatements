@@ -342,29 +342,15 @@ class ShExStatementLexerParser(object):
     if (self.debug): 
       print("commaseparatedvaluelist " + str(p))
 
-  def p_spaceseparatedvaluelist(self, p):
-    '''spaceseparatedvaluelist : value value
-                | value spaceseparatedvaluelist'''
-    if (self.debug): 
-      print("spaceseparatedvaluelist " + str(p))
-
   def p_commaseparatedtypelist(self, p):
     '''commaseparatedtypelist : type COMMA type
                 | type COMMA commaseparatedtypelist'''
     if (self.debug): 
       print("commaseparatedtypelist " + str(p))
 
-  def p_spaceseparatedtypelist(self, p):
-    '''spaceseparatedtypelist : type type
-                | type spaceseparatedtypelist'''
-    if (self.debug): 
-      print("spaceseparatedtypelist " + str(p))
-
   def p_delimseparatedlist(self, p):
     '''delimseparatedlist : commaseparatedtypelist
-                | commaseparatedvaluelist
-                | spaceseparatedvaluelist
-                | spaceseparatedtypelist'''
+                | commaseparatedvaluelist'''
     if (self.debug): 
       print("delimseparatedlist " + str(p))
 

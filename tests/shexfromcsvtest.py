@@ -214,7 +214,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 
 
    def test_shex_from_csv_tvseriesextra(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesextra.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesextra.csv", delim=";")
     desired = '''start = @<tvseries>
 <tvseries>  EXTRA wdt:P31  {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
@@ -234,7 +234,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_tvseriesplusplus(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesplusplus.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesplusplus.csv", delim=";")
     desired = '''start = @<tvseries>
 <tvseries>  EXTRA wdt:P31  {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
@@ -254,7 +254,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_tvseriesclosed(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesclosed.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesclosed.csv", delim=";")
     desired = '''start = @<tvseries>
 <tvseries>  EXTRA wdt:P31  {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
@@ -273,7 +273,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
    def test_shex_from_csv_tvseriesclosedsymbols(self):
-    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesclosedsymbols.csv")
+    shexstatement = CSV.generate_shex_from_csv("examples/tvseriesclosedsymbols.csv", delim=";")
     desired = '''start = @<tvseries>
 <tvseries>  EXTRA wdt:P31  {
   wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
