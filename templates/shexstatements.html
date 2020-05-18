@@ -4,7 +4,7 @@
 <div class="section">
   <h2>Shape Expressions (ShEx) Generator</h2>
   <p>Write ShExStatements on the first text area. Choose a delimiter. And press 'Go'.</p>
-  <form method="POST" action="{{ url_for('generateshex') }}">
+  <form method="POST" enctype="multipart/form-data" action="{{ url_for('generateshex') }}">
      <div>
       <textarea rows="20" cols="60" id="shexstatements" name="shexstatements" placeholder="foaf,<http://xmlns.com/foaf/0.1/>,,,
 rdf,<http://www.w3.org/1999/02/22-rdf-syntax-ns#>,,,
@@ -26,11 +26,35 @@ rdf,<http://www.w3.org/1999/02/22-rdf-syntax-ns#>,,,
         <option value="|">| vertical bar</option>
       </select> 
      <input type="submit" value="Go">
-     <input type="button" value="Clear" onclick="function clear(){document.getElementById('shexstatements').value='';document.getElementById('shex').value='';}; clear()">
+     <input type="button" id="clearbutton" value="Clear">
+    <div>
+     <label for="csvfileupload"> or Select a CSV file </label>
+     <input type="file" name="csvfileupload" value="fileupload" id="csvfileupload">
+    </div>
   </form>
   <h2>Examples</h2>
   <p>There are example ShExStatements (CSV files) in the <a href="https://github.com/johnsamuelwrites/ShExStatements/tree/master/examples">examples</a> folder.</p>
   <h2>Format of ShExStatements</h2>
   <img src="{{ url_for('static',filename='images/shexstatements.svg') }}">
 </div>
+{% endblock %}
+{% block script %}
+     function clear() {
+       console.log("i am herze:");
+       document.getElementById('shexstatements').value='';
+       document.getElementById('shex').value='';
+     }
+     function handleCSVFileUpload(event){
+       const reader = new FileReader()
+       reader.onload = updateShexStatementsInputText
+       reader.readAsText(event.target.files[0])
+     }
+     function updateShexStatementsInputText(event){
+       document.getElementById('shexstatements').value = event.target.result;
+     }
+     function init() {
+       document.getElementById('csvfileupload').addEventListener('change', handleCSVFileUpload, false);
+       document.getElementById('clearbutton').addEventListener('click', clear, false);
+     }
+     init();
 {% endblock %}
