@@ -1,8 +1,6 @@
 # v0.6 (in progress)
 ===============================================================================
-* API for shexstatements
-  * JSON input array with two parameters
-  * ShEx as json output array
+* 
 
 # v0.5 
 ===============================================================================
