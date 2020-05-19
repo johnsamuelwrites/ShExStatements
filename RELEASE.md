@@ -1,9 +1,16 @@
-# v0.5 (in progress)
+# v0.6 (in progress)
 ===============================================================================
 * API for shexstatements
   * JSON input array with two parameters
   * ShEx as json output array
-* Support CSV file upload
+
+# v0.5 
+===============================================================================
+* API for shexstatements
+  * JSON input array with two parameters
+  * ShEx as json output array
+* Support CSV file upload (web interface)
+* Add API documentation
 
 # v0.4 
 ===============================================================================
