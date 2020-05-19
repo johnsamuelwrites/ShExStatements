@@ -1,0 +1,13 @@
+[
+"|",
+"wd|<http://www.wikidata.org/entity/>|||\n
+wdt|<http://www.wikidata.org/prop/direct/>|||\n
+xsd|<http://www.w3.org/2001/XMLSchema#>|||\n
+\n
+@tvseries|wdt:P31|wd:Q5398426|# instance of a tvseries\n
+@tvseries|wdt:P136|@genre|*|# genre\n
+@tvseries|wdt:P495|.|+|#country of origin\n
+@tvseries|wdt:P57|.|+|#director\n
+@tvseries|wdt:P58|.|+|#screenwriter\n
+@genre|wdt:P31|wd:Q201658,wd:Q15961987|#instance of genre\n"
+] 
