@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="section">
+        <h2>ShExStatements API</h2>
+        
+        <h3>Operations</h3>
+        <p>ShExStatements has also a public API that can be easily accessible both on a local installation as well as on the public interface. It has one operation that takes as input a JSON array with two elements as given below:</p>
+        <ul>
+          <li>delimiter</li>
+          <li>CSV (every line should be terminated by \n)</li>
+        </ul>
+        <p>It returns a JSON array with one element containing the ShEx (shape expression).</p>
+        <h3>Example JSON input</h3>
+        <p>Take for example the file <code>tvseries.json</code> (also present in <code>examples/api/tvseries.json</code>). It is an array with two elements.</p>
+<pre>
+<code>
+[
+"|",
+"wd|&lt;http://www.wikidata.org/entity/&gt;|||\n
+wdt|&lt;http://www.wikidata.org/prop/direct/&gt;|||\n
+xsd|&lt;http://www.w3.org/2001/XMLSchema#&gt;|||\n
+\n
+@tvseries|wdt:P31|wd:Q5398426|# instance of a tvseries\n
+@tvseries|wdt:P136|@genre|*|# genre\n
+@tvseries|wdt:P495|.|+|#country of origin\n
+@tvseries|wdt:P57|.|+|#director\n
+@tvseries|wdt:P58|.|+|#screenwriter\n
+@genre|wdt:P31|wd:Q201658,wd:Q15961987|#instance of genre\n"
+]
+</code>
+</pre>
+        <h2>Calling ShExStatements API</h2>
+        <p>Following is the way to call the ShExStatements API</p>
+<pre>
+<code>
+$ curl -s http://127.0.0.1:5000/ -X POST -H "Accept: application/json"  --data  @examples/api/tvseries.json |sed 's/\\n/\n/g'
+</code>
+</pre>
+<p>or</p>
+<pre>
+<code>
+$ curl -s https://shexstatements.toolforge.org/ -X POST -H "Accept: application/json"  --data  @examples/api/tvseries.json |sed 's/\\n/\n/g'
+</code>
+</pre>
+
+        <h3>Example JSON output response</h3>
+        <p>It gives the following output. For the output, the above command makes use of <code>sed</code>.</p>
+<pre>
+<code>
+"PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+start = @&lt;tvseries&gt;
+&lt;tvseries&gt; {
+  wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
+  wdt:P136 @&lt;genre&gt;* ;# genre
+  wdt:P495 . ;#country of origin
+  wdt:P57 . ;#director
+  wdt:P58 . ;#screenwriter
+}
+&lt;genre&gt; {
+  wdt:P31 [ wd:Q201658 wd:Q15961987  ] ;#instance of genre
+}
+"
+</code>
+</pre>
+ 
+{% endblock %}
