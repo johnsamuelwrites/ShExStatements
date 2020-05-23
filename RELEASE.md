@@ -6,6 +6,7 @@
 ===============================================================================
 * Move cli argument parsing to `shexstatements` folder 
 * Move web application program to `shexstatements` folder
+* Prepare configuration for a `pip` package
 
 # v0.5 
 ===============================================================================
