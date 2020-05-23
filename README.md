@@ -129,7 +129,7 @@ $ pip3 install .
 
 Now run the application.
 ```
-$ python3 app.py
+$ ./shexstatements.sh -r 
 ```
 
 Check the URL `http://127.0.0.1:5000/`
