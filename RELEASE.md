@@ -5,6 +5,7 @@
 # v0.6
 ===============================================================================
 * Move cli argument parsing to `shexstatements` folder 
+* Move web application program to `shexstatements` folder
 
 # v0.5 
 ===============================================================================
