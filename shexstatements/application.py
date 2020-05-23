@@ -3,8 +3,8 @@ from shexstatements.shexfromcsv import CSV
 import json
 
 app = Flask(__name__, static_url_path='',
-              static_folder='../static',
-              template_folder='../templates')
+              static_folder='./static',
+              template_folder='./templates')
 
 @app.route('/', methods=['GET','POST'])
 def generateshex():

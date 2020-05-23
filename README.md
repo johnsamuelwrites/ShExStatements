@@ -2,6 +2,22 @@
 ShExStatements allows the users to generate shape expressions from simple CSV statements or files. `shexstatements` can be used from the command line as well as from the web interface.
 
 ## Quick start
+
+### Using pip
+Set up a virtual environment and install `shexstatements`.
+
+```
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install shexstatements
+```
+
+Run the following command with an [example CSV file](https://github.com/johnsamuelwrites/ShExStatements/tree/master/examples/language.csv). The file contains an example description of a language on Wikidata. This file uses comma as a delimiter to separate the values.
+```
+$ shexstatements.sh examples/language.csv
+```
+ 
+## Build from source 
 ### Terminal
 Clone the **ShExStatements** repository.
 ```
@@ -94,7 +110,7 @@ $ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 
 
 ## Documentation and examples
-A detailed documentation can be found [here](./docs/docs.md). with a number of example CSV files in the [examples](examples/) folder.
+A detailed documentation can be found [here](https://github.com/johnsamuelwrites/ShExStatements/tree/master/docs/docs.md). with a number of example CSV files in the [examples](https://github.com/johnsamuelwrites/ShExStatements/tree/master/examples) folder.
 
 ## Test cases and coverage
 All the test cases can be run in  the following manner
@@ -135,7 +151,7 @@ $ ./shexstatements.sh -r
 Check the URL `http://127.0.0.1:5000/`
 
 ## API
-ShExStatements also has an API to generate ShEx from CSV and is described here [here](./docs/api.md).
+ShExStatements also has an API to generate ShEx from CSV and is described [here](https://github.com/johnsamuelwrites/ShExStatements/tree/master/docs/api.md).
 
 ## Demonstration
 Online demonstrations are also available:

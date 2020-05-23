@@ -1,0 +1,7 @@
+include README.md
+include RELEASE.md
+include examples/*
+include docs/*
+include shexstatements/static/css/*
+include shexstatements/static/images/*
+include shexstatements/templates/* 

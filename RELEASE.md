@@ -1,6 +1,13 @@
-# v0.7 (in progress)
+# v0.8 (in progress)
 ===============================================================================
-* 
+*
+
+# v0.7
+===============================================================================
+* Support more than one input CSV files on the command line
+* Support option to run web application from the command line (`--run`)
+* Update documentation
+* Prepare `pip` first release
 
 # v0.6
 ===============================================================================

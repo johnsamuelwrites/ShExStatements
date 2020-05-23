@@ -23,6 +23,7 @@ setuptools.setup(
     url="https://github.com/johnsamuelwrites/ShExStatements",
     packages=setuptools.find_packages(),
     scripts=["shexstatements.sh"],
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
