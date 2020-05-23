@@ -8,7 +8,7 @@ import argparse
 from shexstatements.shexfromcsv import CSV
 from shexstatements.shexjfromcsv import ShExJCSV
 from shexstatements.shexfromapplprofilecsv import ApplicationProfile
-
+import shexstatements.application
 
 def handle_cli_arguments(arguments):
   parser = argparse.ArgumentParser(prog='shexstatements')
@@ -17,27 +17,31 @@ def handle_cli_arguments(arguments):
   parser.add_argument('-d','--delimiter', type=str, help='output file')
   parser.add_argument('-s', '--skipheader', action='store_true', help='Skip CSV header')
   parser.add_argument('-j', '--shexj', action='store_true', help='Generate ShExJ')
+  parser.add_argument('-r','--run', action='store_true', help='run web application')
   parser.add_argument('csvfile', type=str, help='path of CSV file')
   skipheader = False
   delimiter=","
   
   args = parser.parse_args(args=arguments[1:])
-  if args.skipheader:
-    skipheader = args.skipheader
-  if args.delimiter:
-    delimiter = args.delimiter
-  
-  if args.applicationprofile:
-    shexstatement = ApplicationProfile.generate_shex_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
-    if args.shexj:
-      shexstatement = ShExJCSV.generate_shexj_from_shexstament(shexstatement)
+  if args.run:
+    shexstatements.application.run() 
   else:
-    shexstatement = CSV.generate_shex_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
-    if args.shexj:
-      shexstatement = ShExJCSV.generate_shexj_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
-  
-  if args.output:
-    with open(args.output, 'w') as shexfile:
-      shexfile.write(shexstatement)
-  else:
-    print(shexstatement)
+    if args.skipheader:
+      skipheader = args.skipheader
+    if args.delimiter:
+      delimiter = args.delimiter
+    
+    if args.applicationprofile:
+      shexstatement = ApplicationProfile.generate_shex_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
+      if args.shexj:
+        shexstatement = ShExJCSV.generate_shexj_from_shexstament(shexstatement)
+    else:
+      shexstatement = CSV.generate_shex_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
+      if args.shexj:
+        shexstatement = ShExJCSV.generate_shexj_from_csv(args.csvfile, delim=delimiter, skip_header=skipheader)
+    
+    if args.output:
+      with open(args.output, 'w') as shexfile:
+        shexfile.write(shexstatement)
+    else:
+      print(shexstatement)
