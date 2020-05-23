@@ -1,5 +1,5 @@
 # ShExStatements
-ShExStatements allows the users to generate shape expressions from simple CSV statements and files. `shexstatements` can be used from the command line as well as from the web interface.
+ShExStatements allows the users to generate shape expressions from simple CSV statements or files. `shexstatements` can be used from the command line as well as from the web interface.
 
 ## Quick start
 ### Terminal
@@ -133,6 +133,9 @@ $ ./shexstatements.sh -r
 ```
 
 Check the URL `http://127.0.0.1:5000/`
+
+## API
+ShExStatements also has an API to generate ShEx from CSV and is described here [here](./docs/api.md).
 
 ## Demonstration
 Online demonstrations are also available:

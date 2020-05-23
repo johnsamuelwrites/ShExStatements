@@ -46,5 +46,5 @@ def docs():
   return render_template('docs.html')
 
 def run():
-  app.run(debug=False)
+  app.run(debug=True)
 

@@ -4,7 +4,7 @@
 <div class="section">
 <h2>ShExStatements: Documentation</h2>
 
-<p>ShExStatements allows the users to generate shape expressions from simple CSV statements and files. <code>shexstatements</code> can be also be used from the command line.</p>
+<p>ShExStatements allows users to generate shape expressions from simple CSV statements or files. <code>shexstatements</code> can be used from the command line or can be accessed from a browser.</p>
 
 <h2>Objectives</h2>
 
@@ -132,6 +132,39 @@ $ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
 $ ./shexstatements.sh --skipheader examples/languageheader.csv
 </code>
 </pre>
+
+<h3>Web interface</h3>
+<p><code>shexstatements</code> can also be accessed from a web interface. Clone the <b>ShExStatements</b> repository.</p>
+<pre>
+<code>
+$ git clone https://github.com/johnsamuelwrites/ShExStatements.git
+</code>
+</pre>
+
+<p>Go to <b>ShExStatements</b> directory.</p>
+<pre>
+<code>
+$ cd ShExStatements
+</code>
+</pre>
+
+<p>Install modules required by <strong>ShExStatements</strong> (here: installing into a virtual environment).</p>
+<pre>
+<code>
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install .
+</code>
+</pre>
+
+<p>Now run the application.</p>
+<pre>
+<code>
+$ ./shexstatements.sh -r  
+</code>
+</pre>
+<p>Check the URL <code>http://127.0.0.1:5000/</code>.</p>
+
 
 <h2>ShExJ</h2>
 <p>Use <code>-j</code> or <code>--shexj</code> to generate ShEx JSON Syntax (ShExJ) instead of default ShEx Compact syntax (ShExC).</p>

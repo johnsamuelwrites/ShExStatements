@@ -162,4 +162,4 @@ and Shape expressions can be generated using the following form
 $ ./shexstatements.sh -ap --skipheader examples/languageap.csv 
 ```
 
-There are example CSV files in the [examples](examples/) folder.
+There are example CSV files in the [examples](../examples/) folder.

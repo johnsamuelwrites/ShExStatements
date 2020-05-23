@@ -4,17 +4,18 @@
 <div class="section">
 <h2>ShExStatements: Quick start</h2>
 
-<p>ShExStatements allows users to generate shape expressions from simple CSV statements and files. <code>shexstatements</code> can also be used from the command line.</p>
+<p>ShExStatements allows users to generate shape expressions from simple CSV statements or files. <code>shexstatements</code> can be used from the command line or can be accessed from a browser.</p>
 
 <h2>Online demonstration</h2>
-<p>Online demonstrations are also available:</p>
+<p>Online demonstrations of <code>shexstatements</code> are available:</p>
  <ul>
    <li><a href="https://shexstatements.toolforge.org/">https://shexstatements.toolforge.org/</a></li>
    <li><a href="https://tools.wmflabs.org/shexstatements/">https://tools.wmflabs.org/shexstatements/</a></li>
 </ul>
 
 <h2>Manual setup</h2>
-<h3>Terminal</h3>
+<p>In order to test <code>shexstatements</code> locally from the command line or from the web browser, follow the instructions given below:</p>
+<h3>1. Terminal</h3>
 <p>Clone the <strong>ShExStatements</strong> repository.
 <pre>
 <code>
@@ -27,6 +28,15 @@ $ git clone https://github.com/johnsamuelwrites/ShExStatements.git
 <pre>
 <code>
 $ cd ShExStatements
+</code>
+</pre>
+
+<p>Install modules required by <strong>ShExStatements</strong> (here: installing into a virtual environment).</p>
+<pre>
+<code>
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ pip3 install .
 </code>
 </pre>
 
@@ -100,7 +110,7 @@ start = @&lt;language&gt;
 </pre>
 </p>
 
-<p>CSV file can use delimiters like semicolon (;). Take for example, the following command works with a file using semi-colon as a delimiter. </p>
+<p>CSV file can also contain delimiters like semicolon (;). Take for example, the following command works with a file using semi-colon as a delimiter. In this case, we precise the delimiter, using the <code>--delim</code> option.</p>
 
 <p>
 <pre>
@@ -120,7 +130,7 @@ $ ./shexstatements.sh --skipheader examples/languageheader.csv
 </pre>
 </p>
 
-<h3>Web interface</h3>
+<h3>2. Web interface</h3>
 <p><code>shexstatements</code> can also be accessed from a web interface. Clone the <b>ShExStatements</b> repository.</p>
 <pre>
 <code>
@@ -135,7 +145,7 @@ $ cd ShExStatements
 </code>
 </pre>
 
-<p>Install modules required by **ShExStatements** (here: installing into a virtual environment).</p>
+<p>Install modules required by <strong>ShExStatements</strong> (here: installing into a virtual environment).</p>
 <pre>
 <code>
 $ python3 -m venv .venv
