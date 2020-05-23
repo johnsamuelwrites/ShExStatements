@@ -1,3 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-python3 main.py $@
+import sys
+from shexstatements.cliargs import handle_cli_arguments
+
+handle_cli_arguments(sys.argv)
+
