@@ -9,6 +9,8 @@ from shexstatements.shexfromcsv import CSV
 from shexstatements.shexjfromcsv import ShExJCSV
 from shexstatements.shexfromapplprofilecsv import ApplicationProfile
 import shexstatements.application
+import setuptools,runpy
+
 
 def handle_cli_arguments(arguments):
   parser = argparse.ArgumentParser(prog='shexstatements')
@@ -18,11 +20,17 @@ def handle_cli_arguments(arguments):
   parser.add_argument('-s', '--skipheader', action='store_true', help='Skip CSV header')
   parser.add_argument('-j', '--shexj', action='store_true', help='Generate ShExJ')
   parser.add_argument('-r','--run', action='store_true', help='run web application')
+  parser.add_argument('-v','--version', action='store_true', help='get version of shexstatements')
   parser.add_argument('csvfile', nargs="*", type=str, help='path of CSV file')
   skipheader = False
   delimiter=","
   
   args = parser.parse_args(args=arguments[1:])
+  if args.version:
+    version_meta = runpy.run_path("./shexstatements/version.py")
+    version = version_meta["__version__"]
+    print("shexstatements " + version)
+    return
   if args.run:
     shexstatements.application.run() 
   else:
