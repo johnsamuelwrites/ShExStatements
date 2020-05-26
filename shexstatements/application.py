@@ -1,3 +1,8 @@
+#
+# SPDX-FileCopyrightText: 2020 John Samuel <johnsamuelwrites@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 from flask import Flask, render_template, url_for, request, redirect
 from shexstatements.shexfromcsv import CSV
 import json
