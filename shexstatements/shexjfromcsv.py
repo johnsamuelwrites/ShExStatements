@@ -12,8 +12,25 @@ from shexstatements.shexfromcsv import CSV
 from pyshexc.parser_impl.generate_shexj import parse
 
 class ShExJCSV:
+  """
+    This class contains functions that can be used to generate ShExJ from a ShEx.
+  """
   @staticmethod
   def generate_shexj_from_shexstament(shexstatement):
+    """
+    This method can be used to generate ShEx from data string. However, the input data string must contain one or more lines. Each line contains '|' separated values.
+
+    Parameters
+    ----------
+      shexstatement : str
+        shex
+
+    Returns
+    -------
+      shexj
+        shape expression in JSON (ShExJ)
+
+    """
     shexj = ""
     try:
       shexjson=parse(shexstatement)._as_json
@@ -25,6 +42,24 @@ class ShExJCSV:
 
   @staticmethod
   def generate_shexj_from_csv(filepath, delim=",", skip_header=False):
+    """
+    This method can be used to generate ShExJ from ShExStatements CSV file
+
+    Parameters
+    ----------
+      filepath : str
+        This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
+      delim : str
+        a delimiter. Allowed values include ',', '|' and ';' 
+      skip_header : bool
+        if the first line is a header, set this value to True. By default, the value is False.
+
+    Returns
+    -------
+      shexj
+        shape expression in JSON format (ShExJ)
+
+    """
     shexj = ""
 
     try:

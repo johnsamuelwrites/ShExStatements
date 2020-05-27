@@ -27,7 +27,28 @@ Annotation    :	Annotation
 """
 
 class ApplicationProfile:
+  """
+    This class contains functions that can be used to generate ShEx from a data string or CSV application profile file.
+  """
   def generate_shex_from_csv(filepath, delim=",", skip_header=False):
+    """
+    This method can be used to generate ShEx from application profile CSV file. However, the input file must contain one or more lines. Each line contains '|' separated values. If filepath is a string, filename  should be set to false.
+
+    Parameters
+    ----------
+      filepath : str
+        This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
+      delim : str
+        a delimiter. Allowed values include ',', '|' and ';' 
+      skip_header : bool
+        if the first line is a header, set this value to True. By default, the value is False.
+
+    Returns
+    -------
+      shex
+        shape expression
+
+    """
     shexstatement = ""
     try:
       data = ""

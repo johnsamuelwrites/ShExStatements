@@ -10,8 +10,25 @@ from shexstatements.shexstatementsparser import ShExStatementLexerParser
 from io import StringIO
 
 class CSV:
+  """
+    This class contains functions that can be used to generate ShEx from a data string or a CSV file.
+  """
   @staticmethod
   def generate_shex_from_data_string(data):
+    """
+    This method can be used to generate ShEx from data string. However, the input data string must contain one or more lines. Each line contains '|' separated values.
+
+    Parameters
+    ----------
+      data : str
+        shexstatements in CSV format, using "|" as a delimiter.
+
+    Returns
+    -------
+      shex
+        shape expression
+
+    """
     shexstatement = ""
     try:
       lexerparser = ShExStatementLexerParser()
@@ -24,9 +41,28 @@ class CSV:
       print("Unable to parse. Error: " + str(e))
     return shexstatement
    
-  #If filepath is a string, filename  should be set to false 
   @staticmethod
   def generate_shex_from_csv(filepath, delim=",", skip_header=False, filename=True):
+    """
+    This method can be used to generate ShEx from data string. However, the input data string must contain one or more lines. Each line contains '|' separated values. If filepath is a string, filename  should be set to false.
+
+    Parameters
+    ----------
+      filepath : str
+        This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
+      delim : str
+        a delimiter. Allowed values include ',', '|' and ';' 
+      skip_header : bool
+        if the first line is a header, set this value to True. By default, the value is False.
+      filename : bool
+        if 'filepath' is a string of on
+
+    Returns
+    -------
+      shex
+        shape expression
+
+    """
     shexstatement = ""
     try:
       pattern = '^\s*$'
