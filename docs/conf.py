@@ -44,6 +44,10 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+
+# Reference URL: https://github.com/readthedocs/readthedocs.org/issues/2569
+master_doc = 'index'
+
 html_theme = 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
