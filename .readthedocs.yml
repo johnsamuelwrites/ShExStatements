@@ -5,6 +5,9 @@
 # Required
 version: 2
 
+# Reference URL: https://github.com/readthedocs/readthedocs.org/issues/2569
+master_doc = 'index'
+
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
   configuration: docs/conf.py
