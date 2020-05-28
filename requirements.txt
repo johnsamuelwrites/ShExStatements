@@ -2,3 +2,5 @@ ply
 pyshex
 Flask
 sphinx
+sphinx_rtd_theme
+

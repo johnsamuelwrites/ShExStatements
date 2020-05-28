@@ -33,6 +33,7 @@ setuptools.setup(
         'ply>=3.11',
         'Flask>=1.1.2',
         'PyShEx>=0.7.14',
+        'sphinx-rtd-theme>=0.4.3',
     ],
     python_requires='>=3.6',
 )

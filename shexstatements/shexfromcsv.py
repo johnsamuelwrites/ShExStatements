@@ -55,7 +55,7 @@ class CSV:
       skip_header : bool
         if the first line is a header, set this value to True. By default, the value is False.
       filename : bool
-        if 'filepath' is a string of on
+        if 'filepath' is a string, then this filename must be set to False
 
     Returns
     -------
