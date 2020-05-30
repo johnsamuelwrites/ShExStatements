@@ -1,0 +1,13 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+xsd,<http://www.w3.org/2001/XMLSchema#>,,,
+
+@publicsculpture,wdt:P31,wd:Q860861,,# instance of a public sculpture
+@publicsculpture,wdt:P18,.,+,# image 
+@publicsculpture,wdt:P571,.,?,# inception (point in time) 
+@publicsculpture,wdt:P131,.,?,# located in the administrative territorial entity 
+@publicsculpture,wdt:P625,.,?,# coordinate location 
+@publicsculpture,wdt:P170,.,*,# creators
+@publicsculpture,wdt:P136,.,*,# genre
+@publicsculpture,wdt:P186,.,*,# material used
+@publicsculpture,wdt:P180,.,*,# depicts 
