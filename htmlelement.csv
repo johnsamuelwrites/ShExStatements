@@ -1,0 +1,10 @@
+wd,<http://www.wikidata.org/entity/>,,,
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+
+@htmlelement,wdt:P31,wd:Q179551,,# instance of an HTML element 
+@htmlelement,wdt:P973,.,+,# described at URL
+@htmlelement,wdt:P8205,.,1,# Mozilla Developer Network article 
+@htmlelement,wdt:P1813,.,1,# short name
+@htmlelement,wdt:P2670,.,*,# has parts of the class
+@htmlelement,wdt:P527,.,*,# has part
+@htmlelement,wdt:P3113,.,*,# does not have part
