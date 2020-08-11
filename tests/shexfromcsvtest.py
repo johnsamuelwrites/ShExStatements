@@ -95,8 +95,8 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     desired = '''start = @<person>
 <person> {
   rdf:type foaf:Person  ;#should be a person
-  foaf:name LIteral ;#name
-  foaf:mbox IRi* ;#mail
+  foaf:name Literal ;#name
+  foaf:mbox IRI* ;#mail
   foaf:homepage IRI* ;#URL
   foaf:nick Literal* ;#Nickname
   foaf:depiction IRI* ;#photograph
