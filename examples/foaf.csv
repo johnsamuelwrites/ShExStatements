@@ -2,8 +2,8 @@ foaf,<http://xmlns.com/foaf/0.1/>,,,
 rdf,<http://www.w3.org/1999/02/22-rdf-syntax-ns#>,,,
 
 @person,rdf:type,@@foaf:Person,,#should be a person
-@person,foaf:name,LIteral,#name
-@person,foaf:mbox,IRi,*,#mail
+@person,foaf:name,Literal,#name
+@person,foaf:mbox,IRI,*,#mail
 @person,foaf:homepage,IRI,*,#URL
 @person,foaf:nick,Literal,*,#Nickname
 @person,foaf:depiction,IRI,*,#photograph
