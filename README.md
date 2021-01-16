@@ -156,7 +156,7 @@ ShExStatements also has an API to generate ShEx from CSV and is described [here]
 ## Demonstration
 Online demonstrations are also available:
 
-* [https://shexstatements.toolforge.org/](shexstatements.toolforge.org/)
+* [https://shexstatements.toolforge.org/](https://shexstatements.toolforge.org/)
 * [https://tools.wmflabs.org/shexstatements/](https://tools.wmflabs.org/shexstatements/)
 
 ## Author
@@ -172,4 +172,4 @@ Online demonstrations are also available:
 * [Release Notes](RELEASE.md)
 
 ## Licence
-All code are released under GPLv3+ licence. The associated documentation and other content are released under [CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/).
+All code are released under GPLv3+ licence. The associated documentation and other content are released under [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/).
