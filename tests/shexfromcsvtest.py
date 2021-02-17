@@ -6,6 +6,7 @@
 
 import unittest
 from shexstatements.shexfromcsv import CSV
+from shexstatements.shexfromspreadsheet import Spreadsheet
 
 class ShExFromCSVTestSuite(unittest.TestCase):
    def test_shex_from_csv(self):
@@ -331,6 +332,65 @@ class ShExFromCSVTestSuite(unittest.TestCase):
     self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
     self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 
+   def test_shex_from_xlsx_languages(self):
+    shexstatement = Spreadsheet.generate_shex_from_spreadsheet("examples/language.xlsx")
+    desired = '''start = @<language>
+<language> {
+  wdt:P31 [ wd:Q34770  ] ;# instance of a language
+  wdt:P1705 LITERAL ;# native name
+  wdt:P17 .+ ;# spoken in country
+  wdt:P2989 .+ ;# grammatical cases
+  wdt:P282 .+ ;# writing system
+  wdt:P1098 .+ ;# speakers
+  wdt:P1999 .* ;# UNESCO language status
+  wdt:P2341 .+ ;# indigenous to
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+
+   def test_shex_from_ods_languages(self):
+    shexstatement = Spreadsheet.generate_shex_from_spreadsheet("examples/language.ods")
+    desired = '''start = @<language>
+<language> {
+  wdt:P31 [ wd:Q34770  ] ;# instance of a language
+  wdt:P1705 LITERAL ;# native name
+  wdt:P17 .+ ;# spoken in country
+  wdt:P2989 .+ ;# grammatical cases
+  wdt:P282 .+ ;# writing system
+  wdt:P1098 .+ ;# speakers
+  wdt:P1999 .* ;# UNESCO language status
+  wdt:P2341 .+ ;# indigenous to
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+
+   def test_shex_from_xls_languages(self):
+    shexstatement = Spreadsheet.generate_shex_from_spreadsheet("examples/language.xls")
+    desired = '''start = @<language>
+<language> {
+  wdt:P31 [ wd:Q34770  ] ;# instance of a language
+  wdt:P1705 LITERAL ;# native name
+  wdt:P17 .+ ;# spoken in country
+  wdt:P2989 .+ ;# grammatical cases
+  wdt:P282 .+ ;# writing system
+  wdt:P1098 .+ ;# speakers
+  wdt:P1999 .* ;# UNESCO language status
+  wdt:P2341 .+ ;# indigenous to
+}
+'''
+    self.maxDiff = None
+    self.assertEqual(desired in shexstatement, True)
+    self.assertEqual("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
+    self.assertEqual("PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
+    self.assertEqual("PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
 if __name__ == '__main__':
   unittest.main()
 
