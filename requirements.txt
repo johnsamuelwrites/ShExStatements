@@ -3,4 +3,6 @@ pyshex
 Flask
 sphinx
 sphinx_rtd_theme
-
+openpyxl
+xlrd
+odfpy
