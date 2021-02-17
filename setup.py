@@ -34,6 +34,9 @@ setuptools.setup(
         'Flask>=1.1.2',
         'PyShEx>=0.7.14',
         'sphinx-rtd-theme>=0.4.3',
+        'openpyxl>=1.0.1',
+        'xlrd>=2.0.1',
+        'odfpy>=0.6.0,
     ],
     python_requires='>=3.6',
 )
