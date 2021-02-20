@@ -1,5 +1,5 @@
 # ShExStatements
-ShExStatements allows the users to generate shape expressions from simple CSV statements, CSV and Spreadsheet files. `shexstatements` can be used from the command line as well as from the web interface.
+ShExStatements allows the users to generate shape expressions from simple CSV statements, CSV files and Spreadsheet. `shexstatements` can be used from the command line as well as from the web interface.
 
 ## Quick start
 
@@ -50,7 +50,7 @@ $ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
 But sometimes, users may like to specify the header. In that case, they can make use of `-s` or `--skipheader` to tell the generator to skip the header (firsrt line of CSV).
 
 ```
-$ ./shexstatements.sh --skipheader examples/languageheader.csv 
+$ ./shexstatements.sh --skipheader examples/header/languageheader.csv 
 ```
 
 It is also possible to work with Spreadsheet files like .ods, .xls or .xlsx.
@@ -118,7 +118,7 @@ $ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 
 
 ## Objectives
-* Easily generate shape expressions (ShEx) from CSV files 
+* Easily generate shape expressions (ShEx) from CSV files and Spreadsheets
 * Simple syntax
 
 
