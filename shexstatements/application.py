@@ -5,6 +5,8 @@
 #
 from flask import Flask, render_template, url_for, request, redirect
 from shexstatements.shexfromcsv import CSV
+from shexstatements.shexfromspreadsheet import Spreadsheet
+from os.path import splitext
 import json
 
 app = Flask(__name__, static_url_path='',
@@ -18,7 +20,15 @@ def generateshex():
     if request.method == "POST" and "shexstatements" in request.form:
       shexstatements = request.form['shexstatements']
       delim = request.form['delim']
-      shex = CSV.generate_shex_from_csv(shexstatements, delim=delim, filename=False)
+      shex=""
+      if 'file' not in request.files:
+          filepath=request.files["csvfileupload"].filename
+          filename, file_extension = splitext(filepath)
+          if ".csv" == file_extension.lower():
+            shex = CSV.generate_shex_from_csv(shexstatements, delim=delim, filename=False)
+          else:
+            shexstatements = request.files["csvfileupload"].stream.read()
+            shex = Spreadsheet.generate_shex_from_spreadsheet(stream=shexstatements, filepath=filepath)
       data["input"] = shexstatements
       data["output"] = shex
       return render_template('shexstatements.html', data=data)

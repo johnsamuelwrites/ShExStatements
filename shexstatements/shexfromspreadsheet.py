@@ -10,6 +10,8 @@ from os.path import splitext
 from odf.opendocument import OpenDocumentSpreadsheet,load
 from odf.table import Table, TableCell, TableRow
 from shexstatements.shexfromcsv import CSV
+from os import remove
+
 
 class Spreadsheet:
   """
@@ -18,7 +20,7 @@ class Spreadsheet:
   """
    
   @staticmethod
-  def generate_shex_from_spreadsheet(filepath, skip_header=False):
+  def generate_shex_from_spreadsheet(filepath, skip_header=False, stream=None):
     """
     This method can be used to generate ShEx from data string. However, the input data string must contain one or more lines. Each line contains '|' separated values. If filepath is a string, filename  should be set to false.
 
@@ -42,6 +44,13 @@ class Spreadsheet:
       filename, file_extension = splitext(filepath)
 
       if(file_extension in {".xlsx",".xlsm",".xltx",".xltm"}):
+         wb = None
+         if stream is not None:
+           with open("tmp" + filepath, "wb") as sf:
+               sf.write(stream)
+           sf.close()
+           filepath = "tmp" + filepath
+
          wb = load_workbook(filepath)
          for ws in wb.worksheets:
            for i in range(1,ws.max_row+1):
@@ -53,8 +62,16 @@ class Spreadsheet:
              line = "|".join(line)
              data = data + line + "\n"
 
+         if stream is not None:
+             remove(filepath)
+
       elif(file_extension in {".xls"}):
-         wb = open_workbook(filepath)
+         wb = None
+         if stream is not None:
+           #wb = open_workbook(file_contents=stream, encoding_override="cp1252")
+           wb = open_workbook(file_contents=stream)
+         else:
+           wb = open_workbook(filepath)
          for sheet in wb.sheets():
            for i in range(0,wb.sheets()[0].nrows):
              line = list()
@@ -65,6 +82,13 @@ class Spreadsheet:
              data = data + "|".join(line) + "\n"
 
       elif(file_extension in {".ods"}):
+         wb = None
+         if stream is not None:
+           with open("tmp" + filepath, "wb") as sf:
+               sf.write(stream)
+           sf.close()
+           filepath = "tmp" + filepath
+
          wb = load(filepath)
          wb = wb.spreadsheet
          rows = wb.getElementsByType(TableRow)
@@ -75,6 +99,9 @@ class Spreadsheet:
              if len(str(cell)) > 0:
                line.append(str(cell))
            data = data+"|".join(line) + "\n"
+
+         if stream is not None:
+             remove(filepath)
 
       shexstatement = CSV.generate_shex_from_data_string(data)
     except Exception as e:
