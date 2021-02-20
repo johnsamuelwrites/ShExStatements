@@ -7,8 +7,10 @@
 import argparse
 from shexstatements.shexfromcsv import CSV
 from shexstatements.shexjfromcsv import ShExJCSV
+from shexstatements.shexfromspreadsheet import Spreadsheet
 from shexstatements.shexfromapplprofilecsv import ApplicationProfile
 import shexstatements.application
+from os.path import splitext
 import setuptools,runpy
 
 
@@ -49,9 +51,14 @@ def handle_cli_arguments(arguments):
         if args.shexj:
           shexstatement = ShExJCSV.generate_shexj_from_shexstament(shexstatement)
       else:
-        shexstatement = CSV.generate_shex_from_csv(csvfile, delim=delimiter, skip_header=skipheader)
-        if args.shexj:
-          shexstatement = ShExJCSV.generate_shexj_from_csv(csvfile, delim=delimiter, skip_header=skipheader)
+          filename, file_extension = splitext(csvfile)
+          if ".csv" == file_extension.lower():
+            if args.shexj:
+              shexstatement = ShExJCSV.generate_shexj_from_csv(csvfile, delim=delimiter, skip_header=skipheader)
+            else:
+              shexstatement = CSV.generate_shex_from_csv(csvfile, delim=delimiter, skip_header=skipheader)
+          else:
+            shexstatement = Spreadsheet.generate_shex_from_spreadsheet(filepath=csvfile)
       
       if args.output:
         with open(args.output, 'w') as shexfile:
