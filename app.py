@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-import shexstatements.application 
+import shexstatements.application
 
-if __name__=="__main__":
-  shexstatements.application.run()
+if __name__ == "__main__":
+    shexstatements.application.run()

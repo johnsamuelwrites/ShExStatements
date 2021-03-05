@@ -7,10 +7,12 @@
 import unittest
 from shexstatements.shexfromapplprofilecsv import ApplicationProfile
 
+
 class ShExFromAPCSVTestSuite(unittest.TestCase):
-   def test_shex_from_ap_csv(self):
-    shexstatement = ApplicationProfile.generate_shex_from_csv("examples/languageap.csv", skip_header=True)
-    desired = '''start = @<language>
+    def test_shex_from_ap_csv(self):
+        shexstatement = ApplicationProfile.generate_shex_from_csv(
+            "examples/languageap.csv", skip_header=True)
+        desired = '''start = @<language>
 <language> {
   wdt:P31 [ wd:Q34770  ]{1} ;#instance of a language
   wdt:P1705 @<LITERALtype>{1} ;#native name of language
@@ -25,9 +27,9 @@ class ShExFromAPCSVTestSuite(unittest.TestCase):
   rdf:type LITERAL ;
 }
 '''
-    self.maxDiff = None
-    self.assertEqual(desired,shexstatement)
+        self.maxDiff = None
+        self.assertEqual(desired, shexstatement)
+
 
 if __name__ == '__main__':
-  unittest.main()
-
+    unittest.main()

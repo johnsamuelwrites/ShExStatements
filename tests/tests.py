@@ -13,11 +13,12 @@ from tests.shexfromapcsvtest import *
 from tests.shexjfromcsvtest import *
 
 if __name__ == '__main__':
-  parsertests = ShExStatementParserTestSuite()
-  shexgentests = ShExGeneratorTestSuite()
-  shexfromcsvtests = ShExFromCSVTestSuite()
-  wdshexfromcsvtests = WDShExFromCSVTestSuite()
-  shexfromapcsvtests = ShExFromAPCSVTestSuite()
-  shexjfromcsvtests = ShExJFromCSVTestSuite()
-  tests = unittest.TestSuite([parsertests, shexgentests, shexfromcsvtests, wdshexfromcsvtests, shexfromapcsvtests, shexjfromcsvtests])
-  unittest.main()
+    parsertests = ShExStatementParserTestSuite()
+    shexgentests = ShExGeneratorTestSuite()
+    shexfromcsvtests = ShExFromCSVTestSuite()
+    wdshexfromcsvtests = WDShExFromCSVTestSuite()
+    shexfromapcsvtests = ShExFromAPCSVTestSuite()
+    shexjfromcsvtests = ShExJFromCSVTestSuite()
+    tests = unittest.TestSuite([parsertests, shexgentests, shexfromcsvtests,
+                                wdshexfromcsvtests, shexfromapcsvtests, shexjfromcsvtests])
+    unittest.main()

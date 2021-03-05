@@ -4,7 +4,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-import setuptools,runpy
+import setuptools
+import runpy
 
 version_meta = runpy.run_path("./shexstatements/version.py")
 VERSION = version_meta["__version__"]
@@ -26,7 +27,8 @@ setuptools.setup(
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: GNU General Public License" +
+        " v3 or later (GPLv3+)",
         "Operating System :: OS Independent",
     ],
     install_requires=[
