@@ -28,11 +28,15 @@ def generateshex():
                 if ".csv" == file_extension.lower():
                     shex = CSV.generate_shex_from_csv(
                         shexstatements, delim=delim, filename=False)
-                else:
+                elif file_extension.lower() in {".ods", ".xls", ".xlsx"}:
                     shexstatements = request.files["csvfileupload"].stream.read(
                     )
                     shex = Spreadsheet.generate_shex_from_spreadsheet(
                         stream=shexstatements, filepath=filepath)
+                else:
+                    shex = CSV.generate_shex_from_csv(
+                        shexstatements, delim=delim, filename=False)
+
             data["input"] = shexstatements
             data["output"] = shex
             return render_template('shexstatements.html', data=data)
