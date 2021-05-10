@@ -1,0 +1,22 @@
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+wd,<http://www.wikidata.org/entity/>,,,
+wikibase,<http://wikiba.se/ontology#>,,,
+dct,<http://purl.org/dc/terms/>,,,
+ontolex,<http://www.w3.org/ns/lemon/ontolex#>,,,
+
+
+@mlverb,dct:language,wd:Q36236,,#Malayalam lexeme
+@mlverb,wikibase:lexicalCategory,wd:Q24905,,#verb lexical category
+@mlverb,ontolex:lexicalForm,@lexicalform1,?,#simple present
+@mlverb,ontolex:lexicalForm,@lexicalform2,?,#simple past
+@mlverb,ontolex:lexicalForm,@lexicalform3,?,#simple future
+@mlverb,ontolex:lexicalForm,@lexicalform4,?,#present infinitive
+@mlverb,ontolex:lexicalForm,@lexicalform5,?,#simple future
+@mlverb,ontolex:lexicalForm,@lexicalform6,?,#empty form
+
+@lexicalform1,wikibase:grammaticalFeature,wd:Q3910936,#simple present
+@lexicalform2,wikibase:grammaticalFeature,wd:Q1392475,#simple past
+@lexicalform3,wikibase:grammaticalFeature,wd:Q1475560,#simple future
+@lexicalform4,wikibase:grammaticalFeature,wd:Q52434245,#present infinitive
+@lexicalform5,wikibase:grammaticalFeature,wd:Q501405,#simple future
+@lexicalform6,wikibase:grammaticalFeature,.,0,#empty form
