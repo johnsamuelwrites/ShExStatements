@@ -1,0 +1,22 @@
+wdt,<http://www.wikidata.org/prop/direct/>,,,
+wd,<http://www.wikidata.org/entity/>,,,
+wikibase,<http://wikiba.se/ontology#>,,,
+dct,<http://purl.org/dc/terms/>,,,
+ontolex,<http://www.w3.org/ns/lemon/ontolex#>,,,
+rdfs,<http://www.w3.org/2000/01/rdf-schema#>,,,
+skos,<http://www.w3.org/2004/02/skos/core#>,,,
+
+@ennoun,dct:language,wd:Q1860,,#English lexeme
+@ennoun,wikibase:lexicalCategory,wd:Q1084,,#noun lexical category
+@ennoun,ontolex:lexicalSense,@lexicalsense,*,#senses
+@ennoun,ontolex:lexicalForm,@lexicalform1,?,#singular
+@ennoun,ontolex:lexicalForm,@lexicalform2,?,#plural
+@ennoun,ontolex:lexicalForm,.,*,#other forms
+
+@lexicalform1,wikibase:grammaticalFeature,wd:Q110786,#singular
+@lexicalform2,wikibase:grammaticalFeature,wd:Q146786,#plural
+
+@lexicalsense,rdfs:label,.,1,#label
+@lexicalsense,skos:definition,.,1,#label
+@lexicalsense,wdt:5137,.,?,#label
+@lexicalsense,wdt:5972,.,?,#label
