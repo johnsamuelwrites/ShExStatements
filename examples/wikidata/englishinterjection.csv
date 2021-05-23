@@ -6,11 +6,11 @@ ontolex,<http://www.w3.org/ns/lemon/ontolex#>,,,
 rdfs,<http://www.w3.org/2000/01/rdf-schema#>,,,
 skos,<http://www.w3.org/2004/02/skos/core#>,,,
 
-@enadverb,dct:language,wd:Q1860,,#English lexeme
-@enadverb,wikibase:lexicalCategory,wd:Q380057,,#adverb lexical category
-@enadverb,ontolex:lexicalSense,@lexicalsense,*,#senses
-@enadverb,ontolex:lexicalForm,@lexicalform1,1,
-@enadverb,ontolex:lexicalForm,.,*,#other forms
+@eninterjection,dct:language,wd:Q1860,,#English lexeme
+@eninterjection,wikibase:lexicalCategory,wd:Q4833830,,#interjection lexical category
+@eninterjection,ontolex:lexicalSense,@lexicalsense,*,#senses
+@eninterjection,ontolex:lexicalForm,@lexicalform1,1,
+@eninterjection,ontolex:lexicalForm,.,*,#other forms
 
 @lexicalform1,wikibase:grammaticalFeature,.,*,#
 
