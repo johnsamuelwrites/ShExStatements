@@ -16,9 +16,7 @@ skos;<http://www.w3.org/2004/02/skos/core#>;;;
 @fradjective;ontolex:lexicalForm;.;*;#other forms
 @lexicalform1;wikibase:grammaticalFeature;wd:Q47088290;;#masculine singular
 @lexicalform2;wikibase:grammaticalFeature;wd:Q47088293;;#feminine singular
-@lexicalform3;wikibase:grammaticalFeature;wd:Q499327;;#masculine plural
 @lexicalform3;wikibase:grammaticalFeature;wd:Q47088292;;#masculine plural
-@lexicalform4;wikibase:grammaticalFeature;wd:Q1775415;;#feminine plural
 @lexicalform4;wikibase:grammaticalFeature;wd:Q47088295;;#feminine plural
 @lexicalform5;wikibase:grammaticalFeature;wd:Q110786;;#singular
 @lexicalform5;wikibase:grammaticalFeature;wd:Q146786;;#plural
