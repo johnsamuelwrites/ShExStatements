@@ -1,6 +1,12 @@
-# v0.8 (in progress)
+# v0.9
 ===============================================================================
-*
+* Correct error related to handling of CSV files 
+
+# v0.8 
+===============================================================================
+* Add support for spreadsheet files (.ods, .xls, .xlsx)
+* Apply pycodestyle (PEP8)
+* Add Github workflow
 
 # v0.7
 ===============================================================================

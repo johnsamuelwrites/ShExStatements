@@ -1,0 +1,14 @@
+wd;<http://www.wikidata.org/entity/>;;;
+wdt;<http://www.wikidata.org/prop/direct/>;;;
+xsd;<http://www.w3.org/2001/XMLSchema#>;;;
+p;<http://www.wikidata.org/prop/>;;;
+ps;<http://www.wikidata.org/prop/statement/>;;;
+
+@wikimediacategory;p:P31;@category;+;#instance of a wikimediacategory
+@wikimediacategory;wdt:P301;.;*;#category's main topic
+@wikimediacategory;wdt:P1753;.;*;#list related to category
+@wikimediacategory;wdt:P971;.;*;#category combines topics
+@wikimediacategory;wdt:P4224;.;*;#category contains
+
+@category;ps:P279;wd:Q4167836;*;#category
+@category;ps:P279;@category;*;#category
