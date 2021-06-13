@@ -163,6 +163,9 @@ Online demonstrations are also available:
 * John Samuel
 * [Contributors](https://github.com/johnsamuelwrites/ShExStatements/graphs/contributors)
 
+## Conference Proceedings
+* ShExStatements: Simplifying Shape Expressions for Wikidata , John Samuel, Wiki Workshop 2021 (held at The Web Conference 2021), 14 April 2021 ([PDF](https://wikiworkshop.org/2021/papers/Wiki_Workshop_2021_paper_14.pdf))
+
 ## Acknowledgements
 * Wikidata Community
 
