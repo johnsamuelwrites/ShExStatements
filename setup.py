@@ -34,7 +34,7 @@ setuptools.setup(
     install_requires=[
         'ply>=3.11',
         'Flask>=1.1.2',
-        'PyShEx>=0.7.14',
+        'PyShEx>=0.7.20',
         'sphinx-rtd-theme>=0.4.3',
         'openpyxl>=1.0.1',
         'xlrd>=2.0.1',

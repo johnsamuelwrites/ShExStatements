@@ -1,9 +1,8 @@
-ply
-pyshex
-Flask
-sphinx
-sphinx_rtd_theme
-openpyxl
-xlrd
-odfpy
-chardet
+chardet>=3.0.4
+flask>=1.1.2
+odfpy>=0.6.0
+openpyxl>=1.0.1
+ply>=3.11
+pyshex>=0.7.20
+sphinx-rtd-theme>=0.4.3
+xlrd>=2.0.1
