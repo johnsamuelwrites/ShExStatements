@@ -41,5 +41,5 @@ setuptools.setup(
         'chardet>=3.0.4',
         'odfpy>=0.6.0',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )
