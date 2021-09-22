@@ -38,6 +38,7 @@ setuptools.setup(
         'sphinx-rtd-theme>=0.4.3',
         'openpyxl>=1.0.1',
         'xlrd>=2.0.1',
+        'chardet>=3.0.4',
         'odfpy>=0.6.0',
     ],
     python_requires='>=3.6',
