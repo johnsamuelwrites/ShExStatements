@@ -161,13 +161,13 @@ start = @<flag>
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX p: <http://www.wikidata.org/prop/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX ps: <http://www.wikidata.org/prop/statement/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX p: <http://www.wikidata.org/prop/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX ps: <http://www.wikidata.org/prop/statement/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX pq: <http://www.wikidata.org/prop/qualifier/>" in shexstatement)
 
 
 if __name__ == '__main__':

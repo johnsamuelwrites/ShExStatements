@@ -26,7 +26,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
   wdt:P2561 LITERAL ;#name
 }
 '''
-        self.assertEqual(desired in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
 
     def test_shex_from_csvstring(self):
         csvstring = '''@painting,P31,Q3305213
@@ -70,7 +70,7 @@ class ShExFromCSVTestSuite(unittest.TestCase):
   wdt:P2561 LITERAL ;#name
 }
 '''
-        self.assertEqual(desired in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
 
     def test_shex_from_csv_languages(self):
         shexstatement = CSV.generate_shex_from_csv("examples/language.csv")
@@ -87,13 +87,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_foaf_person(self):
         shexstatement = CSV.generate_shex_from_csv("examples/foaf.csv")
@@ -110,11 +110,11 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>" in shexstatement)
 
     def test_shex_from_csv_languages_delim_bar(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -132,13 +132,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_languages_delim_semicolon(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -156,13 +156,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseries(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -180,13 +180,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseries_negative_prop(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -206,13 +206,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseries_cardinality(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -230,13 +230,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseriesextra(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -254,13 +254,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseriesplusplus(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -278,13 +278,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseriesclosed(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -301,13 +301,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
   wdt:P31 [ wd:Q201658 wd:Q15961987  ] ;#instance of genre
 }'''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_tvseriesclosedsymbols(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -324,13 +324,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
   wdt:P31 [ wd:Q201658 wd:Q15961987  ] ;#instance of genre
 }'''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_languages_with_header(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -348,13 +348,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_csv_languages_with_numeric_cardinality(self):
         shexstatement = CSV.generate_shex_from_csv(
@@ -372,13 +372,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_xlsx_languages(self):
         shexstatement = Spreadsheet.generate_shex_from_spreadsheet(
@@ -396,13 +396,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_ods_languages(self):
         shexstatement = Spreadsheet.generate_shex_from_spreadsheet(
@@ -420,13 +420,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
     def test_shex_from_xls_languages(self):
         shexstatement = Spreadsheet.generate_shex_from_spreadsheet(
@@ -444,13 +444,13 @@ class ShExFromCSVTestSuite(unittest.TestCase):
 }
 '''
         self.maxDiff = None
-        self.assertEqual(desired in shexstatement, True)
-        self.assertEqual(
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement, True)
-        self.assertEqual(
-            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement, True)
+        self.assertTrue(desired in shexstatement)
+        self.assertTrue(
+            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wd: <http://www.wikidata.org/entity/>" in shexstatement)
+        self.assertTrue(
+            "PREFIX wdt: <http://www.wikidata.org/prop/direct/>" in shexstatement)
 
 
 if __name__ == '__main__':
