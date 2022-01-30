@@ -1,4 +1,7 @@
 # ShExStatements
+[![Python package](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml)
+[![Python package](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml)
+
 ShExStatements allows the users to generate shape expressions from simple CSV statements, CSV files and Spreadsheet. `shexstatements` can be used from the command line as well as from the web interface.
 
 ## Quick start
