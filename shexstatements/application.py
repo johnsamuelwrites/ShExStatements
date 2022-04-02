@@ -74,4 +74,4 @@ def docs():
 
 
 def run():
-    app.run(debug=True)
+    app.run(debug=False)
