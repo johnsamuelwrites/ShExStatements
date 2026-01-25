@@ -1,0 +1,37 @@
+# ShExStatements Docker Compose - Development Configuration
+# Run with: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ../backend/shexstatements:/app/shexstatements
+      - ../backend/api:/app/api
+      - ../examples:/app/examples
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - DEBUG=1
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend/src:/app/src
+      - ../frontend/public:/app/public
+      - ../frontend/index.html:/app/index.html
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host
+
+networks:
+  shexstatements-network:
+    driver: bridge

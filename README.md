@@ -1,8 +1,8 @@
 # ShExStatements
 [![Python package](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml)
-[![Python package](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/pythonpackage.yml)
+[![CI](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/ci.yml/badge.svg)](https://github.com/johnsamuelwrites/ShExStatements/actions/workflows/ci.yml)
 
-ShExStatements allows the users to generate shape expressions from simple CSV statements, CSV files and Spreadsheet. `shexstatements` can be used from the command line as well as from the web interface.
+ShExStatements allows users to generate Shape Expressions (ShEx) from simple CSV statements, CSV files, and spreadsheets. It can be used from the command line, via REST API, or through a modern web interface.
 
 ## Quick start
 
@@ -19,12 +19,24 @@ Run the following command with an [example CSV file](https://github.com/johnsamu
 ```
 $ shexstatements.sh examples/language.csv
 ```
- 
-## Build from source 
+
+### Using Docker (Recommended)
+The easiest way to run ShExStatements with the modern web interface is using Docker:
+
+```bash
+cd docker
+docker compose up
+```
+
+This starts:
+- **Frontend**: http://localhost:3000 - Modern React-based web interface
+- **Backend API**: http://localhost:8000 - FastAPI with Swagger documentation at http://localhost:8000/docs
+
+## Build from source
 ### Terminal
 Clone the **ShExStatements** repository.
 ```
-$ git clone https://github.com/johnsamuelwrites/ShExStatements.git 
+$ git clone https://github.com/johnsamuelwrites/ShExStatements.git
 ```
 
 Go to **ShExStatements** directory.
@@ -50,10 +62,10 @@ CSV file can use delimiters like _;_. Take for example, the following command wo
 $ ./shexstatements.sh examples/languagedelimsemicolon.csv --delim ";"
 ```
 
-But sometimes, users may like to specify the header. In that case, they can make use of `-s` or `--skipheader` to tell the generator to skip the header (firsrt line of CSV).
+But sometimes, users may like to specify the header. In that case, they can make use of `-s` or `--skipheader` to tell the generator to skip the header (first line of CSV).
 
 ```
-$ ./shexstatements.sh --skipheader examples/header/languageheader.csv 
+$ ./shexstatements.sh --skipheader examples/header/languageheader.csv
 ```
 
 It is also possible to work with Spreadsheet files like .ods, .xls or .xlsx.
@@ -90,7 +102,7 @@ start = @<language>
 Use `-j` or `--shexj` to generate ShEx JSON Syntax (ShExJ) instead of default ShEx Compact syntax (ShExC).
 
 ```
-$ ./shexstatements.sh --shexj examples/language.csv 
+$ ./shexstatements.sh --shexj examples/language.csv
 ```
 
 The output will be similiar to:
@@ -116,7 +128,7 @@ Entity_name,Property,Property_label,Mand,Repeat,Value,Value_type,Annotation
 ```
 and Shape expressions can be generated using the following form
 ```
-$ ./shexstatements.sh -ap --skipheader examples/languageap.csv 
+$ ./shexstatements.sh -ap --skipheader examples/languageap.csv
 ```
 
 
@@ -140,34 +152,57 @@ $ coverage run --source=shexstatements -m unittest tests.tests
 $ coverage report -m
 ```
 
-### Web interface
-`shexstatements` can also be accessed from a web interface.
-Clone the **ShExStatements** repository.
-```
-$ git clone https://github.com/johnsamuelwrites/ShExStatements.git 
+## Web Interface
+
+### Modern Web Interface (v1.0+)
+ShExStatements now includes a modern, feature-rich web interface built with React and TypeScript.
+
+**Using Docker (recommended):**
+```bash
+cd docker
+docker compose up
 ```
 
-Go to **ShExStatements** directory.
-```
-$ cd ShExStatements
-```
+Access the interface at http://localhost:3000
 
-Install modules required by **ShExStatements** (here: installing into a virtual environment).
+**Features:**
+- Split-pane editor with Monaco Editor (VS Code-like experience)
+- Syntax highlighting for ShExStatements and ShEx output
+- Dark mode support
+- File upload support (CSV, ODS, XLS, XLSX)
+- Multiple delimiter options (comma, pipe, semicolon)
+- Real-time error display
+- Copy output to clipboard
+
+### Legacy Web Interface
+The original Flask-based interface is still available:
 ```
 $ python3 -m venv .venv
 $ source ./.venv/bin/activate
 $ pip3 install .
-```
-
-Now run the application.
-```
-$ ./shexstatements.sh -r 
+$ ./shexstatements.sh -r
 ```
 
 Check the URL `http://127.0.0.1:5000/`
 
 ## API
-ShExStatements also has an API to generate ShEx from CSV and is described [here](https://github.com/johnsamuelwrites/ShExStatements/tree/master/docs/api.md).
+ShExStatements provides a REST API for programmatic access.
+
+### Modern API (v1.0+)
+The new FastAPI-based API provides:
+- OpenAPI/Swagger documentation at http://localhost:8000/docs
+- Async request handling
+- Structured JSON responses with error details
+
+**Convert endpoint:**
+```bash
+curl -X POST http://localhost:8000/api/v1/convert \
+  -H "Content-Type: application/json" \
+  -d '{"content": "@shape|prop|value", "delimiter": "|", "output_format": "shex"}'
+```
+
+### Legacy API
+The original API documentation is available [here](https://github.com/johnsamuelwrites/ShExStatements/tree/master/docs/api.md).
 
 ## Demonstration
 Online demonstrations are also available:

@@ -1,3 +1,33 @@
+# v1.0
+===============================================================================
+## Modern Web Interface
+* New React/TypeScript frontend with Monaco Editor
+* Split-pane editor layout with resizable panels
+* Syntax highlighting for ShExStatements input and ShEx output
+* Dark mode support
+* File upload for CSV, ODS, XLS, XLSX files
+
+## New Backend Architecture
+* FastAPI-based REST API replacing Flask
+* OpenAPI/Swagger documentation at /docs
+* Async request handling for better performance
+* Structured JSON responses with detailed error information
+
+## Docker Support
+* Docker Compose configuration for easy deployment
+* Separate frontend (nginx) and backend (uvicorn) containers
+* Production-ready containerized setup
+
+## CI/CD
+* GitHub Actions workflow for frontend and backend
+* Automated testing for Python 3.9-3.12
+* TypeScript type checking and build validation
+
+## Technical Improvements
+* Modern Python packaging with pyproject.toml
+* Pydantic models for request/response validation
+* Improved parser error handling with line numbers
+
 # v0.9
 ===============================================================================
 * Correct error related to handling of CSV files 
