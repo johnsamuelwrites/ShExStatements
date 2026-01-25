@@ -147,7 +147,7 @@ export const shexLanguage: languages.IMonarchLanguage = {
 
       // Delimiters
       [/[;,]/, 'delimiter'],
-      [/[{}()\[\]]/, '@brackets'],
+      [/[{}()[\]]/, '@brackets'],
 
       // Numbers
       [/\d+/, 'number'],

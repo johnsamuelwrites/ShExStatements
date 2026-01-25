@@ -5,14 +5,14 @@
 #
 
 import argparse
-from shexstatements.shexfromcsv import CSV
-from shexstatements.shexjfromcsv import ShExJCSV
-from shexstatements.shexfromspreadsheet import Spreadsheet
-from shexstatements.shexfromapplprofilecsv import ApplicationProfile
-import shexstatements.application
-from os.path import splitext
-import setuptools
 import runpy
+from os.path import splitext
+
+import shexstatements.application
+from shexstatements.shexfromapplprofilecsv import ApplicationProfile
+from shexstatements.shexfromcsv import CSV
+from shexstatements.shexfromspreadsheet import Spreadsheet
+from shexstatements.shexjfromcsv import ShExJCSV
 
 
 def handle_cli_arguments(arguments):

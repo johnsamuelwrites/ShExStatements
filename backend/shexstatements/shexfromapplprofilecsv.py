@@ -5,8 +5,7 @@
 #
 
 import csv
-import re
-from shexstatements.shexstatementsparser import ShExStatementLexerParser
+
 from shexstatements.shexfromcsv import CSV
 
 """
@@ -16,13 +15,13 @@ These terms are mapped to the ShExStatements in the following manner
 DCAP term : ShExStatements
 ==========================
 Entityname    : Node name
-Property      : Property 
-PropertyLabel :	
+Property      : Property
+PropertyLabel :
 Mand          : Cardinality
 Repeat        : Cardinality
 Value         : Value
 Valuetype     : Value
-Annotation    :	Annotation
+Annotation    : Annotation
 
 """
 
@@ -40,7 +39,7 @@ class ApplicationProfile:
           filepath : str
             This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
           delim : str
-            a delimiter. Allowed values include ',', '|' and ';' 
+            a delimiter. Allowed values include ',', '|' and ';'
           skip_header : bool
             if the first line is a header, set this value to True. By default, the value is False.
 
@@ -53,7 +52,7 @@ class ApplicationProfile:
         shexstatement = ""
         try:
             data = ""
-            with open(filepath, 'r') as csvfile:
+            with open(filepath) as csvfile:
                 csvreader = csv.reader(csvfile, delimiter=delim)
                 rowno = 0
                 shapename = ""

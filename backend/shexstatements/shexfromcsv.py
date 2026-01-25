@@ -6,8 +6,9 @@
 
 import csv
 import re
-from shexstatements.shexstatementsparser import ShExStatementLexerParser
 from io import StringIO
+
+from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 
 class CSV:
@@ -35,7 +36,7 @@ class CSV:
             lexerparser = ShExStatementLexerParser()
             lexerparser.build()
             lexerparser.buildparser()
-            tokens = lexerparser.input(data)
+            lexerparser.input(data)
             result = lexerparser.parse(data)
             shexstatement = result.generate_shex()
         except Exception as e:
@@ -52,7 +53,7 @@ class CSV:
           filepath : str
             This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
           delim : str
-            a delimiter. Allowed values include ',', '|' and ';' 
+            a delimiter. Allowed values include ',', '|' and ';'
           skip_header : bool
             if the first line is a header, set this value to True. By default, the value is False.
           filename : bool
@@ -66,10 +67,10 @@ class CSV:
         """
         shexstatement = ""
         try:
-            pattern = '^\s*$'
+            pattern = r'^\s*$'
             data = ""
             if filename:
-                csvfile = open(filepath, 'r')
+                csvfile = open(filepath)
                 csvreader = csv.reader(csvfile, delimiter=delim)
             else:
                 # It's a multi-line string

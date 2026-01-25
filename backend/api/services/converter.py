@@ -16,7 +16,7 @@ import tempfile
 from pathlib import Path
 from typing import Literal
 
-from api.models.responses import ConvertResponse, ParseError, Warning
+from api.models.responses import ConvertResponse, ParseError
 from shexstatements.errors import UnrecognizedCharacterError
 from shexstatements.shexfromcsv import CSV
 

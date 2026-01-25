@@ -286,12 +286,12 @@ def _to_shacl(shapes: dict, original_shex: str) -> str:
             separator = ";" if i < len(props) - 1 else "."
             prop_name = prop["name"]
 
-            lines.append(f"    sh:property [")
+            lines.append("    sh:property [")
             lines.append(f"        sh:path {prop_name} ;")
 
             # Add datatype or node constraint
             if prop["type"] == "LITERAL":
-                lines.append(f"        sh:datatype xsd:string ;")
+                lines.append("        sh:datatype xsd:string ;")
             elif prop["type"].startswith("xsd:"):
                 lines.append(f"        sh:datatype {prop['type']} ;")
             elif prop["type"].startswith("@<"):
@@ -301,12 +301,12 @@ def _to_shacl(shapes: dict, original_shex: str) -> str:
             # Add cardinality
             card = prop["cardinality"]
             if card == "+":
-                lines.append(f"        sh:minCount 1 ;")
+                lines.append("        sh:minCount 1 ;")
             elif card == "?":
-                lines.append(f"        sh:maxCount 1 ;")
+                lines.append("        sh:maxCount 1 ;")
             elif card == "":
-                lines.append(f"        sh:minCount 1 ;")
-                lines.append(f"        sh:maxCount 1 ;")
+                lines.append("        sh:minCount 1 ;")
+                lines.append("        sh:maxCount 1 ;")
 
             lines.append(f"    ] {separator}")
 

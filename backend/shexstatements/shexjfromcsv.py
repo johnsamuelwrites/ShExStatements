@@ -4,12 +4,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-import csv
 import json
-import re
-from shexstatements.shexstatementsparser import ShExStatementLexerParser
-from shexstatements.shexfromcsv import CSV
+
 from pyshexc.parser_impl.generate_shexj import parse
+
+from shexstatements.shexfromcsv import CSV
 
 
 class ShExJCSV:
@@ -51,7 +50,7 @@ class ShExJCSV:
           filepath : str
             This parameter can contain either a file path of a CSV file or shexstatements in CSV format.
           delim : str
-            a delimiter. Allowed values include ',', '|' and ';' 
+            a delimiter. Allowed values include ',', '|' and ';'
           skip_header : bool
             if the first line is a header, set this value to True. By default, the value is False.
 

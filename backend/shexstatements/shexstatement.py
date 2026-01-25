@@ -4,8 +4,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-import re
-
 
 class Type:
     def __init__(self, name):
@@ -46,7 +44,7 @@ class TypeList:
         self.value_list = value_list
 
     def add(self, value):
-        if(type(value) == Type):
+        if type(value) is Type:
             self.value_list.append(value)
         else:
             raise Exception("Mixing of non-type values not allowed")
@@ -68,7 +66,7 @@ class ValueList:
         self.value_list = value_list
 
     def add(self, value):
-        if(type(value) == Value):
+        if type(value) is Value:
             self.value_list.append(value)
 
     def get_value_list(self):
@@ -164,13 +162,13 @@ class ShExStatements:
             else:
                 combination.append(prop)
                 combination.append(" ")
-                if (type(value) == Node and str(value).startswith("@")):
+                if type(value) is Node and str(value).startswith("@"):
                     value = "@<" + str(value)[1:] + ">"
-                elif type(value) == NodeKind:
+                elif type(value) is NodeKind:
                     value = str(value)
-                elif type(value) == Value or type(value) == ValueList:
+                elif type(value) is Value or type(value) is ValueList:
                     value = "[ " + str(value) + " ]"
-                elif type(value) == Type or type(value) == TypeList:
+                elif type(value) is Type or type(value) is TypeList:
                     value = str(value)
                 combination.append(value)
 

@@ -6,7 +6,7 @@
 
 """API models package."""
 
-from .requests import ConvertRequest, ValidateRequest, ExportRequest
+from .requests import ConvertRequest, ExportRequest, ValidateRequest
 from .responses import (
     ConvertResponse,
     ValidateResponse,

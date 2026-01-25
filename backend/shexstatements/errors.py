@@ -14,12 +14,12 @@ class UnrecognizedCharacterError(Exception):
 
         Parameters
         ----------
-            self :   
+            self :
               The name to use.
             message:  str
                error message
         """
-        super(UnrecognizedCharacterError, self).__init__(message)
+        super().__init__(message)
         self.message = message
 
 
@@ -34,10 +34,10 @@ class ParserError(Exception):
 
         Parameters
         ----------
-            self :   
+            self :
               The name to use.
             message:  str
                error message
         """
-        super(ParserError, self).__init__(message)
+        super().__init__(message)
         self.message = message

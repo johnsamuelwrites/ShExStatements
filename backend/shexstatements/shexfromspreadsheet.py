@@ -4,13 +4,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
+from os import remove
+from os.path import splitext
+
+from odf.opendocument import load
+from odf.table import TableCell, TableRow
 from openpyxl import load_workbook
 from xlrd import open_workbook
-from os.path import splitext
-from odf.opendocument import OpenDocumentSpreadsheet, load
-from odf.table import Table, TableCell, TableRow
+
 from shexstatements.shexfromcsv import CSV
-from os import remove
 
 
 class Spreadsheet:
@@ -39,11 +41,10 @@ class Spreadsheet:
         """
         shexstatement = ""
         try:
-            pattern = '^\s*$'
             data = ""
-            filename, file_extension = splitext(filepath)
+            _, file_extension = splitext(filepath)
 
-            if(file_extension in {".xlsx", ".xlsm", ".xltx", ".xltm"}):
+            if file_extension in {".xlsx", ".xlsm", ".xltx", ".xltm"}:
                 wb = None
                 if stream is not None:
                     with open("tmp" + filepath, "wb") as sf:
@@ -54,7 +55,7 @@ class Spreadsheet:
                 wb = load_workbook(filepath)
                 for ws in wb.worksheets:
                     for i in range(1, ws.max_row+1):
-                        line = list()
+                        line = []
                         for j in range(1, ws.max_column+1):
                             cell = ws.cell(row=i, column=j).value
                             if cell is not None:
@@ -65,23 +66,23 @@ class Spreadsheet:
                 if stream is not None:
                     remove(filepath)
 
-            elif(file_extension in {".xls"}):
+            elif file_extension in {".xls"}:
                 wb = None
                 if stream is not None:
-                    #wb = open_workbook(file_contents=stream, encoding_override="cp1252")
+                    # wb = open_workbook(file_contents=stream, encoding_override="cp1252")
                     wb = open_workbook(file_contents=stream)
                 else:
                     wb = open_workbook(filepath)
                 for sheet in wb.sheets():
                     for i in range(0, wb.sheets()[0].nrows):
-                        line = list()
+                        line = []
                         for j in range(0, wb.sheets()[0].ncols):
                             cell = sheet.cell(i, j).value
                             if len(str(cell)) > 0:
                                 line.append(cell)
                         data = data + "|".join(line) + "\n"
 
-            elif(file_extension in {".ods"}):
+            elif file_extension in {".ods"}:
                 wb = None
                 if stream is not None:
                     with open("tmp" + filepath, "wb") as sf:
@@ -94,7 +95,7 @@ class Spreadsheet:
                 rows = wb.getElementsByType(TableRow)
                 for row in rows:
                     cells = row.getElementsByType(TableCell)
-                    line = list()
+                    line = []
                     for cell in cells:
                         if len(str(cell)) > 0:
                             line.append(str(cell))
