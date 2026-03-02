@@ -116,7 +116,7 @@ function App() {
       {/* Status Bar */}
       <footer className="h-6 bg-shex-800 dark:bg-shex-900 text-white text-xs flex items-center justify-between px-4">
         <div className="flex items-center gap-4">
-          <span>ShExStatements v1.0.0</span>
+          <span>ShExStatements v1.0.1</span>
           <span className="text-shex-300">|</span>
           <span>Delimiter: {delimiter === '|' ? 'Pipe' : delimiter === ',' ? 'Comma' : 'Semicolon'}</span>
           <span className="text-shex-300">|</span>
