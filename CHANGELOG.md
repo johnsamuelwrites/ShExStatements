@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, adapted to the existing project release
 
 ## [Unreleased]
 
+### Release prep
+- Target next release: `1.0.0`
+- Version sources aligned in:
+  - `shexstatements/version.py`
+  - `backend/pyproject.toml`
+  - `RELEASE.md` / `CHANGELOG.md`
+
 ## [1.0.0]
 
 ### Added
