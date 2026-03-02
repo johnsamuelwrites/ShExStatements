@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 
 # Set PLY output directory to a writable location (for parser.out file)
-_ply_output_dir = os.path.join(tempfile.gettempdir(), 'shexstatements_ply')
+_ply_output_dir = os.path.join(tempfile.gettempdir(), "shexstatements_ply")
 os.makedirs(_ply_output_dir, exist_ok=True)
 
 

@@ -13,14 +13,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Create non-root user for security
 RUN useradd --create-home --shell /bin/bash appuser
 
-# Copy project files
-COPY pyproject.toml .
+# Install shared shexstatements package from repository root
+COPY setup.py README.md requirements.txt ./
 COPY shexstatements/ ./shexstatements/
-COPY api/ ./api/
+RUN pip install --no-cache-dir .
 
-# Install the application and dependencies
-RUN pip install --no-cache-dir -e . && \
-    apt-get purge -y gcc && \
+# Install backend API package
+COPY backend/pyproject.toml ./backend/pyproject.toml
+COPY backend/api/ ./backend/api/
+RUN pip install --no-cache-dir -e ./backend --no-deps
+
+# Clean build dependencies
+RUN apt-get purge -y gcc && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 

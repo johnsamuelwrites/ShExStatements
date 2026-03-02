@@ -5,7 +5,7 @@
 #
 
 [project]
-name = "shexstatements"
+name = "shexstatements-backend"
 version = "1.0.0"
 description = "Tool to generate Shape Expressions from CSV files and spreadsheets"
 requires-python = ">=3.12"
@@ -37,6 +37,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "shexstatements>=0.7",
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
     "python-multipart>=0.0.6",
@@ -65,7 +66,6 @@ docs = [
 ]
 
 [project.scripts]
-shexstatements = "shexstatements.cliargs:main"
 shexstatements-api = "api.main:run_server"
 
 [project.urls]
@@ -79,7 +79,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["shexstatements", "api"]
+packages = ["api"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

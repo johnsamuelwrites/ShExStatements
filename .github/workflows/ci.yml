@@ -37,15 +37,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -e ..
           pip install -e ".[dev]"
 
       - name: Lint with ruff
         run: |
-          ruff check shexstatements api --output-format=github
+          ruff check api --output-format=github
 
       - name: Type check with mypy
         run: |
-          mypy shexstatements api --ignore-missing-imports
+          mypy api --ignore-missing-imports
         continue-on-error: true
 
       - name: Run tests with pytest
@@ -143,7 +144,7 @@ jobs:
       - name: Build backend image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend
+          context: .
           file: ./backend/Dockerfile
           push: false
           tags: shexstatements-backend:test
