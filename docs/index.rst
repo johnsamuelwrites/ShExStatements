@@ -18,6 +18,7 @@ Supported usage modes
 
    Project README <readme.md>
    Release Notes <RELEASE.md>
+   Changelog <CHANGELOG.md>
    User Guide <docs.md>
    API <api.md>
    Package modules <shexstatements.rst>
