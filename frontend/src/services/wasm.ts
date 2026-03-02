@@ -26,8 +26,18 @@ const PYODIDE_SCRIPT_URL = `${PYODIDE_INDEX_URL}pyodide.js`;
 
 const PYTHON_BOOTSTRAP = `
 import micropip
-await micropip.install("ply")
-await micropip.install("shexstatements", deps=False)
+
+def _package_missing(module_name):
+    try:
+        __import__(module_name)
+        return False
+    except Exception:
+        return True
+
+if _package_missing("ply"):
+    await micropip.install("ply")
+if _package_missing("shexstatements"):
+    await micropip.install("shexstatements", deps=False)
 
 from shexstatements.errors import ParserError, UnrecognizedCharacterError
 from shexstatements.shexfromcsv import CSV
@@ -124,7 +134,10 @@ async function getPyodide(): Promise<RuntimePyodide> {
 async function ensurePythonRuntime(): Promise<RuntimePyodide> {
   const pyodide = await getPyodide();
   if (!bootstrapPromise) {
-    bootstrapPromise = pyodide.runPythonAsync(PYTHON_BOOTSTRAP).then(() => undefined);
+    bootstrapPromise = (async () => {
+      await pyodide.loadPackage('micropip');
+      await pyodide.runPythonAsync(PYTHON_BOOTSTRAP);
+    })().then(() => undefined);
   }
   await bootstrapPromise;
   return pyodide;
