@@ -8,6 +8,7 @@ import csv
 import re
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 from io import StringIO
+import os
 
 
 class CSV:
@@ -69,7 +70,17 @@ class CSV:
             pattern = r'^\s*$'
             data = ""
             if filename:
-                csvfile = open(filepath, 'r')
+                # Validate and normalize the file path to avoid path traversal
+                normalized_path = os.path.normpath(filepath)
+                # Reject absolute paths
+                if os.path.isabs(normalized_path):
+                    raise ValueError("Absolute paths are not allowed")
+                # Only allow simple filenames without directory components
+                if os.path.sep in normalized_path or (os.path.altsep and os.path.altsep in normalized_path):
+                    raise ValueError("Directory separators are not allowed in filename")
+                if not normalized_path:
+                    raise ValueError("Empty filename is not allowed")
+                csvfile = open(normalized_path, 'r')
                 csvreader = csv.reader(csvfile, delimiter=delim)
             else:
                 # It's a multi-line string
