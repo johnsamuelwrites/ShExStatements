@@ -134,3 +134,8 @@ dmypy.json
 
 # Node modules
 node_modules/
+
+# IDE/editor settings
+.claude/
+.idea/
+.vscode/
