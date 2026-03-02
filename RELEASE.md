@@ -20,7 +20,7 @@
 
 ## CI/CD
 * GitHub Actions workflow for frontend and backend
-* Automated testing for Python 3.9-3.12
+* Automated testing for Python 3.12 and 3.13 (plus 3.14-dev in experimental matrix)
 * TypeScript type checking and build validation
 
 ## Technical Improvements

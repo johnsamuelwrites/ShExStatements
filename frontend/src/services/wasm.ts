@@ -86,6 +86,78 @@ def shex_convert(content, delimiter, skip_header):
             "input_format": "shexstatements",
             "output_format": "shex"
         }
+
+async def _ensure_spreadsheet_dependencies():
+    if _package_missing("openpyxl"):
+        await micropip.install("openpyxl")
+    if _package_missing("xlrd"):
+        await micropip.install("xlrd")
+    if _package_missing("odf"):
+        await micropip.install("odfpy")
+
+async def shex_convert_file(filename, content_base64, delimiter, skip_header):
+    import base64
+    import os
+    import tempfile
+    import traceback
+
+    try:
+        lower_filename = filename.lower()
+        file_bytes = base64.b64decode(content_base64)
+
+        if lower_filename.endswith(".csv"):
+            content = file_bytes.decode("utf-8")
+            return shex_convert(content, delimiter, skip_header)
+
+        if lower_filename.endswith(".xlsx") or lower_filename.endswith(".xls") or lower_filename.endswith(".ods"):
+            await _ensure_spreadsheet_dependencies()
+            from shexstatements.shexfromspreadsheet import Spreadsheet
+
+            suffix = os.path.splitext(filename)[1]
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                tmp.write(file_bytes)
+                tmp_path = tmp.name
+            try:
+                output = Spreadsheet.generate_shex_from_spreadsheet(tmp_path, skip_header=skip_header)
+            finally:
+                os.unlink(tmp_path)
+
+            if not output:
+                return {
+                    "success": False,
+                    "output": None,
+                    "errors": [{"line": 1, "column": None, "message": "Conversion returned empty output.", "source_line": None}],
+                    "warnings": [],
+                    "input_format": "file",
+                    "output_format": "shex"
+                }
+
+            return {
+                "success": True,
+                "output": output,
+                "errors": [],
+                "warnings": [],
+                "input_format": "file",
+                "output_format": "shex"
+            }
+
+        return {
+            "success": False,
+            "output": None,
+            "errors": [{"line": 1, "column": None, "message": "Unsupported file format for WASM runtime.", "source_line": None}],
+            "warnings": [],
+            "input_format": "file",
+            "output_format": "shex"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "output": None,
+            "errors": [{"line": 1, "column": None, "message": str(e), "source_line": traceback.format_exc()}],
+            "warnings": [],
+            "input_format": "file",
+            "output_format": "shex"
+        }
 `;
 
 let pyodidePromise: Promise<RuntimePyodide> | null = null;
@@ -159,6 +231,17 @@ function normalizeErrors(errors: unknown): ParseError[] {
   });
 }
 
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, i + chunkSize);
+    binary += String.fromCharCode(...chunk);
+  }
+  return btoa(binary);
+}
+
 export async function convertShexStatementsWasm(request: ConvertRequest): Promise<ConvertResponse> {
   try {
     const pyodide = await ensurePythonRuntime();
@@ -192,14 +275,16 @@ export async function convertFileWasm(
   skipHeader: boolean,
   outputFormat: ConvertRequest['output_format']
 ): Promise<FileUploadResponse> {
-  if (!file.name.toLowerCase().endsWith('.csv')) {
+  const allowedExtensions = ['.csv', '.xlsx', '.xls', '.ods'];
+  const lowerName = file.name.toLowerCase();
+  if (!allowedExtensions.some((ext) => lowerName.endsWith(ext))) {
     return {
       success: false,
       output: null,
       errors: [{
         line: 1,
         column: null,
-        message: 'WASM runtime currently supports CSV input only. Use API runtime for spreadsheet files.',
+        message: 'Unsupported file format for WASM runtime. Supported: .csv, .xlsx, .xls, .ods',
         source_line: null,
       }],
       warnings: [],
@@ -210,17 +295,32 @@ export async function convertFileWasm(
     };
   }
 
-  const content = await file.text();
-  const result = await convertShexStatementsWasm({
-    content,
-    delimiter,
-    skip_header: skipHeader,
-    output_format: outputFormat,
-  });
+  try {
+    const pyodide = await ensurePythonRuntime();
+    const fileBase64 = arrayBufferToBase64(await file.arrayBuffer());
+    pyodide.globals.set('input_filename', file.name);
+    pyodide.globals.set('input_file_base64', fileBase64);
+    pyodide.globals.set('input_delimiter', delimiter);
+    pyodide.globals.set('input_skip_header', skipHeader);
 
-  return {
-    ...result,
-    filename: file.name,
-    file_type: file.type || null,
-  };
+    const raw = await pyodide.runPythonAsync<string>(`
+import json
+result = await shex_convert_file(input_filename, input_file_base64, input_delimiter, input_skip_header)
+json.dumps(result)
+`);
+
+    const response = JSON.parse(raw) as Partial<ConvertResponse>;
+    return {
+      success: Boolean(response.success),
+      output: response.output ?? null,
+      errors: normalizeErrors(response.errors),
+      warnings: Array.isArray(response.warnings) ? response.warnings : [],
+      input_format: response.input_format ?? 'file',
+      output_format: response.output_format ?? outputFormat,
+      filename: file.name,
+      file_type: file.type || null,
+    };
+  } catch (error) {
+    throw toError(error);
+  }
 }

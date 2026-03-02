@@ -1,70 +1,85 @@
-ShExStatements API
-------------------
+# ShExStatements API
 
-### Operations
+ShExStatements provides a modern FastAPI backend and a legacy compatibility endpoint.
 
-ShExStatements has also a public API that can be easily accessible both
-on a local installation as well as on the public interface. It has one
-operation that takes as input a JSON array with two elements as given
-below:
+## Base URLs
 
--   delimiter
--   CSV (every line should be terminated by \\n)
+- Local backend: `http://localhost:8000`
+- OpenAPI docs: `http://localhost:8000/docs`
 
-It returns a JSON array with one element containing the ShEx (shape
-expression).
+## Modern API (v1)
 
-### Example JSON input
+### `POST /api/v1/convert`
 
-Take for example the file `tvseries.json` (also present in
-`examples/api/tvseries.json`). It is an array with two elements.
+Converts text content in ShExStatements format.
 
+Request body example:
 
-    [
-    "|",
-    "wd|<http://www.wikidata.org/entity/>|||\n
-    wdt|<http://www.wikidata.org/prop/direct/>|||\n
-    xsd|<http://www.w3.org/2001/XMLSchema#>|||\n
-    \n
-    @tvseries|wdt:P31|wd:Q5398426|# instance of a tvseries\n
-    @tvseries|wdt:P136|@genre|*|# genre\n
-    @tvseries|wdt:P495|.|+|#country of origin\n
-    @tvseries|wdt:P57|.|+|#director\n
-    @tvseries|wdt:P58|.|+|#screenwriter\n
-    @genre|wdt:P31|wd:Q201658,wd:Q15961987|#instance of genre\n"
-    ]
+```json
+{
+  "content": "@shape|prop|value",
+  "delimiter": "|",
+  "skip_header": false,
+  "output_format": "shex"
+}
+```
 
-Calling ShExStatements API
---------------------------
+Example:
 
-Following is the way to call the ShExStatements API
+```bash
+curl -X POST http://localhost:8000/api/v1/convert \
+  -H "Content-Type: application/json" \
+  -d '{"content":"@shape|prop|value","delimiter":"|","skip_header":false,"output_format":"shex"}'
+```
 
+### `POST /api/v1/convert/file`
 
-    $ curl -s http://127.0.0.1:5000/ -X POST -H "Accept: application/json"  --data  @examples/api/tvseries.json |sed 's/\\n/\n/g'
+Converts uploaded files. Supported formats:
 
-or
+- `.csv`
+- `.xlsx`
+- `.xls`
+- `.ods`
 
+Example:
 
-    $ curl -s https://shexstatements.toolforge.org/ -X POST -H "Accept: application/json"  --data  @examples/api/tvseries.json |sed 's/\\n/\n/g'
+```bash
+curl -X POST http://localhost:8000/api/v1/convert/file \
+  -F "file=@examples/language.csv" \
+  -F "delimiter=," \
+  -F "skip_header=false" \
+  -F "output_format=shex"
+```
 
-### Example JSON output response
+### `GET /api/v1/health`
 
-It gives the following output. For the output, the above command makes
-use of `sed`.
+Returns service status, version, and Python runtime version.
 
+Example:
 
-    "PREFIX wd: <http://www.wikidata.org/entity/>
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-    start = @<tvseries>
-    <tvseries> {
-      wdt:P31 [ wd:Q5398426  ] ;# instance of a tvseries
-      wdt:P136 @<genre>* ;# genre
-      wdt:P495 . ;#country of origin
-      wdt:P57 . ;#director
-      wdt:P58 . ;#screenwriter
-    }
-    <genre> {
-      wdt:P31 [ wd:Q201658 wd:Q15961987  ] ;#instance of genre
-    }
-    "
+```bash
+curl http://localhost:8000/api/v1/health
+```
+
+### Additional API routes
+
+- `POST /api/v1/validate`
+- `POST /api/v1/export`
+
+See `http://localhost:8000/docs` for full schemas and response formats.
+
+## Legacy compatibility endpoint
+
+The root endpoint `/` is kept for backward compatibility.
+
+- `GET /` returns API info (or redirects HTML requests to `/docs`).
+- `POST /` accepts the old payload style when clients send `Accept: application/json`.
+
+Legacy payload format (from `examples/api/tvseries.json`):
+
+```json
+[
+  "|",
+  "wd|<http://www.wikidata.org/entity/>|||\n@tvseries|wdt:P31|wd:Q5398426|# instance of a tvseries\n"
+]
+```
