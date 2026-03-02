@@ -4,13 +4,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
+from os import remove
+from os.path import splitext
+
+from odf.opendocument import load
+from odf.table import TableCell, TableRow
 from openpyxl import load_workbook
 from xlrd import open_workbook
-from os.path import splitext
-from odf.opendocument import OpenDocumentSpreadsheet, load
-from odf.table import Table, TableCell, TableRow
+
 from shexstatements.shexfromcsv import CSV
-from os import remove
 
 
 class Spreadsheet:
@@ -39,7 +41,6 @@ class Spreadsheet:
         """
         shexstatement = ""
         try:
-            pattern = '^\s*$'
             data = ""
             filename, file_extension = splitext(filepath)
 

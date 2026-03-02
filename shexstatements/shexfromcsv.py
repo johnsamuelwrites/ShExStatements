@@ -66,7 +66,7 @@ class CSV:
         """
         shexstatement = ""
         try:
-            pattern = '^\s*$'
+            pattern = r'^\s*$'
             data = ""
             if filename:
                 csvfile = open(filepath, 'r')
