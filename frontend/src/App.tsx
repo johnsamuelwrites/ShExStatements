@@ -10,18 +10,20 @@ import { ShExEditor } from './components/editor/ShExEditor';
 import { OutputEditor } from './components/editor/OutputEditor';
 import { useEditorStore } from './stores/editorStore';
 import { SHEX_LANGUAGE_ID } from './components/editor/shex-language';
+import { resolveRuntimeMode } from './types/runtime';
 
 function App() {
   const {
     inputContent,
     outputContent,
     delimiter,
-    outputFormat,
+    runtimeMode,
     errors,
     warnings,
     isConverting,
     setInputContent,
   } = useEditorStore();
+  const resolvedRuntime = resolveRuntimeMode(runtimeMode);
 
   // Handle input content change
   const handleInputChange = useCallback(
@@ -67,7 +69,7 @@ function App() {
             <div className="h-full flex flex-col">
               <div className="h-8 px-4 flex items-center justify-between bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Generated {outputFormat === 'shexj' ? 'ShExJ' : 'ShEx'}
+                  Generated ShEx
                 </span>
                 <div className="flex items-center gap-2">
                   {isConverting && (
@@ -102,7 +104,7 @@ function App() {
                 ) : (
                   <OutputEditor
                     value={outputContent}
-                    language={outputFormat === 'shexj' ? 'json' : SHEX_LANGUAGE_ID}
+                    language={SHEX_LANGUAGE_ID}
                   />
                 )}
               </div>
@@ -117,6 +119,8 @@ function App() {
           <span>ShExStatements v1.0.0</span>
           <span className="text-shex-300">|</span>
           <span>Delimiter: {delimiter === '|' ? 'Pipe' : delimiter === ',' ? 'Comma' : 'Semicolon'}</span>
+          <span className="text-shex-300">|</span>
+          <span>Runtime: {resolvedRuntime.toUpperCase()}</span>
         </div>
         <div className="flex items-center gap-4">
           <a

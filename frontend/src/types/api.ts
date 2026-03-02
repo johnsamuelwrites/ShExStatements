@@ -3,7 +3,7 @@
  */
 
 export type Delimiter = ',' | '|' | ';';
-export type OutputFormat = 'shex' | 'shexj';
+export type OutputFormat = 'shex';
 export type ExportFormat = 'json-schema' | 'graphql' | 'shacl' | 'typescript';
 
 export interface ParseError {

@@ -3,8 +3,14 @@
  */
 
 import { ThemeToggle } from '../common/ThemeToggle';
+import { useEditorStore } from '../../stores/editorStore';
+import { resolveRuntimeMode } from '../../types/runtime';
 
 export function Header() {
+  const runtimeMode = useEditorStore((state) => state.runtimeMode);
+  const resolvedRuntime = resolveRuntimeMode(runtimeMode);
+  const apiDocsUrl = import.meta.env.VITE_API_DOCS_URL || 'http://localhost:8000/docs';
+
   return (
     <header className="h-14 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-between px-4">
       <div className="flex items-center gap-3">
@@ -44,14 +50,16 @@ export function Header() {
           >
             GitHub
           </a>
-          <a
-            href="http://localhost:8000/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 dark:text-gray-300 hover:text-shex-700 dark:hover:text-shex-400 transition-colors"
-          >
-            API
-          </a>
+          {resolvedRuntime === 'api' && (
+            <a
+              href={apiDocsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-300 hover:text-shex-700 dark:hover:text-shex-400 transition-colors"
+            >
+              API
+            </a>
+          )}
         </nav>
         <ThemeToggle />
       </div>

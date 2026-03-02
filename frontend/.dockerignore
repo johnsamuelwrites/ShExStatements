@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Development files
+.git
+.gitignore
+*.md
+.env*
+.vscode
+
+# Test files
+coverage
+*.test.ts
+*.spec.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

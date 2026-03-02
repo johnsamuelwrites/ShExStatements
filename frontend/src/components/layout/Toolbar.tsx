@@ -5,7 +5,9 @@
 import { useCallback, useRef } from 'react';
 import { useEditorStore } from '../../stores/editorStore';
 import { useConvert, useFileConvert } from '../../hooks/useConvert';
-import type { Delimiter, OutputFormat } from '../../types/api';
+import type { Delimiter } from '../../types/api';
+import type { RuntimeMode } from '../../types/runtime';
+import { resolveRuntimeMode } from '../../types/runtime';
 
 export function Toolbar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -14,11 +16,11 @@ export function Toolbar() {
     inputContent,
     delimiter,
     skipHeader,
-    outputFormat,
+    runtimeMode,
     isConverting,
     setDelimiter,
     setSkipHeader,
-    setOutputFormat,
+    setRuntimeMode,
     setInputContent,
     clearOutput,
     reset,
@@ -26,22 +28,23 @@ export function Toolbar() {
 
   const { convert } = useConvert();
   const { convertFile } = useFileConvert();
+  const resolvedRuntime = resolveRuntimeMode(runtimeMode);
 
   const handleConvert = useCallback(() => {
     convert({
       content: inputContent,
       delimiter,
       skip_header: skipHeader,
-      output_format: outputFormat,
+      output_format: 'shex',
     });
-  }, [convert, inputContent, delimiter, skipHeader, outputFormat]);
+  }, [convert, inputContent, delimiter, skipHeader]);
 
   const handleFileUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (file) {
         // For CSV files, read and display content
-        if (file.name.endsWith('.csv')) {
+        if (file.name.toLowerCase().endsWith('.csv')) {
           const reader = new FileReader();
           reader.onload = (e) => {
             const content = e.target?.result as string;
@@ -49,7 +52,7 @@ export function Toolbar() {
           };
           reader.readAsText(file);
         } else {
-          // For spreadsheets, send directly to API
+          // For spreadsheets, delegate to selected runtime.
           convertFile(file);
         }
       }
@@ -97,16 +100,17 @@ export function Toolbar() {
           <span className="text-gray-600 dark:text-gray-400">Skip header</span>
         </label>
 
-        {/* Output format selector */}
+        {/* Runtime selector */}
         <label className="flex items-center gap-2 text-sm">
-          <span className="text-gray-600 dark:text-gray-400">Output:</span>
+          <span className="text-gray-600 dark:text-gray-400">Runtime:</span>
           <select
-            value={outputFormat}
-            onChange={(e) => setOutputFormat(e.target.value as OutputFormat)}
-            className="select py-1 px-2 text-sm w-24"
+            value={runtimeMode}
+            onChange={(e) => setRuntimeMode(e.target.value as RuntimeMode)}
+            className="select py-1 px-2 text-sm w-28"
           >
-            <option value="shex">ShEx</option>
-            <option value="shexj">ShExJ</option>
+            <option value="auto">Auto</option>
+            <option value="api">API</option>
+            <option value="wasm">WASM</option>
           </select>
         </label>
       </div>
@@ -116,7 +120,7 @@ export function Toolbar() {
         <input
           ref={fileInputRef}
           type="file"
-          accept=".csv,.xlsx,.xls,.ods"
+          accept={resolvedRuntime === 'wasm' ? '.csv' : '.csv,.xlsx,.xls,.ods'}
           onChange={handleFileUpload}
           className="hidden"
           id="file-upload"

@@ -5,6 +5,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Delimiter, OutputFormat, ParseError, Warning } from '../types/api';
+import type { RuntimeMode } from '../types/runtime';
 
 interface EditorState {
   // Input state
@@ -12,6 +13,7 @@ interface EditorState {
   delimiter: Delimiter;
   skipHeader: boolean;
   outputFormat: OutputFormat;
+  runtimeMode: RuntimeMode;
 
   // Output state
   outputContent: string;
@@ -27,6 +29,7 @@ interface EditorState {
   setDelimiter: (delimiter: Delimiter) => void;
   setSkipHeader: (skip: boolean) => void;
   setOutputFormat: (format: OutputFormat) => void;
+  setRuntimeMode: (runtime: RuntimeMode) => void;
   setOutputContent: (content: string) => void;
   setErrors: (errors: ParseError[]) => void;
   setWarnings: (warnings: Warning[]) => void;
@@ -58,6 +61,7 @@ const initialState = {
   delimiter: ',' as Delimiter,
   skipHeader: false,
   outputFormat: 'shex' as OutputFormat,
+  runtimeMode: 'auto' as RuntimeMode,
   outputContent: '',
   errors: [] as ParseError[],
   warnings: [] as Warning[],
@@ -66,7 +70,7 @@ const initialState = {
 };
 
 // Storage version - increment when default example format changes
-const STORAGE_VERSION = 3;
+const STORAGE_VERSION = 4;
 
 export const useEditorStore = create<EditorState>()(
   persist(
@@ -80,6 +84,8 @@ export const useEditorStore = create<EditorState>()(
       setSkipHeader: (skip) => set({ skipHeader: skip }),
 
       setOutputFormat: (format) => set({ outputFormat: format }),
+
+      setRuntimeMode: (runtimeMode) => set({ runtimeMode }),
 
       setOutputContent: (content) => set({ outputContent: content }),
 
@@ -112,6 +118,7 @@ export const useEditorStore = create<EditorState>()(
         delimiter: state.delimiter,
         skipHeader: state.skipHeader,
         outputFormat: state.outputFormat,
+        runtimeMode: state.runtimeMode,
       }),
       // Migration: reset inputContent when version changes
       migrate: (persistedState, version) => {
@@ -121,6 +128,7 @@ export const useEditorStore = create<EditorState>()(
           delimiter: Delimiter;
           skipHeader: boolean;
           outputFormat: OutputFormat;
+          runtimeMode?: RuntimeMode;
         };
         const state = persistedState as PersistedData | null;
         if (version < STORAGE_VERSION || !state) {
@@ -130,6 +138,7 @@ export const useEditorStore = create<EditorState>()(
             delimiter: state?.delimiter ?? (',' as Delimiter),
             skipHeader: state?.skipHeader ?? false,
             outputFormat: state?.outputFormat ?? ('shex' as OutputFormat),
+            runtimeMode: state?.runtimeMode ?? ('auto' as RuntimeMode),
           };
         }
         return state;
