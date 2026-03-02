@@ -16,6 +16,8 @@ Supported usage modes
    :maxdepth: 2
    :caption: Table of Contents:
 
+   Project README <readme.md>
+   Release Notes <RELEASE.md>
    User Guide <docs.md>
    API <api.md>
    Package modules <shexstatements.rst>
