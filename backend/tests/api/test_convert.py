@@ -49,31 +49,6 @@ async def test_convert_csv_delimiter(async_client, sample_csv_content):
 
 
 @pytest.mark.asyncio
-async def test_convert_to_shexj(async_client, sample_shexstatements):
-    """Test conversion to ShExJ format."""
-    response = await async_client.post(
-        "/api/v1/convert",
-        json={
-            "content": sample_shexstatements,
-            "delimiter": "|",
-            "skip_header": False,
-            "output_format": "shexj",
-        },
-    )
-
-    assert response.status_code == 200
-    data = response.json()
-    assert data["success"] is True
-    assert data["output_format"] == "shexj"
-    # ShExJ output should be valid JSON
-    import json
-    try:
-        json.loads(data["output"])
-    except json.JSONDecodeError:
-        pytest.fail("ShExJ output is not valid JSON")
-
-
-@pytest.mark.asyncio
 async def test_convert_empty_content(async_client):
     """Test conversion with empty content fails validation."""
     response = await async_client.post(

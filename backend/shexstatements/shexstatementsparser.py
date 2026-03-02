@@ -7,11 +7,19 @@
 import os
 import tempfile
 
-from ply import lex
-from ply import yacc
+from ply import lex, yacc
 
 from .errors import ParserError, UnrecognizedCharacterError
-from .shexstatement import Node, NodeKind, ShExStatement, ShExStatements, Type, TypeList, Value, ValueList
+from .shexstatement import (
+    Node,
+    NodeKind,
+    ShExStatement,
+    ShExStatements,
+    Type,
+    TypeList,
+    Value,
+    ValueList,
+)
 
 # Set up writable directory for PLY parser output files
 _ply_output_dir = os.path.join(tempfile.gettempdir(), 'shexstatements_ply')

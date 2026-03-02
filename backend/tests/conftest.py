@@ -7,6 +7,7 @@
 """Pytest configuration and fixtures for ShExStatements API tests."""
 
 import pytest
+import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 
 from api.main import app
@@ -18,8 +19,8 @@ def sample_shexstatements():
     return """foaf|<http://xmlns.com/foaf/0.1/>|||
 xsd|<http://www.w3.org/2001/XMLSchema#>|||
 @person|rdf:type|foaf:Person||
-@person|foaf:name|xsd:string|+|Name is required
-@person|foaf:mbox|IRI|*|Email addresses"""
+@person|foaf:name|xsd:string|+|#Name is required
+@person|foaf:mbox|IRI|*|#Email addresses"""
 
 
 @pytest.fixture
@@ -27,7 +28,7 @@ def sample_csv_content():
     """Sample CSV content with comma delimiter."""
     return """foaf,<http://xmlns.com/foaf/0.1/>,,,
 @person,rdf:type,foaf:Person,,
-@person,foaf:name,Literal,+,name is required"""
+@person,foaf:name,Literal,+,#name is required"""
 
 
 @pytest.fixture
@@ -36,7 +37,7 @@ def expected_shex_output():
     return "start = @<person>"
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def async_client():
     """Async HTTP client for API testing."""
     transport = ASGITransport(app=app)

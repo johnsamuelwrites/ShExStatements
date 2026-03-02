@@ -126,23 +126,6 @@ def _validate_shex_schema(shex: str) -> dict:
             )
         )
 
-    # Basic syntax check - try to parse with PyShEx if available
-    try:
-        from pyshexc.parser_impl import generate_shexj
-        generate_shexj.parse(shex)
-    except ImportError:
-        # PyShEx not available, skip this check
-        pass
-    except Exception as e:
-        error_msg = str(e)
-        line_num = _extract_line_from_error(error_msg)
-        errors.append(
-            ParseError(
-                line=line_num,
-                message=f"Syntax error: {error_msg}",
-            )
-        )
-
     return {"errors": errors, "warnings": warnings}
 
 

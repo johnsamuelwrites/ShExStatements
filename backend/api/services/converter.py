@@ -27,12 +27,6 @@ def _get_spreadsheet_module():
     return Spreadsheet
 
 
-def _get_shexj_module():
-    """Lazy import of ShExJCSV module (requires PyShExC)."""
-    from shexstatements.shexjfromcsv import ShExJCSV
-    return ShExJCSV
-
-
 class ConverterService:
     """
     Service class for converting ShExStatements to various ShEx formats.
@@ -46,7 +40,7 @@ class ConverterService:
         content: str,
         delimiter: Literal[",", "|", ";"] = "|",
         skip_header: bool = False,
-        output_format: Literal["shex", "shexj"] = "shex",
+        output_format: Literal["shex"] = "shex",
     ) -> ConvertResponse:
         """
         Convert ShExStatements string content to ShEx.
@@ -61,21 +55,12 @@ class ConverterService:
             ConvertResponse with the conversion result or errors.
         """
         try:
-            # Run the blocking conversion in a thread pool
-            if output_format == "shexj":
-                output = await asyncio.to_thread(
-                    ConverterService._convert_to_shexj,
-                    content,
-                    delimiter,
-                    skip_header,
-                )
-            else:
-                output = await asyncio.to_thread(
-                    ConverterService._convert_to_shex,
-                    content,
-                    delimiter,
-                    skip_header,
-                )
+            output = await asyncio.to_thread(
+                ConverterService._convert_to_shex,
+                content,
+                delimiter,
+                skip_header,
+            )
 
             return ConvertResponse(
                 success=True,
@@ -126,7 +111,7 @@ class ConverterService:
         filename: str,
         delimiter: Literal[",", "|", ";"] = ",",
         skip_header: bool = False,
-        output_format: Literal["shex", "shexj"] = "shex",
+        output_format: Literal["shex"] = "shex",
     ) -> ConvertResponse:
         """
         Convert an uploaded file to ShEx.
@@ -159,13 +144,6 @@ class ConverterService:
                     filename,
                     skip_header,
                 )
-
-                if output_format == "shexj":
-                    ShExJCSV = _get_shexj_module()
-                    output = await asyncio.to_thread(
-                        ShExJCSV.generate_shexj_from_shexstament,
-                        output,
-                    )
 
                 return ConvertResponse(
                     success=True,
@@ -230,33 +208,6 @@ class ConverterService:
             skip_header=skip_header,
             filename=False,
         )
-
-    @staticmethod
-    def _convert_to_shexj(
-        content: str,
-        delimiter: Literal[",", "|", ";"],
-        skip_header: bool,
-    ) -> str:
-        """
-        Synchronous conversion to ShEx JSON format.
-
-        Args:
-            content: The ShExStatements content.
-            delimiter: The delimiter used.
-            skip_header: Whether to skip header.
-
-        Returns:
-            The ShExJ JSON output string.
-        """
-        # First convert to ShEx, then to ShExJ
-        shex = CSV.generate_shex_from_csv(
-            content,
-            delim=delimiter,
-            skip_header=skip_header,
-            filename=False,
-        )
-        ShExJCSV = _get_shexj_module()
-        return ShExJCSV.generate_shexj_from_shexstament(shex)
 
     @staticmethod
     def _convert_spreadsheet(

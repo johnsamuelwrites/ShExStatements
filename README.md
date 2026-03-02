@@ -4,6 +4,10 @@
 
 ShExStatements allows users to generate Shape Expressions (ShEx) from simple CSV statements, CSV files, and spreadsheets. It can be used from the command line, via REST API, or through a modern web interface.
 
+## Python compatibility
+- Core CSV/Spreadsheet to ShEx conversion supports modern Python versions including Python 3.13.
+- CI runs on Python `3.12`, `3.13`, plus `3.14-dev` (allowed to fail) to detect future breakages early.
+
 ## Quick start
 
 ### Using pip
@@ -99,29 +103,6 @@ start = @<language>
 }
 ```
 
-Use `-j` or `--shexj` to generate ShEx JSON Syntax (ShExJ) instead of default ShEx Compact syntax (ShExC).
-
-```
-$ ./shexstatements.sh --shexj examples/language.csv
-```
-
-The output will be similiar to:
-
-```json
-{
-  "type": "Schema",
-  "start": "language",
-  "shapes": [
-    {
-      "type": "Shape",
-      "id": "language",
-      "expression": {
-
-      }
-    }
-  ]
-}
-```
 It's also possible to use application profiles of the following form
 ```
 Entity_name,Property,Property_label,Mand,Repeat,Value,Value_type,Annotation
@@ -173,6 +154,18 @@ Access the interface at http://localhost:3000
 - Multiple delimiter options (comma, pipe, semicolon)
 - Real-time error display
 - Copy output to clipboard
+- Runtime selector (`Auto`, `API`, `WASM`)
+
+### Static GitHub Pages (WASM)
+The frontend can run conversion directly in the browser using Python-on-WASM (Pyodide), so it can be deployed as a static site on GitHub Pages.
+
+1. Enable GitHub Pages in repository settings (source: GitHub Actions).
+2. Push to `main` or `master`.
+3. The workflow `.github/workflows/pages.yml` builds and deploys the frontend with `VITE_RUNTIME_MODE=wasm`.
+
+In WASM runtime:
+- CSV conversion to ShEx is supported in-browser.
+- Spreadsheet uploads (`.xlsx`, `.xls`, `.ods`) currently require API runtime.
 
 ### Legacy Web Interface
 The original Flask-based interface is still available:
@@ -203,6 +196,11 @@ curl -X POST http://localhost:8000/api/v1/convert \
 
 ### Legacy API
 The original API documentation is available [here](https://github.com/johnsamuelwrites/ShExStatements/tree/master/docs/api.md).
+
+## Deployment Modes
+- Standalone Python application: CLI + legacy Flask UI (`./shexstatements.sh`).
+- Docker application: React frontend + FastAPI backend (`docker compose up`).
+- Static GitHub Pages frontend: WASM runtime (no backend required for CSV-to-ShEx).
 
 ## Demonstration
 Online demonstrations are also available:

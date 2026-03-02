@@ -1,8 +1,7 @@
-chardet>=3.0.4
-flask>=1.1.2
-odfpy>=0.6.0
-openpyxl>=1.0.1
+chardet>=5.0.0
+flask>=3.0.0
+odfpy>=1.4.0
+openpyxl>=3.1.0
 ply>=3.11
-pyshex>=0.7.20
-sphinx-rtd-theme>=0.4.3
+sphinx-rtd-theme>=2.0.0
 xlrd>=2.0.1

@@ -28,9 +28,9 @@ class ConvertRequest(BaseModel):
         default=False,
         description="Whether to skip the first row (header) of the input",
     )
-    output_format: Literal["shex", "shexj"] = Field(
+    output_format: Literal["shex"] = Field(
         default="shex",
-        description="The desired output format (ShEx compact syntax or ShEx JSON)",
+        description="The desired output format",
     )
 
 

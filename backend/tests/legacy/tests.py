@@ -10,7 +10,6 @@ from tests.shexgentest import *
 from tests.shexfromcsvtest import *
 from tests.wdshexfromcsvtest import *
 from tests.shexfromapcsvtest import *
-from tests.shexjfromcsvtest import *
 
 if __name__ == '__main__':
     parsertests = ShExStatementParserTestSuite()
@@ -18,7 +17,6 @@ if __name__ == '__main__':
     shexfromcsvtests = ShExFromCSVTestSuite()
     wdshexfromcsvtests = WDShExFromCSVTestSuite()
     shexfromapcsvtests = ShExFromAPCSVTestSuite()
-    shexjfromcsvtests = ShExJFromCSVTestSuite()
     tests = unittest.TestSuite([parsertests, shexgentests, shexfromcsvtests,
-                                wdshexfromcsvtests, shexfromapcsvtests, shexjfromcsvtests])
+                                wdshexfromcsvtests, shexfromapcsvtests])
     unittest.main()

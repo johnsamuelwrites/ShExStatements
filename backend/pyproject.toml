@@ -8,7 +8,7 @@
 name = "shexstatements"
 version = "1.0.0"
 description = "Tool to generate Shape Expressions from CSV files and spreadsheets"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 license = {text = "GPL-3.0-or-later"}
 authors = [
     {name = "John Samuel", email = "johnsamuelwrites@gmail.com"}
@@ -29,10 +29,9 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
@@ -42,7 +41,6 @@ dependencies = [
     "uvicorn[standard]>=0.27.0",
     "python-multipart>=0.0.6",
     "ply>=3.11",
-    "pyshex>=0.8.0",
     "openpyxl>=3.1.0",
     "xlrd>=2.0.1",
     "chardet>=5.0.0",
@@ -86,6 +84,7 @@ packages = ["shexstatements", "api"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 addopts = "-v --tb=short"
 filterwarnings = [
     "ignore::DeprecationWarning",
@@ -94,6 +93,8 @@ filterwarnings = [
 [tool.ruff]
 target-version = "py39"
 line-length = 127
+
+[tool.ruff.lint]
 select = [
     "E",      # pycodestyle errors
     "W",      # pycodestyle warnings
@@ -109,7 +110,7 @@ ignore = [
     "C901",   # too complex
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["shexstatements", "api"]
 
 [tool.mypy]

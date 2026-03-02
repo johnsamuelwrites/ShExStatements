@@ -8,7 +8,7 @@
 Conversion API routes for ShExStatements.
 
 Provides endpoints for converting ShExStatements CSV content
-to ShEx and ShExJ formats.
+to ShEx format.
 """
 
 from typing import Literal
@@ -82,7 +82,7 @@ async def convert_file(
         default=False,
         description="Skip the first row (header)",
     ),
-    output_format: Literal["shex", "shexj"] = Form(
+    output_format: Literal["shex"] = Form(
         default="shex",
         description="Output format",
     ),
