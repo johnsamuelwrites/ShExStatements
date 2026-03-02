@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd --create-home --shell /bin/bash appuser
 
 # Install shared shexstatements package from repository root
-COPY setup.py README.md requirements.txt ./
+COPY setup.py README.md requirements.txt shexstatements.sh ./
 COPY shexstatements/ ./shexstatements/
 RUN pip install --no-cache-dir .
 
