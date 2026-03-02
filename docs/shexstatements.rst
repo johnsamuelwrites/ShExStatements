@@ -46,12 +46,6 @@ shexstatements.shexfromcsv
 .. automodule:: shexstatements.shexfromcsv
    :members:
 
-shexstatements.shexjfromcsv
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. automodule:: shexstatements.shexjfromcsv
-   :members:
-
 shexstatements.shexfromapplprofilecsv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
