@@ -121,4 +121,4 @@ Command:
 ./shexstatements.sh -ap --skipheader examples/languageap.csv
 ```
 
-Examples are available in [../examples/](../examples/).
+Examples are available in the [examples directory](https://github.com/johnsamuelwrites/ShExStatements/tree/master/examples).
