@@ -238,6 +238,7 @@ Online demonstrations are also available:
 * [Zenodo](https://doi.org/10.5281/zenodo.3723870)
 * [Software Heritage](https://archive.softwareheritage.org/browse/origin/https://github.com/johnsamuelwrites/ShExStatements/directory/)
 * [Release Notes](RELEASE.md)
+* [Changelog](CHANGELOG.md)
 
 ## Licence
 All code are released under GPLv3+ licence. The associated documentation and other content are released under [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/).

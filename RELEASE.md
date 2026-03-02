@@ -1,5 +1,21 @@
 # v1.0
 ===============================================================================
+
+## Documentation
+* Consolidate RTD content to a single canonical source in Markdown (`docs/docs.md`, `docs/api.md`)
+* Include project README in RTD via `docs/readme.md`
+* Add release notes page to RTD via `docs/RELEASE.md`
+* Update RTD index page to explicitly list WASM, Docker, and Python usage modes
+
+## RTD / Sphinx
+* Enable Markdown parsing with `myst-parser`
+* Update docs build dependencies in CI to install from `docs/requirements.txt`
+* Remove duplicate `.rst` content pages that were diverging from `.md` pages
+
+## Parser
+* Simplify grammar by removing unreachable `SPACE` and `NEWLINE` statement productions
+* Preserve existing parsing behavior and test compatibility
+
 ## Modern Web Interface
 * New React/TypeScript frontend with Monaco Editor
 * Split-pane editor layout with resizable panels
