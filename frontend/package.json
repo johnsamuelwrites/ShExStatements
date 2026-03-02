@@ -1,6 +1,6 @@
 {
   "name": "shexstatements-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern web interface for ShExStatements",
   "type": "module",
   "scripts": {

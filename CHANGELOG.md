@@ -7,11 +7,18 @@ The format is based on Keep a Changelog, adapted to the existing project release
 ## [Unreleased]
 
 ### Release prep
-- Target next release: `1.0.0`
+- Target next release: `1.0.1`
 - Version sources aligned in:
   - `shexstatements/version.py`
   - `backend/pyproject.toml`
   - `RELEASE.md` / `CHANGELOG.md`
+
+## [1.0.1]
+
+### Changed
+- Bump package version to `1.0.1` for a new release publish.
+- Bump backend package version to `1.0.1`.
+- Update backend dependency floor to `shexstatements>=1.0.1`.
 
 ## [1.0.0]
 

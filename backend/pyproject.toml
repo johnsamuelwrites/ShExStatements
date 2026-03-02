@@ -6,7 +6,7 @@
 
 [project]
 name = "shexstatements-backend"
-version = "1.0.0"
+version = "1.0.1"
 description = "Tool to generate Shape Expressions from CSV files and spreadsheets"
 requires-python = ">=3.12"
 license = {text = "GPL-3.0-or-later"}
@@ -37,7 +37,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "shexstatements>=1.0.0",
+    "shexstatements>=1.0.1",
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
     "python-multipart>=0.0.6",
