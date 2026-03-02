@@ -160,9 +160,7 @@ class ShExStatementLexerParser(object):
 
     def p_statements(self, p):
         '''
-           statements : SPACE
-                 | NEWLINE
-                 | statement
+           statements : statement
                  | statement statements
                  | prefixes statement statements
                  | imports prefixes statement statements'''
