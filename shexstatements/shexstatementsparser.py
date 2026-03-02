@@ -7,7 +7,7 @@
 from ply import lex
 from ply import yacc
 from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, NodeKind, Value, ValueList, Type, TypeList, Cardinality, ShExStatement, ShExStatements
+from .shexstatement import Node, NodeKind, Value, ValueList, Type, TypeList, ShExStatement, ShExStatements
 
 
 class ShExStatementLexerParser(object):

@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, request
 from shexstatements.shexfromcsv import CSV
 from shexstatements.shexfromspreadsheet import Spreadsheet
 from os.path import splitext

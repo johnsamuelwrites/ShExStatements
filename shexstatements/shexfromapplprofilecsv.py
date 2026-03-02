@@ -5,8 +5,6 @@
 #
 
 import csv
-import re
-from shexstatements.shexstatementsparser import ShExStatementLexerParser
 from shexstatements.shexfromcsv import CSV
 
 """

@@ -7,6 +7,7 @@
 import csv
 import re
 from io import StringIO
+import os
 
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
@@ -70,28 +71,46 @@ class CSV:
             pattern = r'^\s*$'
             data = ""
             if filename:
-                csvfile = open(filepath)
-                csvreader = csv.reader(csvfile, delimiter=delim)
+                normalized_path = os.path.normpath(filepath.strip())
+                if not normalized_path:
+                    raise ValueError("Empty filename is not allowed")
+                if os.path.isabs(normalized_path):
+                    raise ValueError("Absolute paths are not allowed")
+                if normalized_path == ".." or normalized_path.startswith(".." + os.path.sep):
+                    raise ValueError("Path traversal is not allowed")
+                with open(normalized_path, "r") as csvfile:
+                    csvreader = csv.reader(csvfile, delimiter=delim)
+                    rowno = 0
+                    for row in csvreader:
+                        rowno = rowno + 1
+                        if skip_header and rowno == 1:
+                            continue
+                        line = ""
+                        for value in row:
+                            if value and not re.match(pattern, value):
+                                if not line:
+                                    line = value
+                                else:
+                                    line = line + "|" + value
+                        data = data + line + "\n"
             else:
                 # It's a multi-line string
                 csvstring = StringIO(filepath)
                 csvreader = csv.reader(csvstring, delimiter=delim)
-            rowno = 0
-            for row in csvreader:
-                rowno = rowno + 1
-                if skip_header and rowno == 1:
-                    continue
-                line = ""
-                for value in row:
-                    if value and not re.match(pattern, value):
-                        if not line:
-                            line = value
-                        else:
-                            line = line + "|" + value
-                data = data + line + "\n"
+                rowno = 0
+                for row in csvreader:
+                    rowno = rowno + 1
+                    if skip_header and rowno == 1:
+                        continue
+                    line = ""
+                    for value in row:
+                        if value and not re.match(pattern, value):
+                            if not line:
+                                line = value
+                            else:
+                                line = line + "|" + value
+                    data = data + line + "\n"
             shexstatement = CSV.generate_shex_from_data_string(data)
-            if filename:
-                csvfile.close()
         except Exception as e:
             print("Unable to read file. Error: " + str(e))
         return shexstatement
