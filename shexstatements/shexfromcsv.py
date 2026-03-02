@@ -5,10 +5,11 @@
 #
 
 import csv
-import re
-from shexstatements.shexstatementsparser import ShExStatementLexerParser
-from io import StringIO
 import os
+import re
+from io import StringIO
+
+from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 
 class CSV:
@@ -78,7 +79,7 @@ class CSV:
                     raise ValueError("Absolute paths are not allowed")
                 if normalized_path == ".." or normalized_path.startswith(".." + os.path.sep):
                     raise ValueError("Path traversal is not allowed")
-                with open(normalized_path, "r") as csvfile:
+                with open(normalized_path) as csvfile:
                     csvreader = csv.reader(csvfile, delimiter=delim)
                     rowno = 0
                     for row in csvreader:
