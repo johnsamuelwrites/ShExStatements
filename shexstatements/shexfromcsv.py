@@ -80,8 +80,8 @@ class CSV:
                 # Disallow absolute paths supplied by the caller.
                 if os.path.isabs(normalized_path):
                     raise ValueError("Absolute paths are not allowed")
-                # Resolve the path against a safe base directory (current working directory).
-                base_dir = os.path.realpath(os.getcwd())
+                # Resolve the path against a safe base directory (directory of this module).
+                base_dir = os.path.dirname(os.path.realpath(__file__))
                 real_candidate = os.path.realpath(os.path.join(base_dir, normalized_path))
                 # Ensure the final path is within the base directory to prevent path traversal.
                 if os.path.commonpath([base_dir, real_candidate]) != base_dir:
