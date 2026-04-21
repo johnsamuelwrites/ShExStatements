@@ -6,6 +6,7 @@
 
 from os import remove
 from os.path import splitext
+import tempfile
 
 from odf.opendocument import load
 from odf.table import TableCell, TableRow
@@ -46,13 +47,23 @@ class Spreadsheet:
 
             if(file_extension in {".xlsx", ".xlsm", ".xltx", ".xltm"}):
                 wb = None
+                temp_path = None
                 if stream is not None:
-                    with open("tmp" + filepath, "wb") as sf:
-                        sf.write(stream)
-                    sf.close()
-                    filepath = "tmp" + filepath
+                    fd, temp_path = tempfile.mkstemp(suffix=file_extension)
+                    try:
+                        with open(fd, "wb") as sf:
+                            sf.write(stream)
+                    except TypeError:
+                        # Fallback for environments where opening by fd is not supported
+                        import os
+                        os.close(fd)
+                        with open(temp_path, "wb") as sf:
+                            sf.write(stream)
+                    filepath_to_open = temp_path
+                else:
+                    filepath_to_open = filepath
 
-                wb = load_workbook(filepath)
+                wb = load_workbook(filepath_to_open)
                 for ws in wb.worksheets:
                     for i in range(1, ws.max_row+1):
                         line = list()
@@ -63,8 +74,8 @@ class Spreadsheet:
                         line = "|".join(line)
                         data = data + line + "\n"
 
-                if stream is not None:
-                    remove(filepath)
+                if stream is not None and temp_path is not None:
+                    remove(temp_path)
 
             elif(file_extension in {".xls"}):
                 wb = None
@@ -84,13 +95,23 @@ class Spreadsheet:
 
             elif(file_extension in {".ods"}):
                 wb = None
+                temp_path = None
                 if stream is not None:
-                    with open("tmp" + filepath, "wb") as sf:
-                        sf.write(stream)
-                    sf.close()
-                    filepath = "tmp" + filepath
+                    fd, temp_path = tempfile.mkstemp(suffix=file_extension)
+                    try:
+                        with open(fd, "wb") as sf:
+                            sf.write(stream)
+                    except TypeError:
+                        # Fallback for environments where opening by fd is not supported
+                        import os
+                        os.close(fd)
+                        with open(temp_path, "wb") as sf:
+                            sf.write(stream)
+                    filepath_to_open = temp_path
+                else:
+                    filepath_to_open = filepath
 
-                wb = load(filepath)
+                wb = load(filepath_to_open)
                 wb = wb.spreadsheet
                 rows = wb.getElementsByType(TableRow)
                 for row in rows:
@@ -101,8 +122,8 @@ class Spreadsheet:
                             line.append(str(cell))
                     data = data+"|".join(line) + "\n"
 
-                if stream is not None:
-                    remove(filepath)
+                if stream is not None and temp_path is not None:
+                    remove(temp_path)
 
             shexstatement = CSV.generate_shex_from_data_string(data)
         except Exception as e:
