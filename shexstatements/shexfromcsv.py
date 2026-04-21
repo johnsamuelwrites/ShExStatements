@@ -72,14 +72,21 @@ class CSV:
             data = ""
             if filename:
                 # Validate and normalize the path while allowing relative subdirectories.
-                normalized_path = os.path.normpath(filepath.strip())
-                if not normalized_path:
+                raw_path = filepath.strip()
+                if not raw_path:
                     raise ValueError("Empty filename is not allowed")
+                # Normalize the user-supplied path.
+                normalized_path = os.path.normpath(raw_path)
+                # Disallow absolute paths supplied by the caller.
                 if os.path.isabs(normalized_path):
                     raise ValueError("Absolute paths are not allowed")
-                if normalized_path == ".." or normalized_path.startswith(".." + os.path.sep):
-                    raise ValueError("Path traversal is not allowed")
-                with open(normalized_path) as csvfile:
+                # Resolve the path against a safe base directory (directory of this module).
+                base_dir = os.path.dirname(os.path.realpath(__file__))
+                real_candidate = os.path.realpath(os.path.join(base_dir, normalized_path))
+                # Ensure the final path is within the base directory to prevent path traversal.
+                if os.path.commonpath([base_dir, real_candidate]) != base_dir:
+                    raise ValueError("Access to the specified file path is not allowed")
+                with open(real_candidate) as csvfile:
                     csvreader = csv.reader(csvfile, delimiter=delim)
                     rowno = 0
                     for row in csvreader:
