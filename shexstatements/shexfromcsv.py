@@ -9,6 +9,7 @@ import os
 import re
 from io import StringIO
 
+from shexstatements.errors import ParserError, UnrecognizedCharacterError
 from shexstatements.shexstatementsparser import ShExStatementLexerParser
 
 
@@ -40,7 +41,7 @@ class CSV:
             lexerparser.input(data)
             result = lexerparser.parse(data)
             shexstatement = result.generate_shex()
-        except Exception as e:
+        except (ParserError, UnrecognizedCharacterError) as e:
             print("Unable to parse. Error: " + str(e))
         return shexstatement
 
@@ -112,6 +113,6 @@ class CSV:
                                 line = line + "|" + value
                     data = data + line + "\n"
             shexstatement = CSV.generate_shex_from_data_string(data)
-        except Exception as e:
+        except (OSError, csv.Error, ValueError) as e:
             print("Unable to read file. Error: " + str(e))
         return shexstatement

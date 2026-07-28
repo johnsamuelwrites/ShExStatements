@@ -19,7 +19,7 @@ class UnrecognizedCharacterError(Exception):
             message:  str
                error message
         """
-        super(UnrecognizedCharacterError, self).__init__(message)
+        super().__init__(message)
         self.message = message
 
 
@@ -39,5 +39,5 @@ class ParserError(Exception):
             message:  str
                error message
         """
-        super(ParserError, self).__init__(message)
+        super().__init__(message)
         self.message = message

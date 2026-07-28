@@ -4,14 +4,17 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
+import tempfile
 from os import remove
 from os.path import splitext
-import tempfile
+from zipfile import BadZipFile
 
 from odf.opendocument import load
 from odf.table import TableCell, TableRow
 from openpyxl import load_workbook
+from openpyxl.utils.exceptions import InvalidFileException
 from xlrd import open_workbook
+from xlrd.biffh import XLRDError
 
 from shexstatements.shexfromcsv import CSV
 
@@ -43,7 +46,7 @@ class Spreadsheet:
         shexstatement = ""
         try:
             data = ""
-            filename, file_extension = splitext(filepath)
+            _, file_extension = splitext(filepath)
 
             if(file_extension in {".xlsx", ".xlsm", ".xltx", ".xltm"}):
                 wb = None
@@ -66,7 +69,7 @@ class Spreadsheet:
                 wb = load_workbook(filepath_to_open)
                 for ws in wb.worksheets:
                     for i in range(1, ws.max_row+1):
-                        line = list()
+                        line = []
                         for j in range(1, ws.max_column+1):
                             cell = ws.cell(row=i, column=j).value
                             if cell is not None:
@@ -85,9 +88,9 @@ class Spreadsheet:
                 else:
                     wb = open_workbook(filepath)
                 for sheet in wb.sheets():
-                    for i in range(0, wb.sheets()[0].nrows):
-                        line = list()
-                        for j in range(0, wb.sheets()[0].ncols):
+                    for i in range(wb.sheets()[0].nrows):
+                        line = []
+                        for j in range(wb.sheets()[0].ncols):
                             cell = sheet.cell(i, j).value
                             if len(str(cell)) > 0:
                                 line.append(cell)
@@ -116,7 +119,7 @@ class Spreadsheet:
                 rows = wb.getElementsByType(TableRow)
                 for row in rows:
                     cells = row.getElementsByType(TableCell)
-                    line = list()
+                    line = []
                     for cell in cells:
                         if len(str(cell)) > 0:
                             line.append(str(cell))
@@ -126,6 +129,6 @@ class Spreadsheet:
                     remove(temp_path)
 
             shexstatement = CSV.generate_shex_from_data_string(data)
-        except Exception as e:
+        except (OSError, TypeError, ValueError, BadZipFile, InvalidFileException, XLRDError) as e:
             print("Unable to read file. Error: " + str(e))
         return shexstatement

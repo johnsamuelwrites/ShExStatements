@@ -5,6 +5,7 @@
 #
 
 import csv
+
 from shexstatements.shexfromcsv import CSV
 
 """
@@ -89,6 +90,6 @@ class ApplicationProfile:
             if typelines:
                 data = data + "".join(typelines) + "\n"
             shexstatement = CSV.generate_shex_from_data_string(data)
-        except Exception as e:
+        except (OSError, csv.Error) as e:
             print("Unable to parse. Error: " + str(e))
         return shexstatement

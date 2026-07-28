@@ -4,13 +4,22 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-from ply import lex
-from ply import yacc
-from .errors import UnrecognizedCharacterError, ParserError
-from .shexstatement import Node, NodeKind, Value, ValueList, Type, TypeList, ShExStatement, ShExStatements
+from ply import lex, yacc
+
+from .errors import ParserError, UnrecognizedCharacterError
+from .shexstatement import (
+    Node,
+    NodeKind,
+    ShExStatement,
+    ShExStatements,
+    Type,
+    TypeList,
+    Value,
+    ValueList,
+)
 
 
-class ShExStatementLexerParser(object):
+class ShExStatementLexerParser:
     tokens = (
         'COLON',
         'COMMA',
@@ -135,7 +144,7 @@ class ShExStatementLexerParser(object):
         self.lineno = t.lexer.lineno
 
     def t_error(self, t):
-        print("Unrecognized character '%s'" % t.value[0])
+        print(f"Unrecognized character '{t.value[0]}'")
         raise UnrecognizedCharacterError("unrecognized character error")
 
     def build(self, **kwargs):
@@ -361,7 +370,7 @@ class ShExStatementLexerParser(object):
             lineno = p.lineno
             print(p.lexpos, p.lineno, str(p), p.value)
         raise ParserError(
-            "Syntax error in input data: Line no: %d, Error: %s" % (lineno, str(p)))
+            f"Syntax error in input data: Line no: {lineno}, Error: {p!s}")
 
     def buildparser(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)

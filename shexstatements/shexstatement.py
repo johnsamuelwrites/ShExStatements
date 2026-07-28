@@ -37,8 +37,6 @@ class Value:
 
 
 class TypeList:
-    value_list = []
-
     def __init__(self, value_list):
         self.value_list = value_list
 
@@ -46,7 +44,7 @@ class TypeList:
         if isinstance(value, Type):
             self.value_list.append(value)
         else:
-            raise Exception("Mixing of non-type values not allowed")
+            raise TypeError("Mixing of non-type values not allowed")
 
     def get_value_list(self):
         return self.value_list
@@ -59,8 +57,6 @@ class TypeList:
 
 
 class ValueList:
-    value_list = []
-
     def __init__(self, value_list):
         self.value_list = value_list
 
@@ -196,14 +192,14 @@ class ShExStatements:
             shex_statement_str = shex_statement_str + \
                 "start = @" + "<" + str(start)[1:] + ">" + "\n"
 
-        for key in shape.keys():
+        for key, combinations in shape.items():
             shex_statement_str = shex_statement_str + "<" + str(key)[1:] + ">"
             if shapeconstraints[key]:
                 shex_statement_str = shex_statement_str + \
                     "  " + " ".join(shapeconstraints[key])
 
             shex_statement_str = shex_statement_str + " {" + "\n"
-            for combination in shape[key]:
+            for combination in combinations:
                 shex_statement_str = shex_statement_str + \
                     "  " + "".join(combination) + "\n"
             shex_statement_str = shex_statement_str + "}" + "\n"

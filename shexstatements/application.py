@@ -3,11 +3,13 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
+import json
+from os.path import splitext
+
 from flask import Flask, render_template, request
+
 from shexstatements.shexfromcsv import CSV
 from shexstatements.shexfromspreadsheet import Spreadsheet
-from os.path import splitext
-import json
 
 app = Flask(__name__, static_url_path='',
             static_folder='./static',
@@ -24,7 +26,7 @@ def generateshex():
             shex = ""
             if 'file' not in request.files:
                 filepath = request.files["csvfileupload"].filename
-                filename, file_extension = splitext(filepath)
+                _, file_extension = splitext(filepath)
                 if ".csv" == file_extension.lower():
                     shex = CSV.generate_shex_from_csv(
                         shexstatements, delim=delim, filename=False)
